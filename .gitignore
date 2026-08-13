@@ -1,0 +1,7 @@
+# Scratch folder: raw text dumps and image contact sheets extracted from the
+# source PDFs while building the study pack. Regenerate with tools/ if needed.
+work/
+
+# Python
+__pycache__/
+*.pyc

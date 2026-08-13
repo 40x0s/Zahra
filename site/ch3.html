@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 3 — Scanning &amp; Enumeration | الفحص والتعداد</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><span class="logo">⚡</span><span>Ethical Hacking<small>الاختراق الأخلاقي — Study Pack</small></span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a><a href="ch1.html">Ch 1</a><a href="ch2.html">Ch 2</a>
+      <a href="ch3.html">Ch 3</a><a href="ch4.html">Ch 4</a><a href="quiz.html">Exam Questions</a><a href="cheatsheet.html">Cheat Sheet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Chapter 3 · الفصل الثالث</span>
+    <h1>Scanning and Enumeration</h1>
+    <p class="h1-ar">الفحص والتعداد</p>
+    <p class="lede">Eng. Zahra Rajeh, M.Sc. · 68 slides, fully translated, nothing omitted.</p>
+    <p class="lede lede-ar">م. زهراء راجح · ٦٨ شريحة مترجمة بالكامل دون حذف أي شيء.</p>
+  </div>
+
+  <div class="toolbar">
+    <strong style="font-size:14px">Language:</strong>
+    <button class="btn" data-lang-btn="both">Both · الاثنان</button>
+    <button class="btn" data-lang-btn="en">English only</button>
+    <button class="btn" data-lang-btn="ar">العربية فقط</button>
+    <span class="sp"></span>
+    <button class="btn primary" data-print>Print / PDF · طباعة</button>
+  </div>
+
+  <div class="layout">
+    <aside class="sidenav no-print">
+      <h4>Slides · الشرائح</h4>
+      <a href="#s1"><span class="n">1-2</span>Title &amp; outline</a>
+      <a href="#s3"><span class="n">3-4</span>Introduction · مقدمة</a>
+      <a href="#s5"><span class="n">5-7</span>UDP vs TCP</a>
+      <a href="#s8"><span class="n">8-9</span>TCP flags · أعلام TCP</a>
+      <a href="#s10"><span class="n">10-11</span>Three-way handshake</a>
+      <a href="#s12"><span class="n">12-14</span>What is a port · المنفذ</a>
+      <a href="#s15"><span class="n">15</span>Well-known ports · المنافذ</a>
+      <a href="#s16"><span class="n">16</span>Port states · حالات المنافذ</a>
+      <a href="#s17"><span class="n">17-18</span>Scanning methodology</a>
+      <a href="#s19"><span class="n">19-20</span>Host discovery</a>
+      <a href="#s21"><span class="n">21-22</span>ICMP &amp; ping</a>
+      <a href="#s23"><span class="n">23</span>Ping sweep · مسح Ping</a>
+      <a href="#s24"><span class="n">24</span>Discovery tools · الأدوات</a>
+      <a href="#s25"><span class="n">25-26</span>Port scanning</a>
+      <a href="#s27"><span class="n">27-28</span>Scan types · أنواع الفحص</a>
+      <a href="#s29"><span class="n">29</span>FIN/NULL/XMAS</a>
+      <a href="#s30"><span class="n">30-31</span>Idle (zombie) scan</a>
+      <a href="#s32"><span class="n">32-37</span>Nmap</a>
+      <a href="#s38"><span class="n">38-41</span>hping3 &amp; NetScanTools</a>
+      <a href="#s42"><span class="n">42-44</span>Evasion · التهرب</a>
+      <a href="#s45"><span class="n">45-46</span>Fragmentation &amp; spoofing</a>
+      <a href="#s47"><span class="n">47-48</span>Proxies &amp; chains</a>
+      <a href="#s49"><span class="n">49-52</span>Vulnerability scanning</a>
+      <a href="#s53"><span class="n">53-55</span>Enumeration · التعداد</a>
+      <a href="#s56"><span class="n">56-60</span>Banner grabbing</a>
+      <a href="#s61"><span class="n">61-63</span>NetBIOS</a>
+      <a href="#s64"><span class="n">64-66</span>SNMP</a>
+      <a href="#s67"><span class="n">67-68</span>Remember · تذكّر</a>
+    </aside>
+
+    <div>
+
+    <section class="slide" id="s1">
+      <div class="slide-head"><span class="sn">1 · 2</span><span class="t-en">Title &amp; OUTLINE</span><span class="t-ar">العنوان والمحتويات</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>SCANNING AND ENUMERATION</strong><br>Ethical Hacking and Penetration<br>Eng. Zahra Rajeh, M.Sc.</p>
+            <p><strong>OUTLINE</strong></p>
+            <ul><li>TCP/IP Networking</li><li>Port Numbering</li><li>Identifying Live Hosts</li><li>Port Scanning</li><li>Scanning tools</li><li>Evasion</li><li>Vulnerability Scanning</li><li>Enumeration</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>الفحص والتعداد</strong><br>الاختراق الأخلاقي واختبار الاختراق<br>م. زهراء راجح، ماجستير</p>
+            <p><strong>المحتويات</strong></p>
+            <ul><li>شبكات TCP/IP</li><li>ترقيم المنافذ</li><li>تحديد الأجهزة النشطة</li><li>فحص المنافذ</li><li>أدوات الفحص</li><li>التهرب من الكشف</li><li>فحص الثغرات</li><li>التعداد</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s3">
+      <div class="slide-head"><span class="sn">3 · 4</span><span class="t-en">INTRODUCTION</span><span class="t-ar">المقدمة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>Scanning</strong> is the process of <strong>discovering systems on the network and taking a look at what open ports and applications may be running</strong>.</p>
+            <p>With <strong>footprinting</strong>, we wanted to know <strong>how big the network was and some general information</strong>. In <strong>scanning</strong>, we’ll <strong>go into the network and start touching each device</strong> to find out more about it.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>الفحص (Scanning)</strong> هو عملية <strong>اكتشاف الأنظمة الموجودة على الشبكة والاطلاع على المنافذ المفتوحة والتطبيقات التي قد تعمل عليها</strong>.</p>
+            <p>في <strong>البصمة</strong> كنا نريد معرفة <strong>حجم الشبكة وبعض المعلومات العامة</strong>. أما في <strong>الفحص</strong> فسندخل <strong>إلى داخل الشبكة ونبدأ بلمس كل جهاز</strong> لمعرفة المزيد عنه.</p></div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch3_p4_0.jpeg" alt="Hacking phases">
+          <div class="cap"><span class="en-cap">Slide 4 — the hacking phases; Scanning and Enumeration is the second phase</span><span class="ar-cap">الشريحة ٤ — مراحل الاختراق؛ الفحص والتعداد هي المرحلة الثانية</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s5">
+      <div class="slide-head"><span class="sn">5 – 7</span><span class="t-en">TCP/IP NETWORKING — UDP vs TCP</span><span class="t-ar">شبكات TCP/IP — مقارنة</span></div>
+      <div class="slide-body">
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Connectionless (UDP) — slide 6</span><span class="ar">بلا اتصال (UDP)</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li><strong>No connection is established</strong> before data transmission.</li>
+                <li>Data is sent immediately (<strong>fire-and-forget</strong>).</li>
+                <li><strong>Fast and low overhead.</strong></li>
+                <li><strong>Does not guarantee</strong> delivery, ordering, or error recovery.</li>
+                <li>Suitable for applications where <strong>speed is more important than reliability</strong> (e.g., <strong>DNS, DHCP, VoIP</strong>).</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li><strong>لا يُنشأ اتصال</strong> قبل إرسال البيانات.</li>
+                <li>تُرسَل البيانات فوراً (<strong>أرسل وانسَ</strong>).</li>
+                <li><strong>سريع وبأعباء منخفضة.</strong></li>
+                <li><strong>لا يضمن</strong> التسليم ولا الترتيب ولا معالجة الأخطاء.</li>
+                <li>مناسب للتطبيقات التي تكون فيها <strong>السرعة أهم من الموثوقية</strong> (مثل <strong>DNS و DHCP و VoIP</strong>).</li>
+              </ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Connection-oriented (TCP) — slide 7</span><span class="ar">موجّه بالاتصال (TCP)</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li><strong>Establishes a connection</strong> before transmitting data.</li>
+                <li>Uses the <strong>Three-Way Handshake</strong> to initiate communication.</li>
+                <li>Provides <strong>reliable, ordered, and error-checked</strong> data delivery.</li>
+                <li>Supports <strong>acknowledgments, retransmissions, and flow control</strong>.</li>
+                <li>Suitable for applications requiring <strong>reliable communication</strong> (e.g., <strong>HTTP, HTTPS, FTP, SSH</strong>).</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li><strong>يُنشئ اتصالاً</strong> قبل إرسال البيانات.</li>
+                <li>يستخدم <strong>المصافحة الثلاثية</strong> لبدء الاتصال.</li>
+                <li>يوفر تسليماً <strong>موثوقاً ومرتباً ومُتحقَّقاً من أخطائه</strong>.</li>
+                <li>يدعم <strong>الإقرارات وإعادة الإرسال والتحكم في التدفق</strong>.</li>
+                <li>مناسب للتطبيقات التي تتطلب <strong>اتصالاً موثوقاً</strong> (مثل <strong>HTTP و HTTPS و FTP و SSH</strong>).</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch3_p6_0.png" alt="UDP header">
+            <div class="cap"><span class="en-cap">Slide 6 — UDP header: Source Port Number, Destination Port Number, Length, Checksum, Data. Each header field is 16 bits in length.</span><span class="ar-cap">الشريحة ٦ — ترويسة UDP: منفذ المصدر، منفذ الوجهة، الطول، المجموع الاختباري، البيانات. طول كل حقل ١٦ بت.</span></div></div>
+          <div class="fig"><img src="img/ch3_p7_0.png" alt="TCP header">
+            <div class="cap"><span class="en-cap">Slide 7 — TCP header: Source/Destination Port, Sequence Number, Acknowledgment Number, Offset, Reserved, Flags (URG ACK PSH RST SYN FIN), Window, Checksum, Options, Padding, Data.</span><span class="ar-cap">الشريحة ٧ — ترويسة TCP: منفذا المصدر والوجهة، رقم التسلسل، رقم الإقرار، الإزاحة، محجوز، الأعلام (URG ACK PSH RST SYN FIN)، النافذة، المجموع الاختباري، الخيارات، الحشو، البيانات.</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s8">
+      <div class="slide-head"><span class="sn">8 · 9</span><span class="t-en">TCP COMMUNICATION FLAGS</span><span class="t-ar">أعلام الاتصال في TCP</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 8</span>
+            <ul>
+              <li>The TCP header contains <strong>six flags</strong> that control the transmission of data across a TCP connection.</li>
+              <li><strong>Four</strong> of these flags (<strong>SYN, ACK, FIN, and RST</strong>) govern the <strong>establishment, maintenance, and termination</strong> of a connection.</li>
+              <li>The other <strong>two</strong> flags (<strong>PSH and URG</strong>) provide <strong>instructions to the system</strong>.</li>
+              <li>The size of each flag is <strong>1 bit</strong>.</li>
+              <li>When a flag value is set to <strong>1</strong>, that flag is <strong>turned on</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٨</span>
+            <ul>
+              <li>تحتوي ترويسة TCP على <strong>ستة أعلام</strong> تتحكم في نقل البيانات عبر اتصال TCP.</li>
+              <li><strong>أربعة</strong> من هذه الأعلام (<strong>SYN و ACK و FIN و RST</strong>) تحكم <strong>إنشاء الاتصال وصيانته وإنهاءه</strong>.</li>
+              <li>العلَمان <strong>الآخران</strong> (<strong>PSH و URG</strong>) يوفران <strong>تعليمات للنظام</strong>.</li>
+              <li>حجم كل عَلَم هو <strong>بت واحد</strong>.</li>
+              <li>عندما تُضبط قيمة العَلَم على <strong>١</strong> يكون العَلَم <strong>مُفعّلاً</strong>.</li>
+            </ul></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 9 — The six TCP flags · أعلام TCP الستة</div>
+          <table>
+            <thead><tr><th style="width:16%">Flag</th><th>Meaning (English)</th><th>المعنى (العربية)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>SYN</strong> (Synchronize)</td><td>This flag is set during <strong>initial communication establishment</strong>. It indicates negotiation of parameters and sequence numbers.</td><td class="tbl-ar" style="text-align:right">يُضبط هذا العَلَم أثناء <strong>إنشاء الاتصال الأولي</strong>، ويشير إلى التفاوض على المعاملات وأرقام التسلسل.</td></tr>
+              <tr><td><strong>ACK</strong> (Acknowledgment)</td><td>This flag is set as an <strong>acknowledgment to SYN flags</strong>. This flag is set on <strong>all segments after the initial SYN</strong> flag.</td><td class="tbl-ar" style="text-align:right">يُضبط <strong>كإقرار لأعلام SYN</strong>، ويكون مضبوطاً على <strong>جميع المقاطع بعد SYN الأولي</strong>.</td></tr>
+              <tr><td><strong>RST</strong> (Reset)</td><td>This flag <strong>forces a termination of communications (in both directions)</strong>.</td><td class="tbl-ar" style="text-align:right">يفرض هذا العَلَم <strong>إنهاء الاتصالات (في كلا الاتجاهين)</strong>.</td></tr>
+              <tr><td><strong>FIN</strong> (Finish)</td><td>This flag signifies an <strong>ordered close to communications</strong>.</td><td class="tbl-ar" style="text-align:right">يشير هذا العَلَم إلى <strong>إغلاق منظّم للاتصالات</strong>.</td></tr>
+              <tr><td><strong>PSH</strong> (Push)</td><td>This flag <strong>forces the delivery of data without concern for any buffering</strong>. In other words, the receiving device <strong>need not wait for the buffer to fill up</strong> before processing the data.</td><td class="tbl-ar" style="text-align:right">يفرض <strong>تسليم البيانات دون الاهتمام بأي تخزين مؤقت</strong>؛ أي أن الجهاز المستقبِل <strong>لا يحتاج لانتظار امتلاء المخزن المؤقت</strong> قبل معالجة البيانات.</td></tr>
+              <tr><td><strong>URG</strong> (Urgent)</td><td>When this flag is set, it indicates the data inside is being <strong>sent out of band</strong>. <strong>Cancelling a message mid-stream</strong> is one example.</td><td class="tbl-ar" style="text-align:right">عند ضبطه يشير إلى أن البيانات داخله تُرسَل <strong>خارج النطاق (out of band)</strong>. ومن الأمثلة <strong>إلغاء رسالة في منتصف البث</strong>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch3_p8_0.png" alt="TCP flags URG ACK PSH RST SYN FIN">
+          <div class="cap"><span class="en-cap">Slide 8 — TCP Flags: URG · ACK · PSH · RST · SYN · FIN</span><span class="ar-cap">الشريحة ٨ — أعلام TCP: URG · ACK · PSH · RST · SYN · FIN</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s10">
+      <div class="slide-head"><span class="sn">10 · 11</span><span class="t-en">TCP THREE-WAY HANDSHAKE</span><span class="t-ar">المصافحة الثلاثية في TCP</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Establishes a <strong>reliable TCP connection before data transmission by synchronizing sequence numbers between the client and server</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>تُنشئ <strong>اتصال TCP موثوقاً قبل نقل البيانات عن طريق مزامنة أرقام التسلسل بين العميل والخادم</strong>.</p></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 10 — The three steps · الخطوات الثلاث</div>
+          <table>
+            <thead><tr><th style="width:14%">Step</th><th style="width:14%">Flags</th><th>Description · الوصف</th></tr></thead>
+            <tbody>
+              <tr><td><strong>1. SYN</strong></td><td><code>SYN</code></td><td>Client requests a connection and sends an initial sequence number (<strong>Seq = x</strong>).<div class="tbl-ar" style="text-align:right">يطلب العميل الاتصال ويرسل رقم تسلسل أولي (Seq = x).</div></td></tr>
+              <tr><td><strong>2. SYN-ACK</strong></td><td><code>SYN, ACK</code></td><td>Server accepts the request, acknowledges the client's sequence number (<strong>Ack = x + 1</strong>), and sends its own sequence number (<strong>Seq = y</strong>).<div class="tbl-ar" style="text-align:right">يقبل الخادم الطلب ويُقرّ برقم تسلسل العميل (Ack = x + 1) ويرسل رقم تسلسله الخاص (Seq = y).</div></td></tr>
+              <tr><td><strong>3. ACK</strong></td><td><code>ACK</code></td><td>Client acknowledges the server's sequence number (<strong>Ack = y + 1</strong>), completing the connection setup.<div class="tbl-ar" style="text-align:right">يُقرّ العميل برقم تسلسل الخادم (Ack = y + 1) فيكتمل إنشاء الاتصال.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch3_p11_0.jpeg" alt="Three way handshake sequence numbers">
+          <div class="cap"><span class="en-cap">Slide 11 — SYN (Sequence #105) → SYN/ACK (Your Sequence #106, My Sequence #223) → ACK (Your Sequence #224, My Sequence #106)</span><span class="ar-cap">الشريحة ١١ — SYN ثم SYN/ACK ثم ACK مع أرقام التسلسل</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s12">
+      <div class="slide-head"><span class="sn">12 – 14</span><span class="t-en">PORT NUMBERING — What is a Port?</span><span class="t-ar">ترقيم المنافذ — ما هو المنفذ؟</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 13</span>
+            <p>A <strong>port number</strong> is a <strong>logical identifier used by TCP and UDP to determine which application should receive incoming data</strong>.</p>
+            <p><strong>How It Works</strong> — Every TCP/UDP packet contains:</p>
+            <ul><li><strong>Source Port</strong> (sender's application)</li><li><strong>Destination Port</strong> (receiver's application)</li></ul>
+            <p>The operating system uses the <strong>destination port</strong> to deliver the packet to the correct application.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ١٣</span>
+            <p><strong>رقم المنفذ</strong> هو <strong>معرّف منطقي يستخدمه TCP و UDP لتحديد التطبيق الذي يجب أن يستقبل البيانات الواردة</strong>.</p>
+            <p><strong>كيف يعمل</strong> — كل حزمة TCP/UDP تحتوي على:</p>
+            <ul><li><strong>منفذ المصدر</strong> (تطبيق المرسِل)</li><li><strong>منفذ الوجهة</strong> (تطبيق المستقبِل)</li></ul>
+            <p>يستخدم نظام التشغيل <strong>منفذ الوجهة</strong> لتسليم الحزمة إلى التطبيق الصحيح.</p></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 14</span>
+            <p><strong>Examples</strong></p>
+            <ul><li>Web browser → <strong>HTTP (Port 80)</strong></li><li>Email client → <strong>SMTP (Port 25)</strong></li><li>Secure web → <strong>HTTPS (Port 443)</strong></li></ul>
+            <p>Think of a port as a <strong>room number in a building</strong>. The <strong>IP address identifies the building</strong>, while the <strong>port identifies the correct room (application)</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ١٤</span>
+            <p><strong>أمثلة</strong></p>
+            <ul><li>متصفح الويب ← <strong>HTTP (المنفذ ٨٠)</strong></li><li>عميل البريد ← <strong>SMTP (المنفذ ٢٥)</strong></li><li>الويب الآمن ← <strong>HTTPS (المنفذ ٤٤٣)</strong></li></ul>
+            <p>تخيّل المنفذ كـ<strong>رقم غرفة في مبنى</strong>: فـ<strong>عنوان IP يحدد المبنى</strong>، بينما <strong>المنفذ يحدد الغرفة الصحيحة (التطبيق)</strong>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s15">
+      <div class="slide-head"><span class="sn">15</span><span class="t-en">COMMON WELL-KNOWN PORTS</span><span class="t-ar">المنافذ المعروفة الشائعة</span></div>
+      <div class="slide-body">
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 15 — Memorise these! · احفظي هذه!</div>
+          <table>
+            <thead><tr><th style="width:12%">Port</th><th style="width:16%">Protocol</th><th>Service</th><th>الخدمة</th></tr></thead>
+            <tbody>
+              <tr><td><strong>20/21</strong></td><td>FTP</td><td>File Transfer Protocol</td><td class="tbl-ar" style="text-align:right">بروتوكول نقل الملفات</td></tr>
+              <tr><td><strong>22</strong></td><td>SSH</td><td>Secure Remote Login</td><td class="tbl-ar" style="text-align:right">دخول آمن عن بُعد</td></tr>
+              <tr><td><strong>23</strong></td><td>Telnet</td><td>Remote Login (Unencrypted)</td><td class="tbl-ar" style="text-align:right">دخول عن بُعد (غير مشفّر)</td></tr>
+              <tr><td><strong>25</strong></td><td>SMTP</td><td>Email Sending</td><td class="tbl-ar" style="text-align:right">إرسال البريد الإلكتروني</td></tr>
+              <tr><td><strong>53</strong></td><td>DNS</td><td>Domain Name Service</td><td class="tbl-ar" style="text-align:right">خدمة أسماء النطاقات</td></tr>
+              <tr><td><strong>67/68</strong></td><td>DHCP</td><td>Automatic IP Assignment</td><td class="tbl-ar" style="text-align:right">تعيين عناوين IP تلقائياً</td></tr>
+              <tr><td><strong>69</strong></td><td>TFTP</td><td>Trivial File Transfer</td><td class="tbl-ar" style="text-align:right">نقل ملفات مبسّط</td></tr>
+              <tr><td><strong>80</strong></td><td>HTTP</td><td>Web Browsing</td><td class="tbl-ar" style="text-align:right">تصفح الويب</td></tr>
+              <tr><td><strong>110</strong></td><td>POP3</td><td>Email Retrieval</td><td class="tbl-ar" style="text-align:right">استرجاع البريد الإلكتروني</td></tr>
+              <tr><td><strong>143</strong></td><td>IMAP</td><td>Email Retrieval</td><td class="tbl-ar" style="text-align:right">استرجاع البريد الإلكتروني</td></tr>
+              <tr><td><strong>161</strong></td><td>SNMP</td><td>Network Management</td><td class="tbl-ar" style="text-align:right">إدارة الشبكة</td></tr>
+              <tr><td><strong>389</strong></td><td>LDAP</td><td>Directory Services</td><td class="tbl-ar" style="text-align:right">خدمات الدليل</td></tr>
+              <tr><td><strong>443</strong></td><td>HTTPS</td><td>Secure Web Browsing</td><td class="tbl-ar" style="text-align:right">تصفح ويب آمن</td></tr>
+              <tr><td><strong>445</strong></td><td>SMB</td><td>Windows File Sharing</td><td class="tbl-ar" style="text-align:right">مشاركة ملفات ويندوز</td></tr>
+              <tr><td><strong>3389</strong></td><td>RDP</td><td>Remote Desktop</td><td class="tbl-ar" style="text-align:right">سطح المكتب البعيد</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s16">
+      <div class="slide-head"><span class="sn">16</span><span class="t-en">PORT STATES</span><span class="t-ar">حالات المنافذ</span></div>
+      <div class="slide-body">
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 16 — Port states · حالات المنفذ</div>
+          <table>
+            <thead><tr><th style="width:22%">State</th><th>Meaning</th><th>المعنى</th></tr></thead>
+            <tbody>
+              <tr><td><strong>LISTENING</strong></td><td>Waiting for an incoming connection.</td><td class="tbl-ar" style="text-align:right">في انتظار اتصال وارد.</td></tr>
+              <tr><td><strong>ESTABLISHED</strong></td><td>Active connection between two hosts.</td><td class="tbl-ar" style="text-align:right">اتصال نشط بين جهازين.</td></tr>
+              <tr><td><strong>CLOSE_WAIT</strong></td><td>Remote host has closed the connection.</td><td class="tbl-ar" style="text-align:right">الجهاز البعيد أغلق الاتصال.</td></tr>
+              <tr><td><strong>TIME_WAIT</strong></td><td>Local host has closed the connection but waits for delayed packets before fully closing.</td><td class="tbl-ar" style="text-align:right">الجهاز المحلي أغلق الاتصال لكنه ينتظر الحزم المتأخرة قبل الإغلاق التام.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span><p><strong>Viewing Port States in Windows:</strong></p><div class="code">cmd&gt;&gt; netstat -an</div></div>
+          <div class="ar"><span class="lang-tag">العربية</span><p><strong>لعرض حالات المنافذ في ويندوز:</strong></p><div class="code">cmd&gt;&gt; netstat -an</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s17">
+      <div class="slide-head"><span class="sn">17 · 18</span><span class="t-en">SCANNING METHODOLOGY</span><span class="t-ar">منهجية الفحص</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Scanning is the process of <strong>actively collecting information about a target system or network after reconnaissance</strong>. It helps identify <strong>live hosts, open ports, running services, operating systems, and potential vulnerabilities</strong>.</p>
+            <p>Scanning methodology phases include the following steps:</p>
+            <ol>
+              <li><strong>Check for live systems.</strong> Something as simple as a <strong>ping</strong> can provide this. This gives you a list of what’s actually alive on your network subnet.</li>
+              <li><strong>Check for open ports.</strong> Once you know which IP addresses are active, find what ports they’re listening on.</li>
+              <li><strong>Scan beyond IDS.</strong> Sometimes your scanning efforts need to be altered to avoid those pesky <strong>intrusion detection systems</strong>.</li>
+              <li><strong>Perform banner grabbing.</strong> Banner grabbing and OS fingerprinting will tell you <strong>what operating system is on the machines and which services they are running</strong>.</li>
+              <li><strong>Scan for vulnerabilities.</strong> Perform a more focused look at the vulnerabilities these machines <strong>haven’t been patched for</strong> yet.</li>
+              <li><strong>Draw network diagrams.</strong> A good network diagram will display all the <strong>logical and physical pathways</strong> to targets you might like.</li>
+              <li><strong>Prepare proxies.</strong> This <strong>obscures your efforts to keep you hidden</strong>.</li>
+            </ol></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>الفحص هو عملية <strong>جمع المعلومات بشكل نشط عن نظام أو شبكة الهدف بعد الاستطلاع</strong>. ويساعد على تحديد <strong>الأجهزة النشطة، والمنافذ المفتوحة، والخدمات العاملة، وأنظمة التشغيل، والثغرات المحتملة</strong>.</p>
+            <p>تشمل مراحل منهجية الفحص الخطوات التالية:</p>
+            <ol>
+              <li><strong>التحقق من الأنظمة النشطة.</strong> شيء بسيط مثل <strong>ping</strong> يمكن أن يوفر ذلك، ويعطيك قائمة بما هو حيّ فعلاً على شبكتك الفرعية.</li>
+              <li><strong>التحقق من المنافذ المفتوحة.</strong> بعد معرفة عناوين IP النشطة، اكتشف على أي منافذ تستمع.</li>
+              <li><strong>الفحص متجاوزاً أنظمة كشف التسلل (IDS).</strong> أحياناً يجب تعديل أسلوب الفحص لتجنّب <strong>أنظمة كشف التسلل</strong> المزعجة.</li>
+              <li><strong>تنفيذ التقاط اللافتات (Banner grabbing).</strong> التقاط اللافتات وبصمة نظام التشغيل يخبرانك <strong>بنظام التشغيل على الأجهزة والخدمات التي تعمل عليها</strong>.</li>
+              <li><strong>فحص الثغرات.</strong> إلقاء نظرة أكثر تركيزاً على الثغرات التي <strong>لم تُرقَّع</strong> بعد في هذه الأجهزة.</li>
+              <li><strong>رسم مخططات الشبكة.</strong> المخطط الجيد يعرض جميع <strong>المسارات المنطقية والمادية</strong> إلى الأهداف.</li>
+              <li><strong>تجهيز الوسطاء (Proxies).</strong> هذا <strong>يُخفي جهودك ويبقيك مستتراً</strong>.</li>
+            </ol></div>
+        </div>
+
+        <div class="flow">
+          <div class="step"><div class="en">1. Discover Live Hosts</div><div class="ar">١. اكتشاف الأجهزة النشطة</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">2. Scan Open Ports</div><div class="ar">٢. فحص المنافذ المفتوحة</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">3. Bypass IDS/IPS</div><div class="ar">٣. تجاوز أنظمة IDS/IPS</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">4. Banner Grabbing &amp; OS Fingerprinting</div><div class="ar">٤. التقاط اللافتات وبصمة نظام التشغيل</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">5. Vulnerability Scanning</div><div class="ar">٥. فحص الثغرات</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">6. Draw Network Diagram</div><div class="ar">٦. رسم مخطط الشبكة</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">7. Prepare Proxies (Maintain Anonymity)</div><div class="ar">٧. تجهيز الوسطاء (الحفاظ على إخفاء الهوية)</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s19">
+      <div class="slide-head"><span class="sn">19 · 20</span><span class="t-en">IDENTIFYING LIVE HOSTS — Host Discovery</span><span class="t-ar">تحديد الأجهزة النشطة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 20</span>
+            <p><strong>What is Host Discovery?</strong><br>Host discovery is the process of <strong>identifying which devices on a network are online (alive) before performing further scanning</strong>.</p>
+            <p><strong>Why is it Important?</strong></p>
+            <ul><li>Identifies active hosts</li><li>Eliminates inactive IP addresses</li><li>Reduces scanning time</li><li>Focuses later scans on reachable systems</li></ul>
+            <p><strong>Common Methods</strong></p>
+            <ul><li>ICMP Ping</li><li>ARP Scan (Local networks)</li><li>TCP Ping</li><li>UDP Ping</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٠</span>
+            <p><strong>ما هو اكتشاف الأجهزة؟</strong><br>اكتشاف الأجهزة هو عملية <strong>تحديد الأجهزة المتصلة (النشطة) على الشبكة قبل إجراء فحص إضافي</strong>.</p>
+            <p><strong>لماذا هو مهم؟</strong></p>
+            <ul><li>يحدد الأجهزة النشطة</li><li>يستبعد عناوين IP غير النشطة</li><li>يقلل وقت الفحص</li><li>يركّز الفحوصات اللاحقة على الأنظمة التي يمكن الوصول إليها</li></ul>
+            <p><strong>الطرق الشائعة</strong></p>
+            <ul><li>ICMP Ping</li><li>فحص ARP (للشبكات المحلية)</li><li>TCP Ping</li><li>UDP Ping</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s21">
+      <div class="slide-head"><span class="sn">21 · 22</span><span class="t-en">ICMP AND PING</span><span class="t-ar">ICMP و Ping</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 21</span>
+            <p><strong>What is ICMP?</strong><br><strong>Internet Control Message Protocol (ICMP)</strong> is a <strong>Network Layer protocol</strong> used for:</p>
+            <ul><li>Error reporting</li><li>Network diagnostics</li><li>Connectivity testing</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢١</span>
+            <p><strong>ما هو ICMP؟</strong><br><strong>بروتوكول رسائل التحكم في الإنترنت (ICMP)</strong> هو بروتوكول في <strong>طبقة الشبكة</strong> يُستخدم لـ:</p>
+            <ul><li>الإبلاغ عن الأخطاء</li><li>تشخيص الشبكة</li><li>اختبار الاتصال</li></ul></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 22 — ICMP message types · أنواع رسائل ICMP</div>
+          <table>
+            <thead><tr><th style="width:10%">Type</th><th style="width:26%">Name</th><th>Purpose · الغرض</th></tr></thead>
+            <tbody>
+              <tr><td><strong>0</strong></td><td>Echo Reply</td><td>Host responds to a ping.<div class="tbl-ar" style="text-align:right">الجهاز يستجيب لأمر ping.</div></td></tr>
+              <tr><td><strong>3</strong></td><td>Destination Unreachable</td><td>Host or network cannot be reached.<div class="tbl-ar" style="text-align:right">تعذّر الوصول إلى الجهاز أو الشبكة.</div></td></tr>
+              <tr><td><strong>8</strong></td><td>Echo Request</td><td>Ping request sent by the scanner.<div class="tbl-ar" style="text-align:right">طلب ping يرسله الفاحص.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <div class="en"><b>NOTE:</b> If a host replies with <b>Echo Reply (Type 0)</b>, it is considered <b>alive</b>.</div>
+          <div class="ar"><b>ملاحظة:</b> إذا ردّ الجهاز بـ <b>Echo Reply (النوع ٠)</b> فإنه يُعتبر <b>نشطاً/حيّاً</b>.</div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch3_p22_0.jpeg" alt="ICMP echo process">
+          <div class="cap"><span class="en-cap">Slide 22 — ICMP Echo Process: Scanner sends ICMP Echo Request (Type 8) → Target replies ICMP Echo Reply (Type 0) → Target is Alive</span><span class="ar-cap">الشريحة ٢٢ — عملية ICMP Echo: الفاحص يرسل طلب (النوع ٨) ← الهدف يرد (النوع ٠) ← الهدف نشط</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s23">
+      <div class="slide-head"><span class="sn">23</span><span class="t-en">PING SWEEP</span><span class="t-ar">مسح Ping</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>A <strong>Ping Sweep</strong> sends <strong>ICMP Echo Requests to multiple IP addresses within a network to discover active hosts</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>مسح Ping (Ping Sweep)</strong> يرسل <strong>طلبات ICMP Echo إلى عناوين IP متعددة داخل الشبكة لاكتشاف الأجهزة النشطة</strong>.</p></div>
+        </div>
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Advantages</span><span class="ar">المزايا</span></h4>
+            <div class="body">
+              <div class="en"><ul><li>Fast</li><li>Simple</li><li>Efficient for discovering live hosts</li></ul></div>
+              <div class="ar"><ul><li>سريع</li><li>بسيط</li><li>فعّال في اكتشاف الأجهزة النشطة</li></ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Limitations</span><span class="ar">القيود</span></h4>
+            <div class="body">
+              <div class="en"><ul><li>Firewalls may block ICMP.</li><li>Many systems disable ping responses.</li><li>IDS/IPS may detect ping sweeps.</li><li>Less effective in some IPv6 environments.</li></ul></div>
+              <div class="ar"><ul><li>قد تحجب الجدران النارية بروتوكول ICMP.</li><li>كثير من الأنظمة تعطّل الرد على ping.</li><li>قد تكتشف أنظمة IDS/IPS عمليات مسح Ping.</li><li>أقل فعالية في بعض بيئات IPv6.</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s24">
+      <div class="slide-head"><span class="sn">24</span><span class="t-en">HOST DISCOVERY TOOLS</span><span class="t-ar">أدوات اكتشاف الأجهزة</span></div>
+      <div class="slide-body">
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 24 — Tools · الأدوات</div>
+          <table>
+            <thead><tr><th style="width:30%">Tool</th><th>Purpose</th><th>الغرض</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Nmap / Zenmap</strong></td><td>Host discovery and network scanning</td><td class="tbl-ar" style="text-align:right">اكتشاف الأجهزة وفحص الشبكة</td></tr>
+              <tr><td><strong>Angry IP Scanner</strong></td><td>Fast IP scanning</td><td class="tbl-ar" style="text-align:right">فحص سريع لعناوين IP</td></tr>
+              <tr><td><strong>Advanced IP Scanner</strong></td><td>Windows network scanner</td><td class="tbl-ar" style="text-align:right">فاحص شبكات لويندوز</td></tr>
+              <tr><td><strong>SolarWinds Engineer Toolset</strong></td><td>Network administration and discovery</td><td class="tbl-ar" style="text-align:right">إدارة الشبكات واكتشافها</td></tr>
+              <tr><td><strong>OPUtils</strong></td><td>IP address and switch management</td><td class="tbl-ar" style="text-align:right">إدارة عناوين IP والمحوّلات</td></tr>
+              <tr><td><strong>SuperScan</strong></td><td>Port and host scanner</td><td class="tbl-ar" style="text-align:right">فاحص منافذ وأجهزة</td></tr>
+              <tr><td><strong>Pinkie</strong></td><td>Lightweight network utility</td><td class="tbl-ar" style="text-align:right">أداة شبكة خفيفة</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <div class="en"><b>NOTE:</b> <b>Nmap</b> is the <b>most commonly used host discovery tool</b>.</div>
+          <div class="ar"><b>ملاحظة:</b> <b>Nmap</b> هي <b>أكثر أدوات اكتشاف الأجهزة استخداماً</b>.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s25">
+      <div class="slide-head"><span class="sn">25 · 26</span><span class="t-en">PORT SCANNING</span><span class="t-ar">فحص المنافذ</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Port scanning is the process of <strong>sending packets to a target system to determine which TCP/UDP ports are open, closed, or filtered</strong>.</p>
+            <p><strong>Objectives</strong></p>
+            <ul><li>Discover running services</li><li>Identify open ports</li><li>Detect operating systems and applications</li><li>Find potential attack entry points</li></ul>
+            <p><strong>How It Works</strong><br>A port scanner <strong>manipulates TCP flags and analyzes the target's responses</strong> to determine the state of each port.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>فحص المنافذ هو عملية <strong>إرسال حزم إلى النظام المستهدف لتحديد أي منافذ TCP/UDP مفتوحة أو مغلقة أو مُرشَّحة (filtered)</strong>.</p>
+            <p><strong>الأهداف</strong></p>
+            <ul><li>اكتشاف الخدمات العاملة</li><li>تحديد المنافذ المفتوحة</li><li>كشف أنظمة التشغيل والتطبيقات</li><li>إيجاد نقاط دخول محتملة للهجوم</li></ul>
+            <p><strong>كيف يعمل</strong><br>يقوم فاحص المنافذ <strong>بالتلاعب بأعلام TCP وتحليل ردود الهدف</strong> لتحديد حالة كل منفذ.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s27">
+      <div class="slide-head"><span class="sn">27 · 28</span><span class="t-en">COMMON TCP PORT SCAN TYPES</span><span class="t-ar">أنواع فحص منافذ TCP الشائعة</span></div>
+      <div class="slide-body">
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 27 — Scan types · أنواع الفحص</div>
+          <table>
+            <thead><tr><th style="width:26%">Scan Type</th><th style="width:26%">Also Called</th><th>Main Feature · الميزة الأساسية</th></tr></thead>
+            <tbody>
+              <tr><td><strong>TCP Connect Scan</strong></td><td>Full Open Scan</td><td>Completes the TCP three-way handshake.<div class="tbl-ar" style="text-align:right">يُكمل المصافحة الثلاثية كاملة.</div></td></tr>
+              <tr><td><strong>SYN Scan</strong></td><td>Half-Open / Stealth Scan</td><td>Stops before completing the handshake.<div class="tbl-ar" style="text-align:right">يتوقف قبل إكمال المصافحة.</div></td></tr>
+              <tr><td><strong>FIN / NULL / XMAS Scan</strong></td><td>Inverse TCP Flag Scan</td><td>Uses unusual TCP flags to probe ports.<div class="tbl-ar" style="text-align:right">يستخدم أعلام TCP غير معتادة لاستكشاف المنافذ.</div></td></tr>
+              <tr><td><strong>Idle Scan</strong></td><td>Zombie Scan</td><td>Uses a third-party (idle) host to hide the attacker's IP.<div class="tbl-ar" style="text-align:right">يستخدم جهازاً خاملاً كطرف ثالث لإخفاء عنوان IP للمهاجم.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">TCP Connect Scan — slide 28</span><span class="ar">فحص الاتصال الكامل</span></h4>
+            <div class="body">
+              <div class="en"><ul><li><strong>Completes the full TCP handshake</strong></li><li><strong>Reliable and accurate</strong></li><li><strong>Easily detected</strong> by firewalls and IDS</li></ul></div>
+              <div class="ar"><ul><li><strong>يُكمل المصافحة الثلاثية بالكامل</strong></li><li><strong>موثوق ودقيق</strong></li><li><strong>سهل الاكتشاف</strong> من قِبل الجدران النارية وأنظمة IDS</li></ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">SYN Scan — slide 28</span><span class="ar">فحص SYN (نصف مفتوح)</span></h4>
+            <div class="body">
+              <div class="en"><ul><li><strong>Does not complete the handshake</strong></li><li><strong>Faster</strong> than TCP Connect Scan</li><li><strong>More difficult to detect</strong></li><li>One of the <strong>most commonly used Nmap scan types</strong></li></ul></div>
+              <div class="ar"><ul><li><strong>لا يُكمل المصافحة</strong></li><li><strong>أسرع</strong> من فحص الاتصال الكامل</li><li><strong>أصعب في الاكتشاف</strong></li><li>من <strong>أكثر أنواع فحص Nmap استخداماً</strong></li></ul></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="figs">
+          <div class="fig"><img src="img/ch3_p28_0.jpeg" alt="TCP connect scan process">
+            <div class="cap"><span class="en-cap">Slide 28 — TCP CONNECT SCAN (FULL HANDSHAKE): 1. SYN → 2. SYN/ACK → 3. ACK (Connection Established, PORT OPEN) → 4. RST (Connection Closed by Scanner)</span><span class="ar-cap">الشريحة ٢٨ — فحص الاتصال الكامل: SYN ← SYN/ACK ← ACK (المنفذ مفتوح) ← RST (يُغلق الفاحص الاتصال)</span></div></div>
+          <div class="fig"><img src="img/ch3_p28_1.jpeg" alt="TCP SYN scan process">
+            <div class="cap"><span class="en-cap">Slide 28 — TCP SYN SCAN (HALF-OPEN): 1. SYN → 2. SYN/ACK → 3. RST (handshake aborted, PORT OPEN)</span><span class="ar-cap">الشريحة ٢٨ — فحص SYN نصف المفتوح: SYN ← SYN/ACK ← RST (تُلغى المصافحة، المنفذ مفتوح)</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s29">
+      <div class="slide-head"><span class="sn">29</span><span class="t-en">INVERSE TCP FLAG SCANS — FIN / NULL / XMAS</span><span class="t-ar">فحوص الأعلام العكسية</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>These scans send <strong>unusual TCP flag combinations instead of a SYN packet</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>ترسل هذه الفحوص <strong>تركيبات غير معتادة من أعلام TCP بدلاً من حزمة SYN</strong>.</p></div>
+        </div>
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Scanning type → Flags sent</span><span class="ar">نوع الفحص ← الأعلام المرسلة</span></h4>
+            <div class="body"><div class="en">
+              <table><thead><tr><th>Scan Type</th><th>Flags Sent</th></tr></thead>
+              <tbody>
+                <tr><td><strong>FIN Scan</strong></td><td><code>FIN</code></td></tr>
+                <tr><td><strong>NULL Scan</strong></td><td><code>No Flags</code></td></tr>
+                <tr><td><strong>XMAS Scan</strong></td><td><code>FIN + PSH + URG</code></td></tr>
+              </tbody></table></div>
+              <div class="ar">
+              <table><thead><tr><th>نوع الفحص</th><th>الأعلام المرسلة</th></tr></thead>
+              <tbody>
+                <tr><td><strong>فحص FIN</strong></td><td><code>FIN</code></td></tr>
+                <tr><td><strong>فحص NULL</strong></td><td><code>بدون أعلام</code></td></tr>
+                <tr><td><strong>فحص XMAS</strong></td><td><code>FIN + PSH + URG</code></td></tr>
+              </tbody></table></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Expected Responses</span><span class="ar">الردود المتوقعة</span></h4>
+            <div class="body"><div class="en">
+              <table><thead><tr><th>Port State</th><th>Response</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Open</strong></td><td><strong>No Response</strong></td></tr>
+                <tr><td><strong>Closed</strong></td><td><strong>RST</strong></td></tr>
+              </tbody></table></div>
+              <div class="ar">
+              <table><thead><tr><th>حالة المنفذ</th><th>الرد</th></tr></thead>
+              <tbody>
+                <tr><td><strong>مفتوح</strong></td><td><strong>لا يوجد رد</strong></td></tr>
+                <tr><td><strong>مغلق</strong></td><td><strong>RST</strong></td></tr>
+              </tbody></table></div>
+            </div>
+          </div>
+        </div>
+        <div class="note">
+          <div class="en"><b>NOTE:</b> the purpose of these types of scan is to <b>bypass simple firewalls and reduce detection</b>.</div>
+          <div class="ar"><b>ملاحظة:</b> الغرض من هذه الأنواع من الفحص هو <b>تجاوز الجدران النارية البسيطة وتقليل احتمال الاكتشاف</b>.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s30">
+      <div class="slide-head"><span class="sn">30 · 31</span><span class="t-en">IDLE (ZOMBIE) SCAN</span><span class="t-ar">الفحص الخامل (الزومبي)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Instead of scanning the target directly, the attacker <strong>uses an idle (zombie) host to perform the scan</strong>.</p>
+            <p><strong>How It Works</strong></p>
+            <ul>
+              <li>Identify an <strong>idle (zombie) host</strong>.</li>
+              <li>Send <strong>spoofed packets using the zombie's IP</strong>.</li>
+              <li>Observe changes in the zombie's <strong>IP Identification (IPID) value</strong>.</li>
+              <li>Determine whether the target port is <strong>open or closed</strong>.</li>
+            </ul>
+            <p><strong>Advantages (slide 31)</strong></p>
+            <ul><li>Hides the attacker's real IP address</li><li>Very stealthy</li><li>Difficult to trace</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>بدلاً من فحص الهدف مباشرةً، <strong>يستخدم المهاجم جهازاً خاملاً (زومبي) لتنفيذ الفحص</strong>.</p>
+            <p><strong>كيف يعمل</strong></p>
+            <ul>
+              <li>تحديد <strong>جهاز خامل (زومبي)</strong>.</li>
+              <li>إرسال <strong>حزم منتحَلة باستخدام عنوان IP للزومبي</strong>.</li>
+              <li>مراقبة التغيرات في <strong>قيمة معرّف IP (IPID)</strong> لدى الزومبي.</li>
+              <li>تحديد ما إذا كان منفذ الهدف <strong>مفتوحاً أم مغلقاً</strong>.</li>
+            </ul>
+            <p><strong>المزايا (الشريحة ٣١)</strong></p>
+            <ul><li>يُخفي عنوان IP الحقيقي للمهاجم</li><li>خفيّ جداً</li><li>يصعب تتبّعه</li></ul></div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch3_p31_0.jpeg" alt="Idle zombie scan diagram">
+          <div class="cap"><span class="en-cap">Slide 31 — Idle/Zombie scan: SYN/ACK packet to idle zombie, RST packet in return (IPID = 34567 → 34569)</span><span class="ar-cap">الشريحة ٣١ — الفحص الخامل: إرسال SYN/ACK إلى الزومبي وعودة RST مع تغير قيمة IPID</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s32">
+      <div class="slide-head"><span class="sn">32 – 37</span><span class="t-en">SCANNING TOOLS — NMAP</span><span class="t-ar">أدوات الفحص — Nmap</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 33</span>
+            <ul>
+              <li><strong>Network Mapper “Nmap”</strong> (<a href="https://nmap.org" target="_blank" rel="noopener">https://nmap.org</a>) is a <strong>security scanner for network exploration and hacking</strong>.</li>
+              <li>It allows you to <strong>discover hosts, ports, and services</strong> on a computer network, thus creating a <strong>"map" of the network</strong>.</li>
+              <li>It includes many mechanisms for <strong>port scanning (TCP and UDP), OS detection, version detection, ping sweeps</strong>, and so on.</li>
+              <li>It <strong>sends specially crafted packets to the target host and then analyzes the responses</strong> to accomplish its goal.</li>
+              <li>It scans networks of literally <strong>hundreds of thousands of machines</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٣</span>
+            <ul>
+              <li><strong>«Nmap» (مخطِّط الشبكة)</strong> (<a href="https://nmap.org" target="_blank" rel="noopener">https://nmap.org</a>) هو <strong>فاحص أمني لاستكشاف الشبكات والاختراق</strong>.</li>
+              <li>يتيح لك <strong>اكتشاف الأجهزة والمنافذ والخدمات</strong> على شبكة الحاسوب، وبالتالي إنشاء <strong>«خريطة» للشبكة</strong>.</li>
+              <li>يتضمن آليات كثيرة لـ<strong>فحص المنافذ (TCP و UDP)، وكشف نظام التشغيل، وكشف الإصدارات، ومسح ping</strong>، وغيرها.</li>
+              <li><strong>يرسل حزماً مُصمَّمة خصيصاً إلى الجهاز المستهدف ثم يحلل الردود</strong> لتحقيق هدفه.</li>
+              <li>يفحص شبكات تضم حرفياً <strong>مئات الآلاف من الأجهزة</strong>.</li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 34</span>
+            <ul>
+              <li>Either a <strong>network administrator or an attacker</strong> can use this tool for their specific needs.</li>
+              <li><strong>Network administrators</strong> can use Nmap for <strong>network inventory, managing service upgrade schedules, and monitoring host or service uptime</strong>.</li>
+              <li><strong>Attackers</strong> use Nmap to extract information such as <strong>live hosts on the network, open ports, services (application name and version), type of packet filters/firewalls, MAC details, and OSs along with their versions</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٤</span>
+            <ul>
+              <li>يمكن لـ<strong>مسؤول الشبكة أو المهاجم</strong> استخدام هذه الأداة لاحتياجاته الخاصة.</li>
+              <li><strong>مسؤولو الشبكات</strong> يستخدمون Nmap في <strong>جرد الشبكة، وإدارة جداول ترقية الخدمات، ومراقبة زمن تشغيل الأجهزة أو الخدمات</strong>.</li>
+              <li><strong>المهاجمون</strong> يستخدمون Nmap لاستخراج معلومات مثل <strong>الأجهزة النشطة على الشبكة، والمنافذ المفتوحة، والخدمات (اسم التطبيق وإصداره)، ونوع مرشّحات الحزم/الجدران النارية، وتفاصيل MAC، وأنظمة التشغيل وإصداراتها</strong>.</li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 35</span><p><strong>Syntax:</strong></p><div class="code">Nmap &lt;option&gt; &lt;Target IP address&gt;</div></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٥</span><p><strong>الصيغة:</strong></p><div class="code">Nmap &lt;الخيار&gt; &lt;عنوان IP للهدف&gt;</div></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 36 — COMMON NMAP DISCOVERY &amp; SCANNING SWITCHES · أوامر Nmap الشائعة</div>
+          <table>
+            <thead><tr><th style="width:12%">Switch</th><th>Description</th><th style="width:12%">Switch</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>-sS</code></td><td>TCP SYN Scan (Stealth Scan)<div class="tbl-ar" style="text-align:right">فحص SYN (خفي)</div></td><td><code>-sV</code></td><td>Service &amp; Version Detection<div class="tbl-ar" style="text-align:right">كشف الخدمة والإصدار</div></td></tr>
+              <tr><td><code>-sT</code></td><td>TCP Connect Scan<div class="tbl-ar" style="text-align:right">فحص الاتصال الكامل</div></td><td><code>-O</code></td><td>Operating System Detection<div class="tbl-ar" style="text-align:right">كشف نظام التشغيل</div></td></tr>
+              <tr><td><code>-sA</code></td><td>ACK Scan<div class="tbl-ar" style="text-align:right">فحص ACK</div></td><td><code>-A</code></td><td>Aggressive Scan (OS, Version, Scripts, Traceroute)<div class="tbl-ar" style="text-align:right">فحص شامل عدواني</div></td></tr>
+              <tr><td><code>-sF</code></td><td>FIN Scan<div class="tbl-ar" style="text-align:right">فحص FIN</div></td><td><code>-Pn</code></td><td>Skip Host Discovery<div class="tbl-ar" style="text-align:right">تخطّي اكتشاف الأجهزة</div></td></tr>
+              <tr><td><code>-sI</code></td><td>Idle Scan<div class="tbl-ar" style="text-align:right">الفحص الخامل</div></td><td><code>-oN</code></td><td>Save Normal Output<div class="tbl-ar" style="text-align:right">حفظ المخرجات العادية</div></td></tr>
+              <tr><td><code>-sX</code></td><td>XMAS Scan<div class="tbl-ar" style="text-align:right">فحص XMAS</div></td><td><code>-T4</code></td><td>Fast Scan<div class="tbl-ar" style="text-align:right">فحص سريع</div></td></tr>
+              <tr><td><code>-sW</code></td><td>Window Scan<div class="tbl-ar" style="text-align:right">فحص النافذة</div></td><td><code>-f</code></td><td>Fragment Packets (Evasion)<div class="tbl-ar" style="text-align:right">تجزئة الحزم (تهرّب)</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch3_p35_0.jpeg" alt="Nmap terminal output">
+            <div class="cap"><span class="en-cap">Slide 35 — <code>nmap 10.10.228.0/24</code> output: host is up, open ports (22/tcp ssh, 80/tcp http…), MAC addresses</span><span class="ar-cap">الشريحة ٣٥ — مخرجات <code>nmap 10.10.228.0/24</code>: الأجهزة النشطة، المنافذ المفتوحة، عناوين MAC</span></div></div>
+          <div class="fig"><img src="img/ch3_p37_0.jpeg" alt="Zenmap GUI">
+            <div class="cap"><span class="en-cap">Slide 37 — Zenmap running <code>nmap -p 1-65535 -T4 -A -v 10.10.1.11</code>: “Obtains list of open ports, OS details, MAC details, and services along with their versions”</span><span class="ar-cap">الشريحة ٣٧ — واجهة Zenmap: تحصل على قائمة المنافذ المفتوحة وتفاصيل نظام التشغيل و MAC والخدمات وإصداراتها</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s38">
+      <div class="slide-head"><span class="sn">38 – 41</span><span class="t-en">HPING3 &amp; NETSCANTOOLS PRO</span><span class="t-ar">أداتا hping3 و NetScanTools Pro</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 38</span>
+            <ul>
+              <li><strong>Hping3</strong> (<a href="http://www.hping.org" target="_blank" rel="noopener">http://www.hping.org</a>) is a <strong>command-line-oriented network scanning and packet crafting tool for the TCP/IP protocol</strong> that sends <strong>ICMP echo requests</strong> and supports <strong>TCP, UDP, ICMP, and raw-IP</strong> protocols.</li>
+              <li>It performs <strong>network security auditing, firewall testing, remote OS fingerprinting</strong>, and other functions.</li>
+              <li>It can <strong>send custom TCP/IP packets and display target replies</strong> similarly to a ping program with ICMP replies.</li>
+              <li><strong>Syntax:</strong> <code>hping3</code></li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٨</span>
+            <ul>
+              <li><strong>Hping3</strong> (<a href="http://www.hping.org" target="_blank" rel="noopener">http://www.hping.org</a>) أداة <strong>سطر أوامر لفحص الشبكة وصياغة الحزم لبروتوكول TCP/IP</strong>، ترسل <strong>طلبات ICMP echo</strong> وتدعم بروتوكولات <strong>TCP و UDP و ICMP و raw-IP</strong>.</li>
+              <li>تنفّذ <strong>تدقيق أمن الشبكات، واختبار الجدران النارية، وبصمة نظام التشغيل عن بُعد</strong>، ووظائف أخرى.</li>
+              <li>يمكنها <strong>إرسال حزم TCP/IP مخصصة وعرض ردود الهدف</strong> بشكل مشابه لبرنامج ping مع ردود ICMP.</li>
+              <li><strong>الصيغة:</strong> <code>hping3</code></li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 40</span>
+            <ul>
+              <li><strong>NetScanTools Pro</strong> (<a href="https://www.netscantools.com" target="_blank" rel="noopener">https://www.netscantools.com</a>) is an <strong>investigation tool</strong> that allows you to <strong>troubleshoot, monitor, discover, and detect devices on your network</strong>.</li>
+              <li>Using this tool, you can easily gather information about the <strong>local LAN as well as Internet users, IP addresses, ports</strong>, and so on.</li>
+              <li>Attackers can find <strong>vulnerabilities and exposed ports</strong> in the target system.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٠</span>
+            <ul>
+              <li><strong>NetScanTools Pro</strong> (<a href="https://www.netscantools.com" target="_blank" rel="noopener">https://www.netscantools.com</a>) هي <strong>أداة تحقيق</strong> تتيح لك <strong>استكشاف الأعطال ومراقبة واكتشاف وكشف الأجهزة على شبكتك</strong>.</li>
+              <li>باستخدامها يمكنك بسهولة جمع معلومات عن <strong>الشبكة المحلية وكذلك مستخدمي الإنترنت وعناوين IP والمنافذ</strong> وغيرها.</li>
+              <li>يمكن للمهاجمين إيجاد <strong>الثغرات والمنافذ المكشوفة</strong> في النظام المستهدف.</li>
+            </ul></div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch3_p39_0.jpeg" alt="hping3 terminal">
+            <div class="cap"><span class="en-cap">Slide 39 — <code>hping3 -1 10.10.1.11</code> — ICMP mode, showing round-trip min/avg/max</span><span class="ar-cap">الشريحة ٣٩ — تنفيذ <code>hping3 -1 10.10.1.11</code> في وضع ICMP مع أزمنة الذهاب والإياب</span></div></div>
+          <div class="fig"><img src="img/ch3_p41_0.jpeg" alt="NetScanTools Pro">
+            <div class="cap"><span class="en-cap">Slide 41 — NetScanTools Pro port scanner: TCP Full Connect response summary and active ports list</span><span class="ar-cap">الشريحة ٤١ — فاحص المنافذ في NetScanTools Pro: ملخص الردود وقائمة المنافذ النشطة</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s42">
+      <div class="slide-head"><span class="sn">42 – 44</span><span class="t-en">EVASION — What is Scan Evasion?</span><span class="t-ar">التهرب من الكشف</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 43</span>
+            <p>Scan evasion refers to <strong>techniques used to reduce the chance of detection during scanning</strong>.</p>
+            <ul>
+              <li>Attackers attempt to <strong>hide their identity and scanning activities</strong>.</li>
+              <li>Evasion techniques help bypass:
+                <ul><li>Firewalls</li><li>Intrusion Detection Systems (IDS)</li><li>Network monitoring tools</li></ul>
+              </li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٣</span>
+            <p>يشير التهرب من الفحص إلى <strong>تقنيات تُستخدم لتقليل احتمال الاكتشاف أثناء الفحص</strong>.</p>
+            <ul>
+              <li>يحاول المهاجمون <strong>إخفاء هويتهم وأنشطة الفحص التي يقومون بها</strong>.</li>
+              <li>تساعد تقنيات التهرب على تجاوز:
+                <ul><li>الجدران النارية</li><li>أنظمة كشف التسلل (IDS)</li><li>أدوات مراقبة الشبكة</li></ul>
+              </li>
+            </ul></div>
+        </div>
+        <div class="note">
+          <div class="en"><b>NOTE:</b> The objective is <b>not to make scanning faster, but to make it harder to detect</b>.</div>
+          <div class="ar"><b>ملاحظة:</b> الهدف <b>ليس جعل الفحص أسرع، بل جعله أصعب في الاكتشاف</b>.</div>
+        </div>
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 44</span><p><strong>Major Evasion Techniques:</strong></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٤</span><p><strong>تقنيات التهرب الرئيسية:</strong></p></div>
+        </div>
+        <div class="chips">
+          <div class="chip"><div class="en">Packet Fragmentation</div><div class="ar">تجزئة الحزم</div></div>
+          <div class="chip"><div class="en">IP Address Spoofing</div><div class="ar">انتحال عنوان IP</div></div>
+          <div class="chip"><div class="en">Proxy Servers</div><div class="ar">الخوادم الوسيطة (بروكسي)</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s45">
+      <div class="slide-head"><span class="sn">45 · 46</span><span class="t-en">PACKET FRAGMENTATION &amp; IP SPOOFING</span><span class="t-ar">تجزئة الحزم وانتحال IP</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 45</span>
+            <p><strong>PACKET FRAGMENTATION</strong></p>
+            <ul>
+              <li>A large packet is <strong>divided into multiple smaller fragments</strong>.</li>
+              <li>Each fragment contains only <strong>part of the original packet</strong>.</li>
+              <li>Some IDSs may have <strong>difficulty analyzing fragmented traffic</strong>.</li>
+              <li>The <strong>destination host reassembles the fragments</strong>.</li>
+            </ul>
+            <p><strong>Example</strong></p>
+            <div class="code">nmap -sS -A -f 172.17.15.12</div>
+            <p><code>-f</code> tells Nmap to <strong>send fragmented packets</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٥</span>
+            <p><strong>تجزئة الحزم</strong></p>
+            <ul>
+              <li>تُقسَّم الحزمة الكبيرة إلى <strong>عدة أجزاء أصغر</strong>.</li>
+              <li>كل جزء يحتوي فقط على <strong>جزء من الحزمة الأصلية</strong>.</li>
+              <li>قد تجد بعض أنظمة IDS <strong>صعوبة في تحليل حركة المرور المجزّأة</strong>.</li>
+              <li><strong>الجهاز الوجهة يعيد تجميع الأجزاء</strong>.</li>
+            </ul>
+            <p><strong>مثال</strong></p>
+            <div class="code">nmap -sS -A -f 172.17.15.12</div>
+            <p>الخيار <code>-f</code> يخبر Nmap بـ<strong>إرسال حزم مجزّأة</strong>.</p></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 46</span>
+            <p><strong>IP ADDRESS SPOOFING</strong></p>
+            <ul>
+              <li><strong>Forges the source IP address.</strong></li>
+              <li><strong>Hides the attacker's identity.</strong></li>
+              <li>Common tools include: <strong>Hping, Scapy, Nmap, Ettercap, Cain</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٦</span>
+            <p><strong>انتحال عنوان IP</strong></p>
+            <ul>
+              <li><strong>يزوّر عنوان IP المصدر.</strong></li>
+              <li><strong>يُخفي هوية المهاجم.</strong></li>
+              <li>من الأدوات الشائعة: <strong>Hping و Scapy و Nmap و Ettercap و Cain</strong>.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s47">
+      <div class="slide-head"><span class="sn">47 · 48</span><span class="t-en">PROXY SERVERS &amp; PROXY CHAINS</span><span class="t-ar">الخوادم الوسيطة وسلاسل البروكسي</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 47</span>
+            <p>A proxy acts as an <strong>intermediary between the scanner and the target</strong>. The proxy <strong>forwards requests to the destination</strong>. Network monitoring systems <strong>detect the proxy's IP rather than the attacker's</strong>.</p>
+            <div class="code">Attacker
+    │
+    ▼
+Proxy Server
+    │
+    ▼
+Target System</div></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٧</span>
+            <p>يعمل البروكسي كـ<strong>وسيط بين الفاحص والهدف</strong>. فهو <strong>يمرّر الطلبات إلى الوجهة</strong>. وأنظمة مراقبة الشبكة <strong>تكتشف عنوان IP للبروكسي بدلاً من عنوان المهاجم</strong>.</p>
+            <div class="code">المهاجم
+    │
+    ▼
+الخادم الوسيط (Proxy)
+    │
+    ▼
+النظام المستهدف</div></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 47 — IP Spoofing vs Proxy · مقارنة</div>
+          <table>
+            <thead><tr><th>IP Spoofing · انتحال IP</th><th>Proxy · البروكسي</th></tr></thead>
+            <tbody>
+              <tr><td>Uses a <strong>fake source IP address</strong><div class="tbl-ar" style="text-align:right">يستخدم عنوان IP مصدر <strong>مزيّف</strong></div></td>
+                  <td>Uses a <strong>real intermediary server</strong><div class="tbl-ar" style="text-align:right">يستخدم <strong>خادماً وسيطاً حقيقياً</strong></div></td></tr>
+              <tr><td><strong>May not receive replies</strong><div class="tbl-ar" style="text-align:right"><strong>قد لا يستقبل الردود</strong></div></td>
+                  <td><strong>Replies are returned through the proxy</strong><div class="tbl-ar" style="text-align:right"><strong>تعود الردود عبر البروكسي</strong></div></td></tr>
+              <tr><td><strong>Hides identity</strong><div class="tbl-ar" style="text-align:right"><strong>يُخفي الهوية</strong></div></td>
+                  <td><strong>Hides both identity and location</strong><div class="tbl-ar" style="text-align:right"><strong>يُخفي الهوية والموقع معاً</strong></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 48</span>
+            <p><strong>PROXY CHAINS</strong></p>
+            <p>A proxy chain <strong>routes traffic through multiple proxy servers before reaching the target</strong>. Each proxy <strong>only knows the previous and next hop</strong>, making it more difficult to trace the source. <strong>Multiple proxies provide greater anonymity than a single proxy.</strong></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٨</span>
+            <p><strong>سلاسل البروكسي</strong></p>
+            <p>سلسلة البروكسي <strong>توجّه حركة المرور عبر عدة خوادم وسيطة قبل الوصول إلى الهدف</strong>. وكل بروكسي <strong>يعرف فقط القفزة السابقة والتالية</strong>، مما يجعل تتبّع المصدر أصعب. و<strong>البروكسيات المتعددة توفر إخفاء هوية أكبر من بروكسي واحد</strong>.</p></div>
+        </div>
+
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Benefits</span><span class="ar">الفوائد</span></h4>
+            <div class="body">
+              <div class="en"><ul><li>Hides the attacker's real IP address.</li><li>Makes traffic tracing more difficult.</li><li>Adds an extra layer of privacy during network communication.</li></ul></div>
+              <div class="ar"><ul><li>يُخفي عنوان IP الحقيقي للمهاجم.</li><li>يجعل تتبّع حركة المرور أصعب.</li><li>يضيف طبقة إضافية من الخصوصية أثناء الاتصال الشبكي.</li></ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Limitations</span><span class="ar">القيود</span></h4>
+            <div class="body">
+              <div class="en"><ul><li>Increased communication delay (latency).</li><li>Depends on the reliability of each proxy server.</li><li>Some proxies may log user activity.</li></ul></div>
+              <div class="ar"><ul><li>زيادة تأخير الاتصال (Latency).</li><li>يعتمد على موثوقية كل خادم وسيط.</li><li>بعض البروكسيات قد تسجّل نشاط المستخدم.</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s49">
+      <div class="slide-head"><span class="sn">49 – 52</span><span class="t-en">VULNERABILITY SCANNING</span><span class="t-ar">فحص الثغرات</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 50</span>
+            <ul>
+              <li>Vulnerability scanning is the process of <strong>identifying known security weaknesses in a target system</strong>.</li>
+              <li>It <strong>compares the target's configuration and software against a database of known vulnerabilities</strong>.</li>
+              <li>Helps organizations discover s… <span class="srcref">[text truncated on the original slide]</span></li>
+            </ul>
+            <p><strong>Typical Vulnerabilities Detected</strong></p>
+            <ul>
+              <li>Missing security patches</li>
+              <li>Outdated software versions</li>
+              <li>Weak configurations</li>
+              <li>Default or insecure settings</li>
+              <li>Known Common Vulnerabilities and Exposures (<strong>CVEs</strong>)</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥٠</span>
+            <ul>
+              <li>فحص الثغرات هو عملية <strong>تحديد نقاط الضعف الأمنية المعروفة في النظام المستهدف</strong>.</li>
+              <li>يقوم بـ<strong>مقارنة إعدادات النظام المستهدف وبرمجياته بقاعدة بيانات للثغرات المعروفة</strong>.</li>
+              <li>يساعد المؤسسات على اكتشاف… <span class="srcref">[النص مقطوع في الشريحة الأصلية]</span></li>
+            </ul>
+            <p><strong>الثغرات النموذجية التي تُكتشف</strong></p>
+            <ul>
+              <li>ترقيعات أمنية مفقودة</li>
+              <li>إصدارات برمجية قديمة</li>
+              <li>إعدادات ضعيفة</li>
+              <li>إعدادات افتراضية أو غير آمنة</li>
+              <li>الثغرات والانكشافات الشائعة المعروفة (<strong>CVEs</strong>)</li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 51</span>
+            <p><strong>HOW VULNERABILITY SCANNING WORKS</strong></p>
+            <p>The process of vulnerability scanning has <strong>five steps</strong>.</p>
+            <p><strong>A Typical Report Includes</strong></p>
+            <ul><li>Detected vulnerabilities</li><li>Severity level (<strong>Critical, High, Medium, Low</strong>)</li><li>Affected systems</li><li>Recommended remediation actions</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥١</span>
+            <p><strong>كيف يعمل فحص الثغرات</strong></p>
+            <p>تتكون عملية فحص الثغرات من <strong>خمس خطوات</strong>.</p>
+            <p><strong>التقرير النموذجي يتضمن</strong></p>
+            <ul><li>الثغرات المكتشفة</li><li>مستوى الخطورة (<strong>حرج، عالٍ، متوسط، منخفض</strong>)</li><li>الأنظمة المتأثرة</li><li>إجراءات المعالجة الموصى بها</li></ul></div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch3_p51_0.jpeg" alt="Vulnerability scanning process 5 steps">
+          <div class="cap"><span class="en-cap">Slide 51 — Vulnerability Scanning Process (5 steps): Identify Target → Collect System Information → Compare with Vulnerability Database → Detect Security Weaknesses → Generate Scan Report</span><span class="ar-cap">الشريحة ٥١ — خطوات فحص الثغرات الخمس: تحديد الهدف ← جمع معلومات النظام ← المقارنة بقاعدة بيانات الثغرات ← كشف نقاط الضعف ← إنشاء تقرير الفحص</span></div></div></div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 52 — COMMON VULNERABILITY SCANNING TOOLS · أدوات فحص الثغرات الشائعة</div>
+          <table>
+            <thead><tr><th style="width:26%">Tool</th><th>Description</th><th>الوصف</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Nessus</strong></td><td>One of the most widely used <strong>commercial</strong> vulnerability scanners.</td><td class="tbl-ar" style="text-align:right">من أكثر فاحصات الثغرات <strong>التجارية</strong> استخداماً.</td></tr>
+              <tr><td><strong>OpenVAS (Greenbone)</strong></td><td><strong>Free and open-source</strong> vulnerability scanner with extensive scanning capabilities.</td><td class="tbl-ar" style="text-align:right">فاحص ثغرات <strong>مجاني ومفتوح المصدر</strong> بقدرات فحص واسعة.</td></tr>
+              <tr><td><strong>Qualys VMDR</strong></td><td><strong>Cloud-based</strong> vulnerability management and compliance platform.</td><td class="tbl-ar" style="text-align:right">منصة <strong>سحابية</strong> لإدارة الثغرات والامتثال.</td></tr>
+              <tr><td><strong>Microsoft Baseline Security Analyzer (MBSA)</strong></td><td><strong>Legacy Microsoft tool</strong> for identifying missing Windows updates and security misconfigurations.</td><td class="tbl-ar" style="text-align:right"><strong>أداة مايكروسوفت القديمة</strong> لتحديد تحديثات ويندوز المفقودة وأخطاء الإعدادات الأمنية.</td></tr>
+              <tr><td><strong>GFI LanGuard</strong></td><td>Performs <strong>vulnerability assessment, patch management, and network auditing</strong>.</td><td class="tbl-ar" style="text-align:right">تنفّذ <strong>تقييم الثغرات وإدارة الترقيعات وتدقيق الشبكة</strong>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s53">
+      <div class="slide-head"><span class="sn">53 – 55</span><span class="t-en">ENUMERATION</span><span class="t-ar">التعداد</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 54</span>
+            <ul>
+              <li>Enumeration is the process of <strong>actively collecting detailed information from a target system</strong>.</li>
+              <li>It involves <strong>establishing connections with services and requesting specific information</strong>.</li>
+              <li>The objective is to <strong>identify resources that may be useful during a security assessment</strong>.</li>
+            </ul>
+            <p><strong>Information That Can Be Enumerated</strong></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥٤</span>
+            <ul>
+              <li>التعداد هو عملية <strong>جمع معلومات تفصيلية بشكل نشط من النظام المستهدف</strong>.</li>
+              <li>يتضمن <strong>إنشاء اتصالات مع الخدمات وطلب معلومات محددة</strong>.</li>
+              <li>الهدف هو <strong>تحديد الموارد التي قد تكون مفيدة أثناء التقييم الأمني</strong>.</li>
+            </ul>
+            <p><strong>المعلومات التي يمكن تعدادها</strong></p></div>
+        </div>
+        <div class="chips">
+          <div class="chip"><div class="en">User accounts</div><div class="ar">حسابات المستخدمين</div></div>
+          <div class="chip"><div class="en">Shared folders</div><div class="ar">المجلدات المشتركة</div></div>
+          <div class="chip"><div class="en">Network resources</div><div class="ar">موارد الشبكة</div></div>
+          <div class="chip"><div class="en">Running services</div><div class="ar">الخدمات العاملة</div></div>
+          <div class="chip"><div class="en">Group and permission</div><div class="ar">المجموعات والصلاحيات</div></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 55 — SCANNING vs. ENUMERATION · الفحص مقابل التعداد</div>
+          <table>
+            <thead><tr><th>Scanning · الفحص</th><th>Enumeration · التعداد</th></tr></thead>
+            <tbody>
+              <tr><td>Identifies <strong>live hosts and open ports</strong><div class="tbl-ar" style="text-align:right">يحدد <strong>الأجهزة النشطة والمنافذ المفتوحة</strong></div></td>
+                  <td>Retrieves <strong>detailed information from discovered services</strong><div class="tbl-ar" style="text-align:right">يسترجع <strong>معلومات تفصيلية من الخدمات المكتشفة</strong></div></td></tr>
+              <tr><td>Answers <strong>"What is available?"</strong><div class="tbl-ar" style="text-align:right">يجيب على سؤال <strong>«ما المتاح؟»</strong></div></td>
+                  <td>Answers <strong>"What information can be obtained?"</strong><div class="tbl-ar" style="text-align:right">يجيب على سؤال <strong>«ما المعلومات التي يمكن الحصول عليها؟»</strong></div></td></tr>
+              <tr><td><strong>Less interactive</strong><div class="tbl-ar" style="text-align:right"><strong>أقل تفاعلية</strong></div></td>
+                  <td><strong>More interactive</strong><div class="tbl-ar" style="text-align:right"><strong>أكثر تفاعلية</strong></div></td></tr>
+              <tr><td>Usually the <strong>first step</strong><div class="tbl-ar" style="text-align:right">عادةً <strong>الخطوة الأولى</strong></div></td>
+                  <td><strong>Performed after scanning</strong><div class="tbl-ar" style="text-align:right"><strong>يُنفَّذ بعد الفحص</strong></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s56">
+      <div class="slide-head"><span class="sn">56 – 60</span><span class="t-en">ENUMERATION TECHNIQUES — BANNER GRABBING</span><span class="t-ar">تقنيات التعداد — التقاط اللافتات</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 56</span><p><strong>Enumeration techniques:</strong></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥٦</span><p><strong>تقنيات التعداد:</strong></p></div>
+        </div>
+        <div class="chips">
+          <div class="chip"><div class="en">Banner Grabbing</div><div class="ar">التقاط اللافتات</div></div>
+          <div class="chip"><div class="en">NetBIOS Enumeration</div><div class="ar">تعداد NetBIOS</div></div>
+          <div class="chip"><div class="en">SNMP Enumeration</div><div class="ar">تعداد SNMP</div></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 57</span>
+            <p>Banner-grabbing is an <strong>active enumeration technique</strong>. It <strong>sends a request to a service running on an open port</strong>. The service may respond with a <strong>banner containing useful information</strong>.</p>
+            <p><strong>A Banner May Reveal</strong></p>
+            <ul><li>Service name</li><li>Software version</li><li>Operating system information</li><li>Web server type</li><li>Mail server information</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥٧</span>
+            <p>التقاط اللافتات (Banner grabbing) هو <strong>تقنية تعداد نشطة</strong>. حيث <strong>يُرسَل طلب إلى خدمة تعمل على منفذ مفتوح</strong>، وقد ترد الخدمة بـ<strong>لافتة تحتوي على معلومات مفيدة</strong>.</p>
+            <p><strong>قد تكشف اللافتة عن</strong></p>
+            <ul><li>اسم الخدمة</li><li>إصدار البرنامج</li><li>معلومات نظام التشغيل</li><li>نوع خادم الويب</li><li>معلومات خادم البريد</li></ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 58</span>
+            <p><strong>Example</strong> — Suppose a web server returns:</p>
+            <div class="code">HTTP/1.1 200 OK
+Server: Microsoft-IIS/10.0</div>
+            <p>From this banner we learn:<br>Web server: <strong>Microsoft IIS</strong><br>Version: <strong>10.0</strong></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥٨</span>
+            <p><strong>مثال</strong> — لنفترض أن خادم ويب أعاد:</p>
+            <div class="code">HTTP/1.1 200 OK
+Server: Microsoft-IIS/10.0</div>
+            <p>من هذه اللافتة نعرف:<br>خادم الويب: <strong>Microsoft IIS</strong><br>الإصدار: <strong>10.0</strong></p></div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch3_p58_0.jpeg" alt="Banner grabbing process">
+            <div class="cap"><span class="en-cap">Slide 58 — Banner Grabbing Process: Open Port → Connect to the Service → Service Returns a Banner → Analyze the Information → Identify Software &amp; Version</span><span class="ar-cap">الشريحة ٥٨ — عملية التقاط اللافتة: منفذ مفتوح ← الاتصال بالخدمة ← الخدمة تُرجع لافتة ← تحليل المعلومات ← تحديد البرنامج وإصداره</span></div></div>
+          <div class="fig"><img src="img/ch3_p59_0.jpeg" alt="Banner grabbing illustration">
+            <div class="cap"><span class="en-cap">Slide 59 — Attacker → Request → Target Server (Port 80 Open) → Banner → “Server: Apache/2.4.58, OS: Ubuntu”</span><span class="ar-cap">الشريحة ٥٩ — المهاجم يرسل طلباً إلى الخادم (المنفذ ٨٠ مفتوح) فتعود لافتة تكشف Apache/2.4.58 و Ubuntu</span></div></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 60 — Common Banner Grabbing Tools · أدوات التقاط اللافتات الشائعة</div>
+          <table>
+            <thead><tr><th style="width:20%">Tool</th><th>Purpose</th><th>الغرض</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Telnet</strong></td><td>Connects to a TCP port and displays service responses.</td><td class="tbl-ar" style="text-align:right">يتصل بمنفذ TCP ويعرض ردود الخدمة.</td></tr>
+              <tr><td><strong>Netcat (nc)</strong></td><td>Reads and writes network data; commonly used for banner grabbing.</td><td class="tbl-ar" style="text-align:right">يقرأ ويكتب بيانات الشبكة؛ يُستخدم كثيراً لالتقاط اللافتات.</td></tr>
+              <tr><td><strong>Nmap</strong></td><td>Performs service detection and version identification.</td><td class="tbl-ar" style="text-align:right">ينفّذ كشف الخدمات وتحديد الإصدارات.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s61">
+      <div class="slide-head"><span class="sn">61 – 63</span><span class="t-en">NETBIOS ENUMERATION</span><span class="t-ar">تعداد NetBIOS</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 61</span>
+            <p><strong>NetBIOS (Network Basic Input/Output System)</strong> is a <strong>Windows networking technology used for communication and resource sharing within local networks</strong>.</p>
+            <p>It can reveal valuable information about a target, including:</p>
+            <ul><li>Computer name</li><li>Workgroup or domain name</li><li>Shared resources</li><li>File and printer sharing status</li><li>Network browser information</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٦١</span>
+            <p><strong>NetBIOS (نظام الإدخال/الإخراج الأساسي للشبكة)</strong> هو <strong>تقنية شبكات في ويندوز تُستخدم للاتصال ومشاركة الموارد داخل الشبكات المحلية</strong>.</p>
+            <p>ويمكنه كشف معلومات قيّمة عن الهدف، منها:</p>
+            <ul><li>اسم الحاسوب</li><li>اسم مجموعة العمل أو النطاق</li><li>الموارد المشتركة</li><li>حالة مشاركة الملفات والطابعات</li><li>معلومات متصفح الشبكة</li></ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 62</span>
+            <ul>
+              <li>NetBIOS is considered <strong>first for enumeration</strong> because it extracts information about the target network, such as <strong>NetBIOS name, username, workgroup/domain name, and MAC address</strong>.</li>
+              <li>Attackers usually target the NetBIOS service because it is <strong>easy to exploit and runs on Windows systems even when not in use</strong>.</li>
+              <li><strong>NetBIOS uses:</strong>
+                <ul><li><strong>TCP/UDP port 137</strong></li><li><strong>UDP port 138</strong></li><li><strong>TCP port 139</strong></li></ul>
+              </li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٦٢</span>
+            <ul>
+              <li>يُعتبر NetBIOS <strong>الأول في التعداد</strong> لأنه يستخرج معلومات عن الشبكة المستهدفة مثل <strong>اسم NetBIOS، واسم المستخدم، واسم مجموعة العمل/النطاق، وعنوان MAC</strong>.</li>
+              <li>عادةً ما يستهدف المهاجمون خدمة NetBIOS لأنها <strong>سهلة الاستغلال وتعمل على أنظمة ويندوز حتى عند عدم استخدامها</strong>.</li>
+              <li><strong>يستخدم NetBIOS:</strong>
+                <ul><li><strong>المنفذ 137 على TCP/UDP</strong></li><li><strong>المنفذ 138 على UDP</strong></li><li><strong>المنفذ 139 على TCP</strong></li></ul>
+              </li>
+            </ul></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch3_p63_0.jpeg" alt="NetBIOS Enumerator">
+          <div class="cap"><span class="en-cap">Slide 63 — NetBIOS Enumerator: “Attackers specify an IP range to enumerate NetBIOS information” and “Obtain information, such as NetBIOS names, usernames, domain names, and MAC addresses”</span><span class="ar-cap">الشريحة ٦٣ — أداة NetBIOS Enumerator: يحدد المهاجمون نطاق IP لتعداد معلومات NetBIOS والحصول على الأسماء وأسماء المستخدمين والنطاقات وعناوين MAC</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s64">
+      <div class="slide-head"><span class="sn">64 – 66</span><span class="t-en">SNMP ENUMERATION</span><span class="t-ar">تعداد SNMP</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 64</span>
+            <ul>
+              <li><strong>Simple Network Management Protocol (SNMP)</strong> is a networking protocol that <strong>allows network administrators to manage network devices from a remote location</strong>.</li>
+              <li>SNMP consists of a <strong>manager and an agent</strong>.
+                <ul>
+                  <li>The <strong>agent</strong> is installed by vendors in most network components, such as <strong>routers, switches, servers, firewalls, and wireless access points</strong>.</li>
+                  <li>The <strong>manager</strong> is installed by the network administrator on a <strong>separate computer</strong>.</li>
+                </ul>
+              </li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٦٤</span>
+            <ul>
+              <li><strong>بروتوكول إدارة الشبكة البسيط (SNMP)</strong> هو بروتوكول شبكي <strong>يسمح لمسؤولي الشبكة بإدارة أجهزة الشبكة من موقع بعيد</strong>.</li>
+              <li>يتكوّن SNMP من <strong>مدير (manager) ووكيل (agent)</strong>.
+                <ul>
+                  <li><strong>الوكيل</strong> يثبّته المصنّعون في معظم مكونات الشبكة مثل <strong>الموجّهات والمحوّلات والخوادم والجدران النارية ونقاط الوصول اللاسلكية</strong>.</li>
+                  <li><strong>المدير</strong> يثبّته مسؤول الشبكة على <strong>حاسوب منفصل</strong>.</li>
+                </ul>
+              </li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 65</span>
+            <ul>
+              <li>SNMP holds <strong>two passwords</strong> to access and configure the SNMP agent from the SNMP manager:</li>
+              <li><strong>Read community string:</strong> It is <strong>‘public’ by default</strong>; it allows for the <strong>viewing</strong> of the device/system configuration.</li>
+              <li><strong>Read/write community string:</strong> It is <strong>‘private’ by default</strong>; it allows <strong>remote editing</strong> of the configuration.</li>
+              <li>When administrators <strong>leave the community strings at the default setting</strong>, attackers can use these default community strings (passwords) to <strong>change or view the configuration</strong> of the device or system.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٦٥</span>
+            <ul>
+              <li>يحتفظ SNMP بـ<strong>كلمتَي مرور</strong> للوصول إلى وكيل SNMP وتهيئته من مدير SNMP:</li>
+              <li><strong>سلسلة المجتمع للقراءة (Read community string):</strong> قيمتها الافتراضية <strong>‘public’</strong>، وتسمح بـ<strong>عرض</strong> إعدادات الجهاز/النظام.</li>
+              <li><strong>سلسلة المجتمع للقراءة والكتابة (Read/write):</strong> قيمتها الافتراضية <strong>‘private’</strong>، وتسمح بـ<strong>تعديل الإعدادات عن بُعد</strong>.</li>
+              <li>عندما <strong>يترك المسؤولون سلاسل المجتمع على الإعداد الافتراضي</strong>، يمكن للمهاجمين استخدام هذه السلاسل الافتراضية (كلمات المرور) لـ<strong>تغيير أو عرض إعدادات</strong> الجهاز أو النظام.</li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 66</span>
+            <p><strong>Snmp-check</strong></p>
+            <p>Snmp-check (nothink.org) is a tool that allows the <strong>enumeration of SNMP devices and places the output in a user-friendly format</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٦٦</span>
+            <p><strong>أداة Snmp-check</strong></p>
+            <p>Snmp-check (nothink.org) أداة تتيح <strong>تعداد أجهزة SNMP وتضع المخرجات في صيغة سهلة القراءة للمستخدم</strong>.</p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch3_p66_0.jpeg" alt="snmp-check output">
+          <div class="cap"><span class="en-cap">Slide 66 — <code>snmp-check 10.10.1.22</code> using SNMPv1 and community ‘public’: host IP, hostname, description, uptime, system date, domain and user accounts</span><span class="ar-cap">الشريحة ٦٦ — تنفيذ <code>snmp-check 10.10.1.22</code> بمجتمع ‘public’: عنوان الجهاز واسمه ووصفه وزمن التشغيل والتاريخ والنطاق وحسابات المستخدمين</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s67">
+      <div class="slide-head"><span class="sn">67 · 68</span><span class="t-en">REMEMBER</span><span class="t-ar">تذكّر</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 67</span>
+            <p><strong>Remember:</strong> Discover · Identify · Enumerate · Access · Protect</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٦٧</span>
+            <p><strong>تذكّر:</strong> اكتشف · حدّد · عدّد · اوصل · احمِ</p></div>
+        </div>
+        <div class="flow">
+          <div class="step"><div class="en">Discover</div><div class="ar">اكتشف</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">Identify</div><div class="ar">حدّد</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">Enumerate</div><div class="ar">عدّد</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">Access</div><div class="ar">اوصل / انفذ</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en">Protect</div><div class="ar">احمِ</div></div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch3_p68_0.jpeg" alt="Q and A">
+          <div class="cap"><span class="en-cap">Slide 68 — Q &amp; A</span><span class="ar-cap">الشريحة ٦٨ — أسئلة وأجوبة</span></div></div></div>
+      </div>
+    </section>
+
+    <div class="pager no-print">
+      <a class="btn" href="ch2.html">← Chapter 2 · الفصل الثاني</a>
+      <a class="btn primary" href="ch4.html">Chapter 4: Network Sniffing → الفصل الرابع</a>
+    </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>Chapter 3 · Scanning and Enumeration · Eng. Zahra Rajeh, M.Sc.
+  <div class="ar">الفصل الثالث · الفحص والتعداد · م. زهراء راجح</div></footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

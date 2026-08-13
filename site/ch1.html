@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 1 — Introduction | مقدمة في الاختراق الأخلاقي</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><span class="logo">⚡</span><span>Ethical Hacking<small>الاختراق الأخلاقي — Study Pack</small></span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a><a href="ch1.html">Ch 1</a><a href="ch2.html">Ch 2</a>
+      <a href="ch3.html">Ch 3</a><a href="ch4.html">Ch 4</a><a href="quiz.html">Exam Questions</a><a href="cheatsheet.html">Cheat Sheet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Chapter 1 · الفصل الأول</span>
+    <h1>Introduction — Ethical Hacking</h1>
+    <p class="h1-ar">المقدمة — الاختراق الأخلاقي</p>
+    <p class="lede">Eng. Zahra Rajeh, M.Sc. · 36 slides, fully translated, nothing omitted.</p>
+    <p class="lede lede-ar">م. زهراء راجح · ٣٦ شريحة مترجمة بالكامل دون حذف أي شيء.</p>
+  </div>
+
+  <div class="toolbar">
+    <strong style="font-size:14px">Language:</strong>
+    <button class="btn" data-lang-btn="both">Both · الاثنان</button>
+    <button class="btn" data-lang-btn="en">English only</button>
+    <button class="btn" data-lang-btn="ar">العربية فقط</button>
+    <span class="sp"></span>
+    <button class="btn primary" data-print>Print / PDF · طباعة</button>
+  </div>
+
+  <div class="layout">
+    <aside class="sidenav no-print">
+      <h4>Slides · الشرائح</h4>
+      <a href="#s1"><span class="n">1</span>Title · العنوان</a>
+      <a href="#s2"><span class="n">2</span>Opening quote · اقتباس</a>
+      <a href="#s3"><span class="n">3</span>Discussion · نقاش</a>
+      <a href="#s4"><span class="n">4</span>Outline · المحتويات</a>
+      <a href="#s5"><span class="n">5</span>Introduction · مقدمة</a>
+      <a href="#s6"><span class="n">6</span>Cost of cybercrime · تكلفة الجرائم</a>
+      <a href="#s7"><span class="n">7</span>4 aspects · الجوانب الأربعة</a>
+      <a href="#s9"><span class="n">9-10</span>Security basics · الأساسيات</a>
+      <a href="#s11"><span class="n">11</span>Security triangle · مثلث الأمن</a>
+      <a href="#s12"><span class="n">12-13</span>Risk management · إدارة المخاطر</a>
+      <a href="#s14"><span class="n">14</span>Controls · الضوابط</a>
+      <a href="#s15"><span class="n">15-16</span>CIA triad · ثالوث CIA</a>
+      <a href="#s18"><span class="n">18</span>Access control · التحكم بالوصول</a>
+      <a href="#s19"><span class="n">19-20</span>Security policies · السياسات</a>
+      <a href="#s22"><span class="n">22</span>Definition · التعريف</a>
+      <a href="#s23"><span class="n">23</span>The hats · القبعات</a>
+      <a href="#s24"><span class="n">24</span>Attack types · أنواع الهجمات</a>
+      <a href="#s25"><span class="n">25-28</span>Hacking phases · المراحل</a>
+      <a href="#s29"><span class="n">29-30</span>Pen testing · اختبار الاختراق</a>
+      <a href="#s31"><span class="n">31</span>Laws · القوانين</a>
+      <a href="#s32"><span class="n">32-33</span>Summary &amp; marks · الملخص والدرجات</a>
+      <a href="#s34"><span class="n">34-36</span>Registration · التسجيل</a>
+    </aside>
+
+    <div>
+
+    <!-- 1 -->
+    <section class="slide" id="s1">
+      <div class="slide-head"><span class="sn">1</span><span class="t-en">INTRODUCTION — Ethical Hacking</span><span class="t-ar">المقدمة — الاختراق الأخلاقي</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>INTRODUCTION</strong><br>Ethical Hacking<br>Eng. Zahra Rajeh, M.Sc.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>المقدمة</strong><br>الاختراق الأخلاقي<br>م. زهراء راجح، ماجستير</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" id="s2">
+      <div class="slide-head"><span class="sn">2</span><span class="t-en">Opening Quote</span><span class="t-ar">الاقتباس الافتتاحي</span></div>
+      <div class="slide-body">
+        <div class="quote">
+          <div class="en">“You can't possibly prevent what you don't understand. But understanding without ethics is like having the keys to every door. Promise yourself you'll only open the right ones.”</div>
+          <div class="ar">«لا يمكنك أبداً أن تمنع ما لا تفهمه. لكن الفهم بلا أخلاق يشبه امتلاك مفاتيح كل الأبواب. عِدْ نفسك بأنك لن تفتح إلا الأبواب الصحيحة.»</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" id="s3">
+      <div class="slide-head"><span class="sn">3</span><span class="t-en">DISCUSSION</span><span class="t-ar">نقاش</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <ul>
+              <li>What came to mind when you heard the term ‘hacker’?</li>
+              <li>Is it possible for an action to be legal but unethical, or illegal but ethical?</li>
+              <li>By the end of this course, you’ll have skills that could be used for defense or offense. What personal rule will you set for yourself to ensure you never misuse these techniques?</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <ul>
+              <li>ما الذي خطر ببالك عندما سمعت مصطلح «هاكر»؟</li>
+              <li>هل يمكن أن يكون الفعل قانونياً لكنه غير أخلاقي، أو غير قانوني لكنه أخلاقي؟</li>
+              <li>بنهاية هذا المقرر ستمتلك مهارات يمكن استخدامها للدفاع أو للهجوم. ما القاعدة الشخصية التي ستضعها لنفسك لتضمن ألا تسيء استخدام هذه التقنيات أبداً؟</li>
+            </ul></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch1_p3_0.jpeg" alt="Ethical hacking illustration">
+          <div class="cap"><span class="en-cap">Slide 3 illustration — ethical hacking</span><span class="ar-cap">صورة الشريحة ٣ — الاختراق الأخلاقي</span></div></div></div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide" id="s4">
+      <div class="slide-head"><span class="sn">4</span><span class="t-en">OUTLINE</span><span class="t-ar">المحتويات</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <ul><li>Introduction</li><li>Security basics</li><li>Access control systems</li><li>Security policies</li><li>Introduction to ethical hacking</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <ul><li>المقدمة</li><li>أساسيات الأمن</li><li>أنظمة التحكم في الوصول</li><li>السياسات الأمنية</li><li>مقدمة في الاختراق الأخلاقي</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" id="s5">
+      <div class="slide-head"><span class="sn">5</span><span class="t-en">INTRODUCTION</span><span class="t-ar">المقدمة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Ethical hacking is the <strong>authorized</strong> practice of testing systems, networks, and applications to identify and fix security weaknesses <strong>before malicious attackers exploit them</strong>. Ethical hackers use real hacking techniques <strong>with permission</strong> to strengthen cybersecurity and protect digital assets.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>الاختراق الأخلاقي هو الممارسة <strong>المصرَّح بها</strong> لاختبار الأنظمة والشبكات والتطبيقات بهدف اكتشاف نقاط الضعف الأمنية وإصلاحها <strong>قبل أن يستغلها المهاجمون الخبيثون</strong>. يستخدم المخترقون الأخلاقيون تقنيات اختراق حقيقية <strong>بإذن مسبق</strong> لتقوية الأمن السيبراني وحماية الأصول الرقمية.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" id="s6">
+      <div class="slide-head"><span class="sn">6</span><span class="t-en">INTRODUCTION — Cost of Cybercrime</span><span class="t-ar">تكلفة الجرائم السيبرانية</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>According to estimates, cybercrime is costing almost <strong>10.29 trillion U.S. dollars</strong> worldwide <strong>in 2025</strong>, and it is projected to increase to approximately <strong>16 trillion U.S. dollars by 2029</strong>. Cybercrime takes many forms – <strong>phishing, ransomware, credential theft, fraud</strong>, among others.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>وفقاً للتقديرات، تُكلّف الجرائم السيبرانية العالم ما يقارب <strong>١٠٫٢٩ تريليون دولار أمريكي</strong> <strong>في عام ٢٠٢٥</strong>، ومن المتوقع أن ترتفع إلى نحو <strong>١٦ تريليون دولار بحلول عام ٢٠٢٩</strong>. وتتخذ الجريمة السيبرانية أشكالاً عديدة منها: <strong>التصيّد الاحتيالي، وبرامج الفدية، وسرقة بيانات الاعتماد، والاحتيال</strong>، وغيرها.</p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch1_p6_0.jpeg" alt="Global cost of cybercrime 2015-2025">
+          <div class="cap"><span class="en-cap">Slide 6 — Global Cost of Cybercrime (2015–2025), cost in USD trillions</span><span class="ar-cap">الشريحة ٦ — التكلفة العالمية للجرائم السيبرانية (٢٠١٥–٢٠٢٥) بالتريليون دولار</span></div></div></div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" id="s7">
+      <div class="slide-head"><span class="sn">7 · 8</span><span class="t-en">INTRODUCTION — The Four Aspects</span><span class="t-ar">الجوانب الأربعة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>The aspects ensure that ethical hacking remains <strong>structured, legal, and focused on improving cybersecurity</strong>.</p>
+            <ul>
+              <li><strong>Permission-Based:</strong> This permission becomes necessary to differentiate their job from criminal hacking jobs.</li>
+              <li><strong>Methodology:</strong> Ethical hackers perform these steps using a variety of tools and techniques, similar to criminal hackers.</li>
+              <li><strong>Objective:</strong> The main goal is to find the holes before hostile attackers can penetrate them.</li>
+              <li><strong>Reporting:</strong> Ethical hackers report back to the organization with the results of the tests.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>تضمن هذه الجوانب أن يبقى الاختراق الأخلاقي <strong>منظماً وقانونياً ومركّزاً على تحسين الأمن السيبراني</strong>.</p>
+            <ul>
+              <li><strong>قائم على الإذن:</strong> يصبح هذا الإذن ضرورياً للتفريق بين عملهم وبين أعمال الاختراق الإجرامية.</li>
+              <li><strong>المنهجية:</strong> ينفّذ المخترقون الأخلاقيون هذه الخطوات باستخدام مجموعة متنوعة من الأدوات والتقنيات، مماثلة لتلك التي يستخدمها المخترقون المجرمون.</li>
+              <li><strong>الهدف:</strong> الهدف الأساسي هو إيجاد الثغرات قبل أن يتمكن المهاجمون المعادون من اختراقها.</li>
+              <li><strong>إعداد التقارير:</strong> يقدّم المخترقون الأخلاقيون تقريراً للمؤسسة بنتائج الاختبارات.</li>
+            </ul></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch1_p8_0.jpeg" alt="Four aspects of ethical hacking">
+          <div class="cap"><span class="en-cap">Slide 8 — 1. Permission · 2. Methodology · 3. Objective · 4. Reporting</span><span class="ar-cap">الشريحة ٨ — ١. الإذن · ٢. المنهجية · ٣. الهدف · ٤. التقرير</span></div></div></div>
+      </div>
+    </section>
+
+    <!-- 9-10 -->
+    <section class="slide" id="s9">
+      <div class="slide-head"><span class="sn">9 · 10</span><span class="t-en">SECURITY BASICS</span><span class="t-ar">أساسيات الأمن</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>SECURITY BASICS</strong> (section title, slide 9)</p>
+            <p>Security basics revolve around <strong>preventing unauthorized access, protecting data, and maintaining system availability</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>أساسيات الأمن</strong> (عنوان القسم، الشريحة ٩)</p>
+            <p>تدور أساسيات الأمن حول <strong>منع الوصول غير المصرّح به، وحماية البيانات، والحفاظ على توافر النظام</strong>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" id="s11">
+      <div class="slide-head"><span class="sn">11</span><span class="t-en">The Security Triangle</span><span class="t-ar">مثلث الأمن</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>The Security Triangle (often called the <strong>"Iron Triangle of Cybersecurity"</strong>) consists of:</p>
+            <ul>
+              <li><strong>Security:</strong> The safeguards, restrictions, and controls put in place to protect data and prevent unauthorized access.</li>
+              <li><strong>Functionality:</strong> The features, capabilities, and options a system offers to meet user needs.</li>
+              <li><strong>Usability:</strong> The ease with which users can navigate, learn, and utilize the system.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>يتكوّن مثلث الأمن (ويُسمّى غالباً <strong>«المثلث الحديدي للأمن السيبراني»</strong>) من:</p>
+            <ul>
+              <li><strong>الأمن (Security):</strong> الضمانات والقيود والضوابط الموضوعة لحماية البيانات ومنع الوصول غير المصرّح به.</li>
+              <li><strong>الوظيفية (Functionality):</strong> الميزات والقدرات والخيارات التي يوفرها النظام لتلبية احتياجات المستخدم.</li>
+              <li><strong>سهولة الاستخدام (Usability):</strong> مدى سهولة تنقّل المستخدمين وتعلّمهم واستخدامهم للنظام.</li>
+            </ul></div>
+        </div>
+        <div class="note">
+          <div class="en"><b>Exam tip:</b> the three corners are <b>Security · Functionality · Usability</b> — increasing one usually decreases the others.</div>
+          <div class="ar"><b>ملاحظة للاختبار:</b> أضلاع المثلث الثلاثة هي <b>الأمن · الوظيفية · سهولة الاستخدام</b> — وزيادة أحدها عادةً تُنقص الآخرين.</div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch1_p11_0.jpeg" alt="Security functionality usability triangle">
+          <div class="cap"><span class="en-cap">Slide 11 — Security / Functionality / Usability triangle</span><span class="ar-cap">الشريحة ١١ — مثلث الأمن / الوظيفية / سهولة الاستخدام</span></div></div></div>
+      </div>
+    </section>
+
+    <!-- 12-13 -->
+    <section class="slide" id="s12">
+      <div class="slide-head"><span class="sn">12 · 13</span><span class="t-en">SECURITY BASICS — Risk Management</span><span class="t-ar">إدارة المخاطر</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>Risk management</strong></p>
+            <p>Identifying organizational <strong>assets</strong>, along with the <strong>threats</strong> and <strong>vulnerabilities</strong> that affect them, enables an organization to determine appropriate <strong>security countermeasures</strong>. Implementing these security controls helps reduce risks and significantly improves the overall security posture of the organization's systems.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>إدارة المخاطر</strong></p>
+            <p>إن تحديد <strong>أصول</strong> المؤسسة، مع <strong>التهديدات</strong> و<strong>الثغرات</strong> التي تؤثر عليها، يمكّن المؤسسة من تحديد <strong>الإجراءات المضادة</strong> الأمنية المناسبة. وتطبيق هذه الضوابط الأمنية يساعد على تقليل المخاطر ويحسّن بشكل كبير الوضع الأمني العام لأنظمة المؤسسة.</p></div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch1_p12_0.png" alt="Probability vs impact risk matrix">
+            <div class="cap"><span class="en-cap">Slide 12 — Risk matrix: Probability (vertical) × Impact (horizontal) → Low / Medium / High</span><span class="ar-cap">الشريحة ١٢ — مصفوفة المخاطر: الاحتمالية (رأسي) × الأثر (أفقي) ← منخفض / متوسط / مرتفع</span></div></div>
+          <div class="fig"><img src="img/ch1_p13_0.jpeg" alt="Detailed risk matrix">
+            <div class="cap"><span class="en-cap">Slide 13 — A risk matrix is used to scale risk by considering the <b>probability</b>, <b>likelihood</b>, and <b>consequence/impact</b> of the risk</span><span class="ar-cap">الشريحة ١٣ — تُستخدم مصفوفة المخاطر لتقدير حجم الخطر بمراعاة <b>الاحتمالية</b> و<b>الترجيح</b> و<b>العواقب/الأثر</b></span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" id="s14">
+      <div class="slide-head"><span class="sn">14</span><span class="t-en">SECURITY BASICS — Types of Controls</span><span class="t-ar">أنواع الضوابط الأمنية</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Controls to be put into place to prevent errors or incidents from occurring in the first place; some were to identify an incident had occurred or was in progress, and some were designed for after the event to limit the extent of damage and aid swift recovery, defined as:</p>
+            <ul><li><strong>preventative</strong></li><li><strong>detective</strong></li><li><strong>corrective</strong></li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>ضوابط تُوضع لمنع وقوع الأخطاء أو الحوادث من الأساس؛ وبعضها لاكتشاف أن حادثاً قد وقع أو أنه جارٍ الآن، وبعضها مُصمَّم لما بعد الحدث للحد من حجم الضرر والمساعدة على التعافي السريع، وتُعرَّف كالتالي:</p>
+            <ul><li><strong>وقائية (preventative)</strong> — تمنع وقوع الحادث.</li><li><strong>كاشفة (detective)</strong> — تكتشف الحادث.</li><li><strong>تصحيحية (corrective)</strong> — تعالج بعد الحادث.</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15-16 -->
+    <section class="slide" id="s15">
+      <div class="slide-head"><span class="sn">15 · 16</span><span class="t-en">The CIA Triad</span><span class="t-ar">ثالوث CIA</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Another bedrock in any security basics discussion is the <strong>triangle of IT security: confidentiality, integrity, and availability (CIA)</strong>.</p>
+            <p><strong>The Core Principles</strong> — Information security stands on three primary pillars:</p>
+            <ul>
+              <li><strong>Confidentiality:</strong> Ensuring data is only accessible to authorized individuals.</li>
+              <li><strong>Integrity:</strong> Protecting data from unauthorized alterations or corruption.</li>
+              <li><strong>Availability:</strong> Ensuring authorized users can access systems and data whenever needed.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>حجر أساس آخر في أي نقاش عن أساسيات الأمن هو <strong>مثلث أمن تقنية المعلومات: السرية والسلامة والتوافر (CIA)</strong>.</p>
+            <p><strong>المبادئ الأساسية</strong> — يقوم أمن المعلومات على ثلاث ركائز رئيسية:</p>
+            <ul>
+              <li><strong>السرية (Confidentiality):</strong> ضمان ألا يصل إلى البيانات إلا الأشخاص المصرّح لهم.</li>
+              <li><strong>السلامة/التكاملية (Integrity):</strong> حماية البيانات من التعديل أو التلف غير المصرّح به.</li>
+              <li><strong>التوافر (Availability):</strong> ضمان تمكّن المستخدمين المصرّح لهم من الوصول إلى الأنظمة والبيانات وقت الحاجة.</li>
+            </ul></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch1_p16_0.png" alt="CIA triad pyramid">
+          <div class="cap"><span class="en-cap">Slide 16 — Three main principles of information security: C (Confidentiality) / I (Integrity) / A (Availability)</span><span class="ar-cap">الشريحة ١٦ — المبادئ الثلاثة الرئيسية لأمن المعلومات: السرية / السلامة / التوافر</span></div></div></div>
+      </div>
+    </section>
+
+    <!-- 17-18 -->
+    <section class="slide" id="s18">
+      <div class="slide-head"><span class="sn">17 · 18</span><span class="t-en">ACCESS CONTROL SYSTEMS</span><span class="t-ar">أنظمة التحكم في الوصول</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>ACCESS CONTROLS AND SECURITY POLICIES</strong> (section title, slide 17)</p>
+            <p>Access control basically means <strong>restricting access to a resource in some selective manner</strong>.</p>
+            <ul>
+              <li><strong>Mandatory access control (MAC)</strong> is a method of access control where security policy is controlled by a <strong>security administrator</strong>: users <strong>can’t</strong> set access controls themselves.</li>
+              <li><strong>Discretionary access control (DAC)</strong> puts a lot of this power in the hands of the <strong>users</strong> themselves. DAC allows users to set access controls on the resources they own or control.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>ضوابط الوصول والسياسات الأمنية</strong> (عنوان القسم، الشريحة ١٧)</p>
+            <p>يعني التحكم في الوصول أساساً <strong>تقييد الوصول إلى مورد ما بطريقة انتقائية</strong>.</p>
+            <ul>
+              <li><strong>التحكم الإلزامي في الوصول (MAC)</strong> هو أسلوب تحكم تكون فيه السياسة الأمنية تحت سيطرة <strong>مسؤول الأمن</strong>: المستخدمون <strong>لا يستطيعون</strong> ضبط صلاحيات الوصول بأنفسهم.</li>
+              <li><strong>التحكم التقديري في الوصول (DAC)</strong> يضع جزءاً كبيراً من هذه الصلاحية بين أيدي <strong>المستخدمين</strong> أنفسهم، إذ يسمح لهم بضبط صلاحيات الوصول على الموارد التي يملكونها أو يتحكمون بها.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 19-20 -->
+    <section class="slide" id="s19">
+      <div class="slide-head"><span class="sn">19 · 20</span><span class="t-en">SECURITY POLICIES</span><span class="t-ar">السياسات الأمنية</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>A security policy can be defined as <strong>a document describing the security controls implemented in a business to accomplish a goal</strong>.</p>
+            <p>There are worlds of different security policy types, with some of the more common ones identified here:</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>يمكن تعريف السياسة الأمنية بأنها <strong>وثيقة تصف الضوابط الأمنية المطبَّقة في المنشأة لتحقيق هدف معيّن</strong>.</p>
+            <p>هناك عوالم من أنواع السياسات الأمنية المختلفة، وفيما يلي بعض أكثرها شيوعاً:</p></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Security policy types — English</div>
+          <table class="tbl-en">
+            <thead><tr><th style="width:32%">Policy</th><th>What it covers</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Access Control Policy</strong></td><td>Identifies the resources that need protection and the rules in place to control access to those resources.</td></tr>
+              <tr><td><strong>Information Security Policy</strong></td><td>Identifies to employees what company systems may be used for, what they cannot be used for, and what the consequences are for breaking the rules.</td></tr>
+              <tr><td><strong>Information Protection Policy</strong></td><td>Defines information sensitivity levels and who has access to those levels. Also addresses how data is stored, transmitted, and destroyed.</td></tr>
+              <tr><td><strong>Password Policy</strong></td><td>Defines everything imaginable about passwords within the organization, including length, complexity, maximum and minimum age, and reuse.</td></tr>
+              <tr><td><strong>E-mail Policy</strong></td><td>Sometimes also called the E-mail Security Policy; addresses the proper use of the company e-mail system.</td></tr>
+              <tr><td><strong>Information Audit Policy</strong></td><td>Defines the framework for auditing security within the organization. When, where, how, how often, and sometimes even who conducts information security audits are described here.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tbl-box tbl-ar">
+          <div class="tbl-lbl" style="direction:rtl;text-align:right">أنواع السياسات الأمنية — العربية</div>
+          <table>
+            <thead><tr><th style="width:32%">السياسة</th><th>ما الذي تغطيه</th></tr></thead>
+            <tbody>
+              <tr><td><strong>سياسة التحكم في الوصول</strong></td><td>تحدّد الموارد التي تحتاج إلى حماية والقواعد المعمول بها للتحكم في الوصول إلى تلك الموارد.</td></tr>
+              <tr><td><strong>سياسة أمن المعلومات</strong></td><td>تبيّن للموظفين فيمَ يجوز استخدام أنظمة الشركة، وفيمَ لا يجوز، وما عواقب مخالفة القواعد.</td></tr>
+              <tr><td><strong>سياسة حماية المعلومات</strong></td><td>تحدّد مستويات حساسية المعلومات ومن يملك صلاحية الوصول إلى كل مستوى، كما تعالج كيفية تخزين البيانات ونقلها وإتلافها.</td></tr>
+              <tr><td><strong>سياسة كلمات المرور</strong></td><td>تحدّد كل ما يمكن تصوّره بخصوص كلمات المرور داخل المؤسسة، بما في ذلك الطول والتعقيد والحد الأقصى والأدنى للعمر وإعادة الاستخدام.</td></tr>
+              <tr><td><strong>سياسة البريد الإلكتروني</strong></td><td>تُسمّى أحياناً سياسة أمن البريد الإلكتروني، وتعالج الاستخدام السليم لنظام البريد الإلكتروني في الشركة.</td></tr>
+              <tr><td><strong>سياسة تدقيق المعلومات</strong></td><td>تحدّد إطار تدقيق الأمن داخل المؤسسة: متى وأين وكيف وكم مرة، وأحياناً حتى مَن يقوم بتدقيق أمن المعلومات.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 21-22 -->
+    <section class="slide" id="s22">
+      <div class="slide-head"><span class="sn">21 · 22</span><span class="t-en">ETHICAL HACKING DEFINITION</span><span class="t-ar">تعريف الاختراق الأخلاقي</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>INTRODUCTION TO ETHICAL HACKING</strong> (section title, slide 21)</p>
+            <p>Ethical hacking, also known as <strong>"white-hat hacking"</strong> or <strong>penetration testing</strong>, is the use of hacking techniques by <strong>friendly parties</strong> in an attempt to <strong>uncover, understand, and fix</strong> security vulnerabilities in a network or computer system.</p>
+            <p>Ethical hackers have the <strong>same skills</strong> and use the <strong>same tools and tactics</strong> as malicious hackers, but their goal is always to <strong>improve network security without harming</strong> the network or its users.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>مقدمة في الاختراق الأخلاقي</strong> (عنوان القسم، الشريحة ٢١)</p>
+            <p>الاختراق الأخلاقي، ويُعرف أيضاً باسم <strong>«اختراق القبعة البيضاء»</strong> أو <strong>اختبار الاختراق</strong>، هو استخدام تقنيات الاختراق من قبل <strong>أطراف صديقة</strong> في محاولة <strong>لكشف وفهم وإصلاح</strong> الثغرات الأمنية في شبكة أو نظام حاسوبي.</p>
+            <p>يمتلك المخترقون الأخلاقيون <strong>المهارات نفسها</strong> ويستخدمون <strong>الأدوات والأساليب نفسها</strong> التي يستخدمها المخترقون الخبيثون، لكن هدفهم دائماً هو <strong>تحسين أمن الشبكة دون الإضرار</strong> بها أو بمستخدميها.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 23 -->
+    <section class="slide" id="s23">
+      <div class="slide-head"><span class="sn">23</span><span class="t-en">HACKER CLASSIFICATIONS: THE HATS</span><span class="t-ar">تصنيفات الهاكرز: القبعات</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>White hats</strong> — Considered the good guys, these are the <strong>ethical hackers</strong>, hired by a customer for the specific goal of testing and improving security or for other defensive purposes.</p>
+            <p><strong>Black hats</strong> — Considered the bad guys, these are the <strong>crackers</strong>, illegally using their skills for either personal gain or malicious intent. They seek to steal (copy) or destroy data and to deny access to resources and systems.</p>
+            <p><strong>Gray hats</strong> — The hardest group to categorize, these hackers are <strong>neither good nor bad</strong>. Generally speaking, there are two subsets of gray hats — those who are simply <strong>curious</strong> about hacking tools and techniques and those who feel like it’s their <strong>duty, with or without customer permission</strong>, to demonstrate security flaws in systems.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>القبعات البيضاء (White hats)</strong> — يُعدّون الأخيار، وهم <strong>المخترقون الأخلاقيون</strong> الذين يوظّفهم العميل لهدف محدد هو اختبار الأمن وتحسينه أو لأغراض دفاعية أخرى.</p>
+            <p><strong>القبعات السوداء (Black hats)</strong> — يُعدّون الأشرار، وهم <strong>المخرّبون (crackers)</strong> الذين يستخدمون مهاراتهم بشكل غير قانوني إما لمكسب شخصي أو بنية خبيثة. يسعون إلى سرقة (نسخ) البيانات أو تدميرها ومنع الوصول إلى الموارد والأنظمة.</p>
+            <p><strong>القبعات الرمادية (Gray hats)</strong> — أصعب مجموعة في التصنيف، فهؤلاء <strong>ليسوا أخياراً ولا أشراراً</strong>. وبشكل عام هناك فئتان فرعيتان منهم: من هم <strong>فضوليون</strong> فقط تجاه أدوات وتقنيات الاختراق، ومن يشعرون أن من <strong>واجبهم — بإذن العميل أو بدونه</strong> — إظهار العيوب الأمنية في الأنظمة.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 24 -->
+    <section class="slide" id="s24">
+      <div class="slide-head"><span class="sn">24</span><span class="t-en">ATTACK TYPES</span><span class="t-ar">أنواع الهجمات</span></div>
+      <div class="slide-body">
+        <div class="tbl-box">
+          <div class="tbl-lbl">Attack types — English</div>
+          <table><thead><tr><th style="width:30%">Attack type</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Operating system (OS) attacks</strong></td><td>These attacks target the common mistake many people make when installing operating systems — <strong>accepting and leaving all the defaults</strong>.</td></tr>
+            <tr><td><strong>Application-level attacks</strong></td><td>These are attacks on the actual <strong>programming code and software logic</strong> of an application.</td></tr>
+            <tr><td><strong>Shrink-wrap code attacks</strong></td><td>These attacks take advantage of the <strong>built-in code and scripts</strong> most off-the-shelf applications come with.</td></tr>
+            <tr><td><strong>Misconfiguration attacks</strong></td><td>These attacks take advantage of systems that are, on purpose or by accident, <strong>not configured appropriately for security</strong>.</td></tr>
+          </tbody></table>
+        </div>
+        <div class="tbl-box tbl-ar">
+          <div class="tbl-lbl" style="direction:rtl;text-align:right">أنواع الهجمات — العربية</div>
+          <table><thead><tr><th style="width:30%">نوع الهجوم</th><th>الوصف</th></tr></thead>
+          <tbody>
+            <tr><td><strong>هجمات نظام التشغيل</strong></td><td>تستهدف هذه الهجمات الخطأ الشائع الذي يقع فيه كثيرون عند تثبيت أنظمة التشغيل، وهو <strong>قبول جميع الإعدادات الافتراضية وتركها كما هي</strong>.</td></tr>
+            <tr><td><strong>هجمات مستوى التطبيق</strong></td><td>هي هجمات على <strong>الشيفرة البرمجية ومنطق البرنامج</strong> الفعلي للتطبيق.</td></tr>
+            <tr><td><strong>هجمات الشيفرة الجاهزة (Shrink-wrap)</strong></td><td>تستغل هذه الهجمات <strong>الشيفرات والسكربتات المدمجة</strong> التي تأتي مع معظم التطبيقات الجاهزة.</td></tr>
+            <tr><td><strong>هجمات سوء الإعداد</strong></td><td>تستغل هذه الهجمات الأنظمة التي — عمداً أو بالخطأ — <strong>لم تُضبط إعداداتها بشكل مناسب أمنياً</strong>.</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 25-28 -->
+    <section class="slide" id="s25">
+      <div class="slide-head"><span class="sn">25 – 28</span><span class="t-en">ETHICAL HACKING PHASES</span><span class="t-ar">مراحل الاختراق الأخلاقي</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Hacking phases, as identified by <strong>EC-Council</strong>, are a great way to think about an attack structure. Ethical hacking phases:</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>مراحل الاختراق، كما حدّدها <strong>مجلس EC-Council</strong>، طريقة ممتازة للتفكير في بنية الهجوم. مراحل الاختراق الأخلاقي:</p></div>
+        </div>
+
+        <div class="flow">
+          <div class="step"><div class="en"><strong>1. Reconnaissance</strong></div><div class="ar"><strong>١. الاستطلاع</strong></div></div>
+          <div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>2. Scanning and enumeration</strong></div><div class="ar"><strong>٢. الفحص والتعداد</strong></div></div>
+          <div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>3. Gaining access</strong></div><div class="ar"><strong>٣. الحصول على الوصول</strong></div></div>
+          <div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>4. Maintaining access</strong></div><div class="ar"><strong>٤. الحفاظ على الوصول</strong></div></div>
+          <div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>5. Covering tracks</strong></div><div class="ar"><strong>٥. تغطية الآثار</strong></div></div>
+        </div>
+
+        <div class="figs"><div class="fig narrow"><img src="img/ch1_p26_0.jpeg" alt="Hacking phases diagram">
+          <div class="cap"><span class="en-cap">Slide 26 — Reconnaissance → Scanning and Enumeration → Gaining Access (← Escalation of Privileges) → Maintaining Access → Covering Tracks</span><span class="ar-cap">الشريحة ٢٦ — الاستطلاع ← الفحص والتعداد ← الحصول على الوصول (مع تصعيد الصلاحيات) ← الحفاظ على الوصول ← تغطية الآثار</span></div></div></div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slides 27 & 28</span>
+            <p><strong>Reconnaissance</strong> is nothing more than the steps taken to <strong>gather evidence and information</strong> on the targets you want to attack.</p>
+            <p>In the second phase, <strong>scanning and enumeration</strong>, security professionals take the information they gathered in recon and <strong>actively apply tools and techniques</strong> to gather more in-depth information on the targets.</p>
+            <p>In the <strong>gaining access</strong> phase, <strong>true attacks are leveled</strong> against the targets enumerated in the second phase.</p>
+            <p>In the fourth phase, <strong>maintaining access</strong>, hackers attempt to ensure they have a <strong>way back</strong> into the machine or system they’ve already compromised. The attacker leaves <strong>back doors</strong> open for future use.</p>
+            <p>In the final phase, <strong>covering tracks</strong>, attackers attempt to <strong>conceal their success and avoid detection</strong> by security professionals. Steps taken here consist of <strong>removing or altering log files</strong>, or <strong>hiding files</strong> with hidden attributes or directories.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحتان ٢٧ و ٢٨</span>
+            <p><strong>الاستطلاع</strong> ليس سوى الخطوات المتخذة <strong>لجمع الأدلة والمعلومات</strong> عن الأهداف التي تريد مهاجمتها.</p>
+            <p>في المرحلة الثانية، <strong>الفحص والتعداد</strong>، يأخذ مختصو الأمن المعلومات التي جمعوها في الاستطلاع و<strong>يطبّقون بشكل نشط الأدوات والتقنيات</strong> لجمع معلومات أعمق عن الأهداف.</p>
+            <p>في مرحلة <strong>الحصول على الوصول</strong>، تُشن <strong>الهجمات الحقيقية</strong> على الأهداف التي جرى تعدادها في المرحلة الثانية.</p>
+            <p>في المرحلة الرابعة، <strong>الحفاظ على الوصول</strong>، يحاول المخترقون ضمان وجود <strong>طريق للعودة</strong> إلى الجهاز أو النظام الذي اخترقوه بالفعل، ويترك المهاجم <strong>أبواباً خلفية</strong> مفتوحة للاستخدام المستقبلي.</p>
+            <p>في المرحلة الأخيرة، <strong>تغطية الآثار</strong>، يحاول المهاجمون <strong>إخفاء نجاحهم وتجنّب اكتشافهم</strong> من قبل مختصي الأمن. وتتمثل الخطوات هنا في <strong>حذف أو تعديل ملفات السجل (logs)</strong>، أو <strong>إخفاء الملفات</strong> باستخدام خصائص أو مجلدات مخفية.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 29-30 -->
+    <section class="slide" id="s29">
+      <div class="slide-head"><span class="sn">29 · 30</span><span class="t-en">PENETRATION TESTING</span><span class="t-ar">اختبار الاختراق</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Penetration testing is a <strong>simulation of ethical hacking</strong>, also known as <strong>pen testing</strong>. In performing a pen test, an ethical hacker must attempt to <strong>mirror the criminal world as closely as possible</strong>.</p>
+            <p>In other words, if the steps taken by the ethical hacker during the pen test don’t adequately mirror what a “real” hacker would do, then the test is <strong>doomed to failure</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>اختبار الاختراق هو <strong>محاكاة للاختراق الأخلاقي</strong>، ويُعرف اختصاراً بـ <strong>pen testing</strong>. وعند تنفيذه يجب على المخترق الأخلاقي أن يحاول <strong>محاكاة عالم المجرمين بأكبر قدر ممكن من الدقة</strong>.</p>
+            <p>بعبارة أخرى، إذا لم تحاكِ الخطوات التي يتخذها المخترق الأخلاقي أثناء الاختبار ما سيفعله المخترق «الحقيقي» بشكل كافٍ، فإن الاختبار <strong>محكوم عليه بالفشل</strong>.</p></div>
+        </div>
+
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Black-box testing</span><span class="ar">الصندوق الأسود</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li>The ethical hacker has <strong>absolutely no knowledge</strong> of the TOE (Target of Evaluation).</li>
+                <li>Designed to simulate an <strong>outside, unknown attacker</strong>.</li>
+                <li>Takes the <strong>most amount of time</strong> to complete.</li>
+                <li>Usually by far the <strong>most expensive</strong> option.</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li>لا يملك المخترق الأخلاقي <strong>أي معرفة إطلاقاً</strong> بالهدف قيد التقييم (TOE).</li>
+                <li>مصمَّم لمحاكاة <strong>مهاجم خارجي مجهول</strong>.</li>
+                <li>يستغرق <strong>أطول وقت</strong> للإنجاز.</li>
+                <li>عادةً هو <strong>الخيار الأغلى</strong> بفارق كبير.</li>
+              </ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">White-box testing</span><span class="ar">الصندوق الأبيض</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li>The <strong>exact opposite</strong> of black-box testing.</li>
+                <li>Pen testers have <strong>full knowledge</strong> of the network, system, and infrastructure they’re targeting.</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li><strong>النقيض التام</strong> لاختبار الصندوق الأسود.</li>
+                <li>يملك المختبِرون <strong>معرفة كاملة</strong> بالشبكة والنظام والبنية التحتية المستهدفة.</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare" style="grid-template-columns:1fr">
+          <div class="col">
+            <h4><span class="en">Gray-box testing</span><span class="ar">الصندوق الرمادي</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li>Also known as <strong>partial knowledge testing</strong>.</li>
+                <li>Assumes only that the attacker is an <strong>insider</strong>.</li>
+                <li>This type of testing is valuable and can demonstrate <strong>privilege escalation from a trusted employee</strong>.</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li>يُعرف أيضاً باسم <strong>اختبار المعرفة الجزئية</strong>.</li>
+                <li>يفترض فقط أن المهاجم شخص <strong>من داخل المؤسسة</strong>.</li>
+                <li>هذا النوع مفيد ويمكنه إظهار <strong>تصعيد الصلاحيات من موظف موثوق</strong>.</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 31 -->
+    <section class="slide" id="s31">
+      <div class="slide-head"><span class="sn">31</span><span class="t-en">LAWS AND STANDARDS</span><span class="t-ar">القوانين والمعايير</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>There are tons of laws you need to be aware of for your job, such as:</p>
+            <ul>
+              <li>FISMA</li>
+              <li>Electronics Communications Privacy Act</li>
+              <li>PATRIOT Act</li>
+              <li>Privacy Act of 1974</li>
+              <li>Cyber Intelligence Sharing and Protection Act (CISPA)</li>
+              <li>Consumer Data Security and Notification Act</li>
+              <li>Computer Security Act of 1987</li>
+              <li>…the list really is almost endless.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>هناك عدد هائل من القوانين التي يجب أن تكون على دراية بها في عملك، مثل:</p>
+            <ul>
+              <li>قانون FISMA (إدارة أمن المعلومات الفيدرالي)</li>
+              <li>قانون خصوصية الاتصالات الإلكترونية</li>
+              <li>قانون باتريوت (PATRIOT Act)</li>
+              <li>قانون الخصوصية لعام ١٩٧٤</li>
+              <li>قانون مشاركة وحماية المعلومات الاستخباراتية السيبرانية (CISPA)</li>
+              <li>قانون أمن بيانات المستهلك والإخطار</li>
+              <li>قانون أمن الحاسوب لعام ١٩٨٧</li>
+              <li>…والقائمة تكاد لا تنتهي فعلاً.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 32-33 -->
+    <section class="slide" id="s32">
+      <div class="slide-head"><span class="sn">32 · 33</span><span class="t-en">SUMMARY &amp; ASSESSMENT POLICY</span><span class="t-ar">الملخص وسياسة التقييم</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>SUMMARY</strong> — Topics covered in this lecture:</p>
+            <ul><li>Introduction</li><li>Security basics</li><li>Introduction to ethical hacking</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>الملخص</strong> — المواضيع التي تمّت تغطيتها في هذه المحاضرة:</p>
+            <ul><li>المقدمة</li><li>أساسيات الأمن</li><li>مقدمة في الاختراق الأخلاقي</li></ul></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 33 — Assessment Policy · سياسة التقييم</div>
+          <table>
+            <thead><tr><th>Method</th><th>الطريقة</th><th style="width:16%">Marks · الدرجات</th></tr></thead>
+            <tbody>
+              <tr><td>Assignments</td><td class="tbl-ar" style="text-align:right">الواجبات</td><td><strong>5</strong></td></tr>
+              <tr><td>Quizzes</td><td class="tbl-ar" style="text-align:right">الاختبارات القصيرة</td><td><strong>5</strong></td></tr>
+              <tr><td>Midterm exam (theory)</td><td class="tbl-ar" style="text-align:right">اختبار منتصف الفصل (نظري)</td><td><strong>10</strong></td></tr>
+              <tr><td>Lab part</td><td class="tbl-ar" style="text-align:right">الجزء العملي (المعمل)</td><td><strong>30</strong></td></tr>
+              <tr><td>Final exam (theory)</td><td class="tbl-ar" style="text-align:right">الاختبار النهائي (نظري)</td><td><strong>50</strong></td></tr>
+              <tr><td><strong>Total</strong></td><td class="tbl-ar" style="text-align:right"><strong>المجموع</strong></td><td><strong>100</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 34-36 -->
+    <section class="slide" id="s34">
+      <div class="slide-head"><span class="sn">34 – 36</span><span class="t-en">REGISTRATION</span><span class="t-ar">التسجيل</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>REGISTRATION</strong> (slide 34)</p>
+            <p><strong>REGISTER IN THE ETHICAL HACKING CLASSROOM</strong> (slide 35)<br>
+            <a href="https://forms.gle/jFC4DHj75KzDUJ7U6" target="_blank" rel="noopener">https://forms.gle/jFC4DHj75KzDUJ7U6</a></p>
+            <p>Slide 36 — Q&amp;A.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>التسجيل</strong> (الشريحة ٣٤)</p>
+            <p><strong>سجّل في صف الاختراق الأخلاقي</strong> (الشريحة ٣٥)<br>
+            <a href="https://forms.gle/jFC4DHj75KzDUJ7U6" target="_blank" rel="noopener">https://forms.gle/jFC4DHj75KzDUJ7U6</a></p>
+            <p>الشريحة ٣٦ — أسئلة وأجوبة.</p></div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch1_p35_0.png" alt="Registration QR code">
+            <div class="cap"><span class="en-cap">Slide 35 — QR code for the registration form</span><span class="ar-cap">الشريحة ٣٥ — رمز QR لنموذج التسجيل</span></div></div>
+          <div class="fig"><img src="img/ch1_p35_1.png" alt="Google form Ethical hacking E-2026">
+            <div class="cap"><span class="en-cap">Slide 35 — Google Form “Ethical hacking - E -2026” (name, academic number, e-mail)</span><span class="ar-cap">الشريحة ٣٥ — نموذج جوجل «Ethical hacking - E -2026» (الاسم، الرقم الأكاديمي، البريد)</span></div></div>
+          <div class="fig"><img src="img/ch1_p36_0.jpeg" alt="Q and A">
+            <div class="cap"><span class="en-cap">Slide 36 — Q &amp; A</span><span class="ar-cap">الشريحة ٣٦ — أسئلة وأجوبة</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="pager no-print">
+      <a class="btn" href="index.html">← Home · الرئيسية</a>
+      <a class="btn primary" href="ch2.html">Chapter 2: Reconnaissance → الفصل الثاني</a>
+    </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>Chapter 1 · Introduction — Ethical Hacking · Eng. Zahra Rajeh, M.Sc.
+  <div class="ar">الفصل الأول · المقدمة — الاختراق الأخلاقي · م. زهراء راجح</div></footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

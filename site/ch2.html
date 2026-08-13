@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 2 — Reconnaissance | الاستطلاع وجمع المعلومات</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><span class="logo">⚡</span><span>Ethical Hacking<small>الاختراق الأخلاقي — Study Pack</small></span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a><a href="ch1.html">Ch 1</a><a href="ch2.html">Ch 2</a>
+      <a href="ch3.html">Ch 3</a><a href="ch4.html">Ch 4</a><a href="quiz.html">Exam Questions</a><a href="cheatsheet.html">Cheat Sheet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Chapter 2 · الفصل الثاني</span>
+    <h1>Reconnaissance: Information Gathering for the Ethical Hacker</h1>
+    <p class="h1-ar">الاستطلاع: جمع المعلومات للمخترق الأخلاقي</p>
+    <p class="lede">Eng. Zahra Rajeh, M.Sc. · 57 slides, fully translated, nothing omitted.</p>
+    <p class="lede lede-ar">م. زهراء راجح · ٥٧ شريحة مترجمة بالكامل دون حذف أي شيء.</p>
+  </div>
+
+  <div class="toolbar">
+    <strong style="font-size:14px">Language:</strong>
+    <button class="btn" data-lang-btn="both">Both · الاثنان</button>
+    <button class="btn" data-lang-btn="en">English only</button>
+    <button class="btn" data-lang-btn="ar">العربية فقط</button>
+    <span class="sp"></span>
+    <button class="btn primary" data-print>Print / PDF · طباعة</button>
+  </div>
+
+  <div class="layout">
+    <aside class="sidenav no-print">
+      <h4>Slides · الشرائح</h4>
+      <a href="#s1"><span class="n">1-2</span>Title &amp; outline · المحتويات</a>
+      <a href="#s3"><span class="n">3-4</span>Introduction · مقدمة</a>
+      <a href="#s5"><span class="n">5-7</span>Footprinting · البصمة</a>
+      <a href="#s8"><span class="n">8</span>Passive · السلبي</a>
+      <a href="#s9"><span class="n">9</span>Active · النشط</a>
+      <a href="#s10"><span class="n">10-11</span>Methods &amp; tools · الأساليب</a>
+      <a href="#s12"><span class="n">12-14</span>Search engines · محركات البحث</a>
+      <a href="#s15"><span class="n">15-16</span>Job boards · مواقع التوظيف</a>
+      <a href="#s17"><span class="n">17</span>SOCMINT · التواصل الاجتماعي</a>
+      <a href="#s18"><span class="n">18-20</span>GHDB · قاعدة جوجل</a>
+      <a href="#s21"><span class="n">21</span>Google dorking · دوركنج</a>
+      <a href="#s22"><span class="n">22-24</span>Operators tables · جداول المعاملات</a>
+      <a href="#s25"><span class="n">25-27</span>Dork examples · أمثلة</a>
+      <a href="#s28"><span class="n">28-29</span>Shodan · شودان</a>
+      <a href="#s30"><span class="n">30-32</span>OSINT · المصادر المفتوحة</a>
+      <a href="#s33"><span class="n">33-35</span>Website footprinting · بصمة الموقع</a>
+      <a href="#s36"><span class="n">36</span>Web mirroring · نسخ المواقع</a>
+      <a href="#s37"><span class="n">37-39</span>E-mail footprinting · البريد</a>
+      <a href="#s40"><span class="n">40-43</span>DNS footprinting · DNS</a>
+      <a href="#s44"><span class="n">44-45</span>WHOIS &amp; geolocation</a>
+      <a href="#s46"><span class="n">46-48</span>Network footprinting · الشبكة</a>
+      <a href="#s49"><span class="n">49-51</span>Traceroute · تتبع المسار</a>
+      <a href="#s52"><span class="n">52-55</span>Other tools · أدوات أخرى</a>
+      <a href="#s56"><span class="n">56-57</span>Closing · الخاتمة</a>
+    </aside>
+
+    <div>
+
+    <section class="slide" id="s1">
+      <div class="slide-head"><span class="sn">1 · 2</span><span class="t-en">Title &amp; OUTLINE</span><span class="t-ar">العنوان والمحتويات</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>RECONNAISSANCE: INFORMATION GATHERING FOR THE ETHICAL HACKER</strong><br>Ethical Hacking and Penetration<br>Eng. Zahra Rajeh, M.Sc.</p>
+            <p><strong>OUTLINE</strong></p>
+            <ul>
+              <li>Active and passive footprinting</li>
+              <li>Methods and procedures in information gathering</li>
+              <li>The use of social networking, search engines, and Google hacking in information gathering</li>
+              <li>The use of whois, ARIN, and nslookup in information gathering</li>
+              <li>Describing the NS record types</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>الاستطلاع: جمع المعلومات للمخترق الأخلاقي</strong><br>الاختراق الأخلاقي واختبار الاختراق<br>م. زهراء راجح، ماجستير</p>
+            <p><strong>المحتويات</strong></p>
+            <ul>
+              <li>البصمة النشطة والسلبية (Active &amp; passive footprinting)</li>
+              <li>الأساليب والإجراءات في جمع المعلومات</li>
+              <li>استخدام شبكات التواصل الاجتماعي ومحركات البحث واختراق جوجل في جمع المعلومات</li>
+              <li>استخدام whois و ARIN و nslookup في جمع المعلومات</li>
+              <li>وصف أنواع سجلات NS</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s3">
+      <div class="slide-head"><span class="sn">3 · 4</span><span class="t-en">INTRODUCTION</span><span class="t-ar">المقدمة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>The <strong>first step in ethical hacking is reconnaissance</strong>, which means gathering information about the target. This process can be divided into two types: <strong>passive and active</strong>.</p>
+            <p><strong>Passive reconnaissance</strong> is the collection of information <strong>without directly interacting</strong> with the target, so the target <strong>does not know</strong> that any data has been gathered.</p>
+            <p><strong>Active reconnaissance</strong> involves <strong>direct interaction</strong> with the target’s systems using tools or probes. While active methods often provide <strong>more detailed information</strong>, they also carry a <strong>greater chance of being detected</strong>, which puts the hacker’s activities at higher risk.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>الخطوة الأولى في الاختراق الأخلاقي هي الاستطلاع</strong>، ويعني جمع المعلومات عن الهدف. وتنقسم هذه العملية إلى نوعين: <strong>سلبي ونشط</strong>.</p>
+            <p><strong>الاستطلاع السلبي</strong> هو جمع المعلومات <strong>دون التفاعل المباشر</strong> مع الهدف، وبالتالي <strong>لا يعلم الهدف</strong> بأن أي بيانات قد جُمعت عنه.</p>
+            <p><strong>الاستطلاع النشط</strong> يتضمن <strong>تفاعلاً مباشراً</strong> مع أنظمة الهدف باستخدام أدوات أو مجسّات. ورغم أن الأساليب النشطة توفّر عادةً <strong>معلومات أكثر تفصيلاً</strong>، إلا أنها تحمل <strong>احتمالية أكبر للاكتشاف</strong>، مما يجعل أنشطة المخترق أكثر خطورة.</p></div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch2_p4_0.jpeg" alt="Hacking phases">
+          <div class="cap"><span class="en-cap">Slide 4 — the five hacking phases; Reconnaissance is the first</span><span class="ar-cap">الشريحة ٤ — مراحل الاختراق الخمس؛ الاستطلاع هو الأولى</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s5">
+      <div class="slide-head"><span class="sn">5 – 7</span><span class="t-en">FOOTPRINTING</span><span class="t-ar">البصمة (جمع المعلومات)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Footprinting is <strong>more than just the first step of an attack; it is an essential skill</strong> for any ethical hacker. During this stage, the goal is to gather <strong>any information about the target, no matter how big or small</strong>. This information <strong>does not have to be technical</strong>. Useful data can include <strong>network architecture, public-facing websites, physical security measures, and even employee routines</strong>.</p>
+            <p>Information about <strong>employees</strong> is also very valuable, as employees represent a <strong>major target later in the test</strong>. Much of this data is relatively easy to obtain if one knows where to look.</p>
+            <p>As we mentioned, information gathering, or footprinting, can be performed using two primary approaches:</p>
+            <ol><li><strong>Passive footprinting</strong></li><li><strong>Active footprinting</strong></li></ol></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>البصمة (Footprinting) <strong>أكثر من مجرد الخطوة الأولى في الهجوم؛ فهي مهارة أساسية</strong> لأي مخترق أخلاقي. والهدف في هذه المرحلة هو جمع <strong>أي معلومة عن الهدف مهما كانت كبيرة أو صغيرة</strong>. وليس شرطاً أن تكون هذه المعلومات <strong>تقنية</strong>. فمن البيانات المفيدة: <strong>بنية الشبكة، والمواقع العامة، وإجراءات الأمن المادي، وحتى روتين الموظفين اليومي</strong>.</p>
+            <p>المعلومات عن <strong>الموظفين</strong> ذات قيمة عالية أيضاً، لأنهم يمثلون <strong>هدفاً رئيسياً لاحقاً في الاختبار</strong>. وكثير من هذه البيانات يسهل نسبياً الحصول عليها إذا عرف المرء أين يبحث.</p>
+            <p>كما ذكرنا، يمكن تنفيذ جمع المعلومات (البصمة) بأسلوبين رئيسيين:</p>
+            <ol><li><strong>البصمة السلبية (Passive footprinting)</strong></li><li><strong>البصمة النشطة (Active footprinting)</strong></li></ol></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s8">
+      <div class="slide-head"><span class="sn">8</span><span class="t-en">PASSIVE FOOTPRINTING</span><span class="t-ar">البصمة السلبية</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Passive footprinting involves collecting information from <strong>publicly available sources without directly interacting</strong> with the target system, network, or organization. Common sources include <strong>websites, social media platforms, public records, search engines, and online databases</strong>. Since no direct contact is made with the target, passive footprinting generally presents a <strong>low risk of detection</strong>.</p>
+            <p><strong>Example:</strong> Examining an organization's website, reviewing employee profiles on social media, searching public DNS records, or collecting information from search engines.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>تتضمن البصمة السلبية جمع المعلومات من <strong>مصادر متاحة للعامة دون التفاعل المباشر</strong> مع نظام الهدف أو شبكته أو مؤسسته. ومن المصادر الشائعة: <strong>المواقع الإلكترونية، ومنصات التواصل الاجتماعي، والسجلات العامة، ومحركات البحث، وقواعد البيانات على الإنترنت</strong>. ولأنه لا يحدث أي اتصال مباشر بالهدف، فإن البصمة السلبية تمثل عموماً <strong>خطراً منخفضاً للاكتشاف</strong>.</p>
+            <p><strong>مثال:</strong> فحص موقع المؤسسة، ومراجعة ملفات الموظفين على وسائل التواصل، والبحث في سجلات DNS العامة، أو جمع معلومات من محركات البحث.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s9">
+      <div class="slide-head"><span class="sn">9</span><span class="t-en">ACTIVE FOOTPRINTING</span><span class="t-ar">البصمة النشطة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Active footprinting involves <strong>direct interaction with the target environment</strong> to obtain additional information. This may include activities such as <strong>network scanning, port scanning, service enumeration</strong>, and other techniques that communicate with target systems. Although active footprinting often provides <strong>more detailed and accurate</strong> information, it <strong>increases the likelihood of detection</strong> by generating observable network traffic.</p>
+            <p><strong>Example:</strong> Performing a <strong>ping sweep</strong>, conducting a <strong>port scan with tools such as Nmap</strong>, or <strong>enumerating services</strong> running on target systems.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>تتضمن البصمة النشطة <strong>التفاعل المباشر مع بيئة الهدف</strong> للحصول على معلومات إضافية. وقد تشمل أنشطة مثل <strong>فحص الشبكة، وفحص المنافذ، وتعداد الخدمات</strong>، وغيرها من التقنيات التي تتواصل مع أنظمة الهدف. ورغم أنها توفر معلومات <strong>أكثر تفصيلاً ودقة</strong>، إلا أنها <strong>تزيد احتمالية الاكتشاف</strong> لأنها تولّد حركة مرور شبكية يمكن ملاحظتها.</p>
+            <p><strong>مثال:</strong> تنفيذ <strong>مسح Ping (ping sweep)</strong>، أو إجراء <strong>فحص للمنافذ بأدوات مثل Nmap</strong>، أو <strong>تعداد الخدمات</strong> التي تعمل على أنظمة الهدف.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s10">
+      <div class="slide-head"><span class="sn">10 · 11</span><span class="t-en">FOOTPRINTING METHODS AND TOOLS</span><span class="t-ar">أساليب وأدوات البصمة</span></div>
+      <div class="slide-body">
+        <div class="chips">
+          <div class="chip"><div class="en">Search Engines</div><div class="ar">محركات البحث</div></div>
+          <div class="chip"><div class="en">Google Hacking</div><div class="ar">اختراق جوجل</div></div>
+          <div class="chip"><div class="en">Website Footprinting</div><div class="ar">بصمة المواقع</div></div>
+          <div class="chip"><div class="en">Email Footprinting</div><div class="ar">بصمة البريد الإلكتروني</div></div>
+          <div class="chip"><div class="en">DNS Footprinting</div><div class="ar">بصمة DNS</div></div>
+          <div class="chip"><div class="en">Network Footprinting</div><div class="ar">بصمة الشبكة</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s12">
+      <div class="slide-head"><span class="sn">12 – 14</span><span class="t-en">SEARCH ENGINES</span><span class="t-ar">محركات البحث</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Search engines can reveal a wide range of information, including <strong>company websites, contact details, employee profiles, publicly accessible documents, subdomains, email addresses, and technology-related information</strong>. In addition, mapping services such as <strong>Google Maps and Bing Maps</strong> can provide geographical information about an organization's facilities, including <strong>building locations, surrounding infrastructure, and satellite imagery</strong>.</p>
+            <p>Because search engines and public information sources require <strong>no direct interaction</strong> with target systems, they are often the <strong>starting point of the reconnaissance process</strong> and can provide significant intelligence before active footprinting techniques are performed.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>يمكن لمحركات البحث أن تكشف مجموعة واسعة من المعلومات، منها <strong>مواقع الشركات، وبيانات الاتصال، وملفات الموظفين، والمستندات المتاحة للعامة، والنطاقات الفرعية، وعناوين البريد الإلكتروني، والمعلومات المتعلقة بالتقنيات</strong>. إضافة إلى ذلك، يمكن لخدمات الخرائط مثل <strong>خرائط جوجل وبينج</strong> أن توفر معلومات جغرافية عن منشآت المؤسسة، تشمل <strong>مواقع المباني، والبنية التحتية المحيطة، وصور الأقمار الصناعية</strong>.</p>
+            <p>ولأن محركات البحث ومصادر المعلومات العامة <strong>لا تتطلب أي تفاعل مباشر</strong> مع أنظمة الهدف، فهي غالباً <strong>نقطة البداية في عملية الاستطلاع</strong>، ويمكنها توفير معلومات استخباراتية مهمة قبل تنفيذ تقنيات البصمة النشطة.</p></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 14 — Information sought vs. source · المعلومة المطلوبة ومصدرها</div>
+          <table>
+            <thead><tr><th>Information Sought</th><th>المعلومة المطلوبة</th><th>Source · المصدر</th></tr></thead>
+            <tbody>
+              <tr><td>Company location</td><td class="tbl-ar" style="text-align:right">موقع الشركة</td><td><strong>Google Maps</strong></td></tr>
+              <tr><td>Employee names and positions</td><td class="tbl-ar" style="text-align:right">أسماء الموظفين ومناصبهم</td><td><strong>LinkedIn</strong></td></tr>
+              <tr><td>Public documents (PDF, DOCX)</td><td class="tbl-ar" style="text-align:right">المستندات العامة (PDF, DOCX)</td><td><strong>Google Search</strong></td></tr>
+              <tr><td>Email addresses</td><td class="tbl-ar" style="text-align:right">عناوين البريد الإلكتروني</td><td><strong>Search engines, company website</strong></td></tr>
+              <tr><td>Web server information</td><td class="tbl-ar" style="text-align:right">معلومات خادم الويب</td><td><strong>Netcraft</strong></td></tr>
+              <tr><td>Domain ownership information</td><td class="tbl-ar" style="text-align:right">معلومات ملكية النطاق</td><td><strong>WHOIS databases</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s15">
+      <div class="slide-head"><span class="sn">15 · 16</span><span class="t-en">Job Boards and Recruitment Websites</span><span class="t-ar">مواقع التوظيف والإعلانات الوظيفية</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Job advertisement platforms are <strong>valuable sources of information during the footprinting phase</strong> of an ethical hacking assessment. Organizations frequently publish <strong>technical requirements</strong> when recruiting employees, and these requirements can <strong>unintentionally reveal details about the organization's technology infrastructure</strong>.</p>
+            <p>Job postings may disclose information about <strong>operating systems, database management systems, web technologies, cloud platforms, security solutions, programming languages, and network administration tools</strong> used within the organization. By analyzing these descriptions, security professionals can gain insight into the target environment and identify technologies that may be present on the network.</p>
+            <p><strong>Examples of information obtained from job postings:</strong></p>
+            <ul>
+              <li>Operating systems (Windows Server, Linux, Ubuntu)</li>
+              <li>Database systems (MySQL, PostgreSQL, Microsoft SQL Server)</li>
+              <li>Cloud platforms (AWS, Azure, Google Cloud)</li>
+              <li>Security tools (Splunk, Fortinet, Palo Alto)</li>
+              <li>Virtualization technologies (VMware, Hyper-V)</li>
+              <li>Programming languages and frameworks</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>منصات إعلانات الوظائف <strong>مصادر قيّمة للمعلومات أثناء مرحلة البصمة</strong> في تقييم الاختراق الأخلاقي. فالمؤسسات تنشر كثيراً <strong>المتطلبات التقنية</strong> عند توظيف الموظفين، وهذه المتطلبات قد <strong>تكشف دون قصد تفاصيل عن البنية التقنية للمؤسسة</strong>.</p>
+            <p>قد تفصح إعلانات الوظائف عن معلومات حول <strong>أنظمة التشغيل، وأنظمة إدارة قواعد البيانات، وتقنيات الويب، والمنصات السحابية، والحلول الأمنية، ولغات البرمجة، وأدوات إدارة الشبكات</strong> المستخدمة داخل المؤسسة. وبتحليل هذه الأوصاف يستطيع مختصو الأمن تكوين تصور عن بيئة الهدف وتحديد التقنيات التي قد تكون موجودة على الشبكة.</p>
+            <p><strong>أمثلة على المعلومات المستخلصة من إعلانات الوظائف:</strong></p>
+            <ul>
+              <li>أنظمة التشغيل (Windows Server، Linux، Ubuntu)</li>
+              <li>أنظمة قواعد البيانات (MySQL، PostgreSQL، Microsoft SQL Server)</li>
+              <li>المنصات السحابية (AWS، Azure، Google Cloud)</li>
+              <li>الأدوات الأمنية (Splunk، Fortinet، Palo Alto)</li>
+              <li>تقنيات المحاكاة الافتراضية (VMware، Hyper-V)</li>
+              <li>لغات البرمجة وأطر العمل</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s17">
+      <div class="slide-head"><span class="sn">17</span><span class="t-en">Social Media Intelligence (SOCMINT)</span><span class="t-ar">استخبارات وسائل التواصل (SOCMINT)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Social media platforms are important sources of <strong>publicly available information</strong> during reconnaissance activities. Employees often share <strong>professional achievements, job responsibilities, organizational activities, and technical expertise</strong> through social networking platforms. This information can help security professionals understand an organization's <strong>structure, technologies, and personnel</strong>.</p>
+            <p>Professional networking platforms such as <strong>LinkedIn</strong> may reveal <strong>employee roles, departmental structures, certifications, and technology stacks</strong>. Other social media platforms may provide information about <strong>company events, organizational changes, partnerships, and publicly disclosed projects</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>منصات التواصل الاجتماعي مصادر مهمة <strong>للمعلومات المتاحة للعامة</strong> أثناء أنشطة الاستطلاع. فالموظفون يشاركون غالباً <strong>إنجازاتهم المهنية، ومسؤولياتهم الوظيفية، وأنشطة المؤسسة، وخبراتهم التقنية</strong> عبر هذه المنصات. وتساعد هذه المعلومات مختصي الأمن على فهم <strong>هيكل المؤسسة وتقنياتها وكوادرها</strong>.</p>
+            <p>منصات التواصل المهني مثل <strong>لينكدإن</strong> قد تكشف <strong>أدوار الموظفين، وهياكل الأقسام، والشهادات المهنية، والحزم التقنية المستخدمة</strong>. أما المنصات الأخرى فقد توفر معلومات عن <strong>فعاليات الشركة، والتغييرات التنظيمية، والشراكات، والمشاريع المعلنة</strong>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s18">
+      <div class="slide-head"><span class="sn">18 – 20</span><span class="t-en">GOOGLE HACKING — GHDB</span><span class="t-ar">قاعدة بيانات اختراق جوجل</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>Google Hacking Database (GHDB)</strong></p>
+            <p>The Google Hacking Database (GHDB) is a <strong>publicly available collection of advanced Google search commands</strong>. These commands, often called <strong>"Google Dorks,"</strong> are designed to find specific types of information that ordinary searches typically do not reveal.</p>
+            <p><a href="https://www.exploit-db.com/google-hacking-database" target="_blank" rel="noopener">https://www.exploit-db.com/google-hacking-database</a></p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>قاعدة بيانات اختراق جوجل (GHDB)</strong></p>
+            <p>قاعدة بيانات اختراق جوجل هي <strong>مجموعة متاحة للعامة من أوامر البحث المتقدمة في جوجل</strong>. وتُسمّى هذه الأوامر غالباً <strong>«Google Dorks»</strong>، وهي مصمَّمة لإيجاد أنواع محددة من المعلومات التي لا تكشفها عمليات البحث العادية عادةً.</p>
+            <p><a href="https://www.exploit-db.com/google-hacking-database" target="_blank" rel="noopener">https://www.exploit-db.com/google-hacking-database</a></p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p20_0.png" alt="Exploit Database GHDB">
+          <div class="cap"><span class="en-cap">Slide 20 — the Exploit Database (GHDB) website</span><span class="ar-cap">الشريحة ٢٠ — موقع قاعدة بيانات الاستغلال (GHDB)</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s21">
+      <div class="slide-head"><span class="sn">21</span><span class="t-en">Google Hacking (Google Dorking)</span><span class="t-ar">اختراق جوجل (Google Dorking)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Google Hacking, also known as <strong>Google Dorking</strong>, is a <strong>footprinting technique</strong> that uses <strong>advanced search operators</strong> to locate specific information indexed by search engines. Rather than performing ordinary keyword searches, specialized search operators are used to discover <strong>sensitive information, exposed resources, misconfigured systems, or publicly accessible files</strong>.</p>
+            <p><strong>Information that may be discovered:</strong></p>
+            <ul><li>Public documents</li><li>Email addresses</li><li>Login pages</li><li>Directory listings</li><li>Exposed configuration files</li><li>Publicly accessible reports and presentations</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>اختراق جوجل، ويُعرف أيضاً بـ <strong>Google Dorking</strong>، هو <strong>تقنية من تقنيات البصمة</strong> تستخدم <strong>معاملات بحث متقدمة</strong> لتحديد معلومات معيّنة مفهرَسة لدى محركات البحث. وبدلاً من البحث العادي بالكلمات المفتاحية، تُستخدم معاملات بحث متخصصة لاكتشاف <strong>معلومات حساسة، وموارد مكشوفة، وأنظمة سيئة الإعداد، أو ملفات متاحة للعامة</strong>.</p>
+            <p><strong>المعلومات التي قد تُكتشف:</strong></p>
+            <ul><li>المستندات العامة</li><li>عناوين البريد الإلكتروني</li><li>صفحات تسجيل الدخول</li><li>قوائم المجلدات (Directory listings)</li><li>ملفات الإعدادات المكشوفة</li><li>التقارير والعروض التقديمية المتاحة للعامة</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s22">
+      <div class="slide-head"><span class="sn">22 – 24</span><span class="t-en">Google Search Operators</span><span class="t-ar">معاملات البحث في جوجل</span></div>
+      <div class="slide-body">
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 22 — Operators (1) · المعاملات (١)</div>
+          <table>
+            <thead><tr><th style="width:14%">Operator</th><th style="width:31%">Example Query</th><th>Purpose · الغرض</th></tr></thead>
+            <tbody>
+              <tr><td><code>filetype</code></td><td><code>site:company.com filetype:pdf</code></td><td>Find PDF documents on a company's website.<div class="tbl-ar" style="text-align:right">إيجاد مستندات PDF على موقع الشركة.</div></td></tr>
+              <tr><td><code>index of</code></td><td><code>intitle:"index of" backup</code></td><td>Search for exposed backup directories.<div class="tbl-ar" style="text-align:right">البحث عن مجلدات النسخ الاحتياطي المكشوفة.</div></td></tr>
+              <tr><td><code>info</code></td><td><code>info:company.com</code></td><td>View Google's information about a website.<div class="tbl-ar" style="text-align:right">عرض معلومات جوجل عن موقع معيّن.</div></td></tr>
+              <tr><td><code>intitle</code></td><td><code>intitle:"login"</code></td><td>Find login pages.<div class="tbl-ar" style="text-align:right">إيجاد صفحات تسجيل الدخول.</div></td></tr>
+              <tr><td><code>inurl</code></td><td><code>inurl:admin</code></td><td>Locate administrative interfaces.<div class="tbl-ar" style="text-align:right">تحديد واجهات الإدارة.</div></td></tr>
+              <tr><td><code>link</code></td><td><code>link:company.com</code></td><td>Identify pages linking to a website.<div class="tbl-ar" style="text-align:right">تحديد الصفحات التي ترتبط بموقع معيّن.</div></td></tr>
+              <tr><td><code>related</code></td><td><code>related:microsoft.com</code></td><td>Find websites similar to Microsoft.<div class="tbl-ar" style="text-align:right">إيجاد مواقع مشابهة لمايكروسوفت.</div></td></tr>
+              <tr><td><code>site</code></td><td><code>site:company.com</code></td><td>Display pages indexed from a specific website.<div class="tbl-ar" style="text-align:right">عرض الصفحات المفهرَسة من موقع محدد.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 23 — Operators (2) · المعاملات (٢)</div>
+          <table>
+            <thead><tr><th style="width:14%">Operator</th><th style="width:31%">Example Query</th><th>Purpose · الغرض</th></tr></thead>
+            <tbody>
+              <tr><td><code>related</code></td><td><code>related:cnn.com</code></td><td>Search for sites related to a given domain.<div class="tbl-ar" style="text-align:right">البحث عن مواقع مرتبطة بنطاق معيّن.</div></td></tr>
+              <tr><td><code>allintitle</code></td><td><code>allintitle:android google</code></td><td>Search for pages with multiple words in the title tag.<div class="tbl-ar" style="text-align:right">البحث عن صفحات تحوي عدة كلمات في وسم العنوان.</div></td></tr>
+              <tr><td><code>allinurl</code></td><td><code>allinurl:android google</code></td><td>Search for pages with multiple words in the URL.<div class="tbl-ar" style="text-align:right">البحث عن صفحات تحوي عدة كلمات في الرابط.</div></td></tr>
+              <tr><td><code>intext</code></td><td><code>intext:apple</code></td><td>Search for pages with a particular word in their content.<div class="tbl-ar" style="text-align:right">البحث عن صفحات تحوي كلمة معيّنة في محتواها.</div></td></tr>
+              <tr><td><code>allintext</code></td><td><code>allintext:apple iphone</code></td><td>Search for pages with multiple words in their content.<div class="tbl-ar" style="text-align:right">البحث عن صفحات تحوي عدة كلمات في محتواها.</div></td></tr>
+              <tr><td><code>before</code></td><td><code>apple before:2022-12-29</code></td><td>Search for results from before a particular date.<div class="tbl-ar" style="text-align:right">البحث عن نتائج قبل تاريخ معيّن.</div></td></tr>
+              <tr><td><code>after</code></td><td><code>apple after:2022-12-29</code></td><td>Search for results from after a particular date.<div class="tbl-ar" style="text-align:right">البحث عن نتائج بعد تاريخ معيّن.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 24 — Symbols &amp; logic · الرموز والمنطق</div>
+          <table>
+            <thead><tr><th style="width:16%">Operator</th><th style="width:28%">Syntax</th><th>Description · الوصف</th></tr></thead>
+            <tbody>
+              <tr><td><code>" "</code> (Quotation Marks)</td><td><code>"admin login"</code></td><td>Searches for the exact phrase as written.<div class="tbl-ar" style="text-align:right">يبحث عن العبارة الدقيقة كما كُتبت.</div></td></tr>
+              <tr><td><code>OR</code></td><td><code>admin OR login</code></td><td>Returns results containing either term.<div class="tbl-ar" style="text-align:right">يُرجع نتائج تحوي أحد المصطلحين.</div></td></tr>
+              <tr><td><code>AND</code></td><td><code>admin AND login</code></td><td>Returns results containing both terms. (Google usually assumes AND by default.)<div class="tbl-ar" style="text-align:right">يُرجع نتائج تحوي كلا المصطلحين (جوجل يفترض AND افتراضياً).</div></td></tr>
+              <tr><td><code>-</code> (Minus)</td><td><code>windows -linux</code></td><td>Excludes pages containing the specified term.<div class="tbl-ar" style="text-align:right">يستبعد الصفحات التي تحوي المصطلح المحدد.</div></td></tr>
+              <tr><td><code>*</code> (Wildcard)</td><td><code>"password * file"</code></td><td>Represents one or more unknown words within a search phrase.<div class="tbl-ar" style="text-align:right">يمثّل كلمة أو أكثر مجهولة داخل عبارة البحث.</div></td></tr>
+              <tr><td><code>( )</code></td><td><code>(admin OR login) site:example.com</code></td><td>Groups search terms and operators to control the search logic.<div class="tbl-ar" style="text-align:right">يجمّع مصطلحات ومعاملات البحث للتحكم في منطق البحث.</div></td></tr>
+              <tr><td><code>..</code> (Range)</td><td><code>server 2016..2025</code></td><td>Searches for values within a specified numeric range.<div class="tbl-ar" style="text-align:right">يبحث عن قيم ضمن نطاق رقمي محدد.</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s25">
+      <div class="slide-head"><span class="sn">25 – 27</span><span class="t-en">GOOGLE HACKING — Examples</span><span class="t-ar">أمثلة على اختراق جوجل</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 25</span>
+            <p><strong>Examples:</strong> using <span class="code-inline">allinurl:tsweb/default.htm</span> for finding <strong>web servers that have a specific remote access tool</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٥</span>
+            <p><strong>أمثلة:</strong> استخدام <span class="code-inline">allinurl:tsweb/default.htm</span> لإيجاد <strong>خوادم ويب تحتوي على أداة وصول عن بُعد محددة</strong>.</p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p25_0.png" alt="Google search allinurl tsweb">
+          <div class="cap"><span class="en-cap">Slide 25 — Google results for <code>allinurl:tsweb inurl:default.htm</code></span><span class="ar-cap">الشريحة ٢٥ — نتائج جوجل للبحث <code>allinurl:tsweb inurl:default.htm</code></span></div></div></div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 26</span>
+            <p><strong>Examples:</strong> using <span class="code-inline">filetype:sql "INSERT INTO"</span> — <strong>Exposes database backups/schemas</strong>.</p>
+            <p>“SQL dumps are frequently left in web roots; contains <strong>usernames, emails, hashed passwords</strong>.”</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٦</span>
+            <p><strong>أمثلة:</strong> استخدام <span class="code-inline">filetype:sql "INSERT INTO"</span> — <strong>يكشف نسخ قواعد البيانات الاحتياطية ومخططاتها</strong>.</p>
+            <p>«غالباً ما تُترك ملفات تفريغ SQL في جذور مواقع الويب؛ وهي تحتوي على <strong>أسماء مستخدمين وبُرد إلكترونية وكلمات مرور مُجزّأة (hashed)</strong>.»</p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p26_0.png" alt="Google search filetype sql INSERT INTO">
+          <div class="cap"><span class="en-cap">Slide 26 — Google results for <code>filetype:sql "INSERT INTO"</code></span><span class="ar-cap">الشريحة ٢٦ — نتائج جوجل للبحث <code>filetype:sql "INSERT INTO"</code></span></div></div></div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 27</span>
+            <p>Try also using the following Google Dorking:</p>
+            <div class="code">intitle:"index of /"
+inurl:phpmyadmin/index.php
+intitle:"admin login"
+site:github.com "password" filetype:txt</div>
+            <p><strong>Explain the results.</strong></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٧</span>
+            <p>جرّب أيضاً استخدام أوامر الـ Google Dorking التالية:</p>
+            <div class="code">intitle:"index of /"
+inurl:phpmyadmin/index.php
+intitle:"admin login"
+site:github.com "password" filetype:txt</div>
+            <p><strong>واشرح النتائج.</strong></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s28">
+      <div class="slide-head"><span class="sn">28 · 29</span><span class="t-en">SHODAN</span><span class="t-ar">شودان</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>Shodan</strong> (<strong>S</strong>entient <strong>H</strong>yper-<strong>O</strong>ptimized <strong>D</strong>ata <strong>A</strong>ccess <strong>N</strong>etwork) is a specialized search engine. Unlike Google, which searches for <strong>websites and documents</strong>, Shodan searches for <strong>devices connected to the internet</strong>.</p>
+            <p>These devices include:</p>
+            <ul><li>Computers and servers</li><li>Routers and network equipment</li><li>Webcams and security cameras</li><li>Medical devices</li><li>Industrial control systems (power plants, factories)</li><li>Smart home devices (thermostats, doorbells, refrigerators)</li></ul>
+            <p><a href="https://www.shodan.io/" target="_blank" rel="noopener">https://www.shodan.io/</a></p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>شودان (Shodan)</strong> — اختصار لـ «شبكة الوصول للبيانات فائقة التحسين والواعية» — هو محرك بحث متخصص. وعلى عكس جوجل الذي يبحث عن <strong>المواقع والمستندات</strong>، يبحث شودان عن <strong>الأجهزة المتصلة بالإنترنت</strong>.</p>
+            <p>وتشمل هذه الأجهزة:</p>
+            <ul><li>أجهزة الحاسوب والخوادم</li><li>الموجّهات ومعدات الشبكات</li><li>كاميرات الويب وكاميرات المراقبة</li><li>الأجهزة الطبية</li><li>أنظمة التحكم الصناعي (محطات الطاقة، المصانع)</li><li>أجهزة المنزل الذكي (منظمات الحرارة، أجراس الأبواب، الثلاجات)</li></ul>
+            <p><a href="https://www.shodan.io/" target="_blank" rel="noopener">https://www.shodan.io/</a></p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p29_0.jpeg" alt="Shodan website">
+          <div class="cap"><span class="en-cap">Slide 29 — the Shodan search engine interface</span><span class="ar-cap">الشريحة ٢٩ — واجهة محرك البحث شودان</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s30">
+      <div class="slide-head"><span class="sn">30 – 32</span><span class="t-en">OSINT (OPEN-SOURCE INTELLIGENCE)</span><span class="t-ar">الاستخبارات مفتوحة المصدر</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>Open-Source Intelligence (OSINT)</strong> is the practice of <strong>collecting, analyzing, and synthesizing publicly available information to produce actionable intelligence</strong>.</p>
+            <p>OSINT tools <strong>may or may not be open source</strong>. Some tools are <strong>free and open</strong>, others <strong>require registration</strong> to use free versions, and others <strong>require a fee</strong> for use.</p>
+            <p><a href="https://osintframework.com" target="_blank" rel="noopener">https://osintframework.com</a></p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>الاستخبارات مفتوحة المصدر (OSINT)</strong> هي ممارسة <strong>جمع وتحليل وتركيب المعلومات المتاحة للعامة لإنتاج معلومات استخباراتية قابلة للتنفيذ</strong>.</p>
+            <p>أدوات OSINT <strong>قد تكون مفتوحة المصدر وقد لا تكون</strong>. فبعضها <strong>مجاني ومفتوح</strong>، وبعضها <strong>يتطلب التسجيل</strong> لاستخدام النسخ المجانية، وبعضها <strong>يتطلب رسوماً</strong> للاستخدام.</p>
+            <p><a href="https://osintframework.com" target="_blank" rel="noopener">https://osintframework.com</a></p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p31_0.png" alt="OSINT Framework">
+          <div class="cap"><span class="en-cap">Slide 31 — the OSINT Framework tree of tools</span><span class="ar-cap">الشريحة ٣١ — شجرة أدوات إطار OSINT</span></div></div></div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 32</span>
+            <p><strong>Maigret Tool</strong></p>
+            <p>Maigret is a powerful <strong>open-source OSINT tool for Kali Linux</strong> that automates the collection of a target's <strong>digital footprint</strong> by <strong>checking a username against thousands of sites</strong>. It is highly efficient for <strong>discovering linked accounts, unmasking users, and verifying identities</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٢</span>
+            <p><strong>أداة Maigret</strong></p>
+            <p>Maigret أداة <strong>OSINT قوية مفتوحة المصدر لنظام Kali Linux</strong> تقوم بأتمتة جمع <strong>البصمة الرقمية</strong> للهدف عن طريق <strong>فحص اسم مستخدم مقابل آلاف المواقع</strong>. وهي فعّالة جداً في <strong>اكتشاف الحسابات المرتبطة، وكشف هوية المستخدمين، والتحقق من الهويات</strong>.</p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p32_0.png" alt="Maigret tool running in Kali">
+          <div class="cap"><span class="en-cap">Slide 32 — Maigret running in Kali Linux</span><span class="ar-cap">الشريحة ٣٢ — تشغيل Maigret في كالي لينكس</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s33">
+      <div class="slide-head"><span class="sn">33 – 35</span><span class="t-en">WEBSITE FOOTPRINTING</span><span class="t-ar">بصمة المواقع الإلكترونية</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 34</span>
+            <p>Website footprinting is the process of collecting <strong>publicly available information about a target website</strong>. The goal is to identify <strong>technologies, services, and resources</strong> used by an organization <strong>without directly accessing internal systems</strong>. This information can help security professionals understand the target's online presence and infrastructure. Website footprinting is generally considered a <strong>passive reconnaissance technique</strong>.</p>
+            <p><strong>Website analysis can reveal:</strong></p>
+            <ul><li>Operating system information</li><li>Web server details</li><li>Software and applications in use</li><li>File and directory names</li><li>Contact information</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٤</span>
+            <p>بصمة الموقع الإلكتروني هي عملية جمع <strong>المعلومات المتاحة للعامة عن موقع الهدف</strong>. والهدف منها تحديد <strong>التقنيات والخدمات والموارد</strong> التي تستخدمها المؤسسة <strong>دون الوصول المباشر إلى الأنظمة الداخلية</strong>. وتساعد هذه المعلومات مختصي الأمن على فهم الحضور الرقمي للهدف وبنيته التحتية. وتُعدّ بصمة المواقع عموماً <strong>تقنية استطلاع سلبية</strong>.</p>
+            <p><strong>يمكن لتحليل الموقع أن يكشف:</strong></p>
+            <ul><li>معلومات نظام التشغيل</li><li>تفاصيل خادم الويب</li><li>البرمجيات والتطبيقات المستخدمة</li><li>أسماء الملفات والمجلدات</li><li>معلومات الاتصال</li></ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 35</span>
+            <p>The <strong>HTML source code</strong> of a website often contains useful information that is <strong>not immediately visible to users</strong>. <strong>Hidden form fields, metadata, and developer comments</strong> may reveal details about the website's structure and technologies. <strong>Cookies</strong> can also provide clues about web applications, frameworks, and scripting methods used by the organization. Developers occasionally leave comments in source code that disclose <strong>usernames, file paths, or configuration details</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٥</span>
+            <p>غالباً ما يحتوي <strong>كود HTML المصدري</strong> للموقع على معلومات مفيدة <strong>غير مرئية مباشرة للمستخدمين</strong>. فـ<strong>حقول النماذج المخفية، والبيانات الوصفية (metadata)، وتعليقات المطورين</strong> قد تكشف تفاصيل عن بنية الموقع وتقنياته. كما يمكن لـ<strong>ملفات تعريف الارتباط (Cookies)</strong> أن توفر أدلة عن تطبيقات الويب وأطر العمل وطرق البرمجة النصية التي تستخدمها المؤسسة. وأحياناً يترك المطورون تعليقات في الكود تكشف عن <strong>أسماء مستخدمين أو مسارات ملفات أو تفاصيل إعدادات</strong>.</p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p35_0.png" alt="View page source menu">
+          <div class="cap"><span class="en-cap">Slide 35 — “View page source (Ctrl+U)” in the browser context menu</span><span class="ar-cap">الشريحة ٣٥ — «عرض مصدر الصفحة (Ctrl+U)» في قائمة المتصفح</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s36">
+      <div class="slide-head"><span class="sn">36</span><span class="t-en">WEB MIRRORING</span><span class="t-ar">نسخ المواقع (Web Mirroring)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Web mirroring is the process of <strong>creating a complete local copy of a website</strong>. Having an offline copy allows security professionals to <strong>explore the website structure in greater detail and perform analysis without repeatedly accessing the target website</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>نسخ الموقع (Web mirroring) هو عملية <strong>إنشاء نسخة محلية كاملة من موقع إلكتروني</strong>. ووجود نسخة دون اتصال يتيح لمختصي الأمن <strong>استكشاف بنية الموقع بتفصيل أكبر وإجراء التحليل دون الوصول المتكرر إلى الموقع المستهدف</strong>.</p></div>
+        </div>
+        <div class="tbl-box">
+          <div class="tbl-lbl">Common Web Mirroring Tools · أدوات نسخ المواقع الشائعة</div>
+          <table>
+            <thead><tr><th style="width:35%">Tool · الأداة</th><th>Website · الموقع</th></tr></thead>
+            <tbody>
+              <tr><td><strong>HTTrack</strong></td><td><a href="http://www.httrack.com" target="_blank" rel="noopener">www.httrack.com</a></td></tr>
+              <tr><td><strong>Black Widow</strong></td><td><a href="http://softbytelabs.com" target="_blank" rel="noopener">http://softbytelabs.com</a></td></tr>
+              <tr><td><strong>WebRipper</strong></td><td><a href="http://www.calluna-software.com" target="_blank" rel="noopener">www.calluna-software.com</a></td></tr>
+              <tr><td><strong>Teleport Pro</strong></td><td><a href="http://www.tenmax.com" target="_blank" rel="noopener">www.tenmax.com</a></td></tr>
+              <tr><td><strong>GNU Wget</strong></td><td><a href="http://www.gnu.org" target="_blank" rel="noopener">www.gnu.org</a></td></tr>
+              <tr><td><strong>Backstreet Browser</strong></td><td><a href="http://spadixbd.com" target="_blank" rel="noopener">http://spadixbd.com</a></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s37">
+      <div class="slide-head"><span class="sn">37 – 39</span><span class="t-en">EMAIL FOOTPRINTING</span><span class="t-ar">بصمة البريد الإلكتروني</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 38</span>
+            <p>Email communication can be an important source of information during the reconnaissance phase. Messages exchanged between individuals and organizations often contain <strong>technical details</strong> that may reveal information about <strong>systems, networks, and users</strong>.</p>
+            <p>By analyzing email-related information, security professionals can gain insights into the target organization's <strong>infrastructure and communication methods</strong>.</p>
+            <p><strong>Email communications may reveal:</strong></p>
+            <ul><li>IP addresses</li><li>Geographic location information</li><li>Email server details</li><li>Domain names</li><li>Communication patterns</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٨</span>
+            <p>يمكن أن تكون مراسلات البريد الإلكتروني مصدراً مهماً للمعلومات في مرحلة الاستطلاع. فالرسائل المتبادلة بين الأفراد والمؤسسات تحتوي غالباً على <strong>تفاصيل تقنية</strong> قد تكشف معلومات عن <strong>الأنظمة والشبكات والمستخدمين</strong>.</p>
+            <p>وبتحليل المعلومات المتعلقة بالبريد الإلكتروني، يستطيع مختصو الأمن الحصول على رؤى حول <strong>البنية التحتية للمؤسسة المستهدفة وطرق اتصالها</strong>.</p>
+            <p><strong>قد تكشف مراسلات البريد الإلكتروني:</strong></p>
+            <ul><li>عناوين IP</li><li>معلومات الموقع الجغرافي</li><li>تفاصيل خادم البريد</li><li>أسماء النطاقات</li><li>أنماط التواصل</li></ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 39</span>
+            <p><strong>Email header</strong></p>
+            <p>An email header contains <strong>technical information that describes how a message traveled from the sender to the recipient</strong>. Although <strong>hidden from normal view</strong>, headers can be <strong>displayed and analyzed using most email clients</strong>.</p>
+            <p><strong>Email headers may contain:</strong></p>
+            <ul><li>Sender information</li><li>Recipient information</li><li>Date and time stamps</li><li>Mail server names</li><li>Routing information</li><li>Domain details</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٩</span>
+            <p><strong>ترويسة البريد الإلكتروني (Email header)</strong></p>
+            <p>تحتوي ترويسة البريد على <strong>معلومات تقنية تصف كيف انتقلت الرسالة من المرسِل إلى المستلِم</strong>. ورغم أنها <strong>مخفية عن العرض العادي</strong>، إلا أنه يمكن <strong>إظهارها وتحليلها باستخدام معظم برامج البريد الإلكتروني</strong>.</p>
+            <p><strong>قد تحتوي الترويسة على:</strong></p>
+            <ul><li>معلومات المرسِل</li><li>معلومات المستلِم</li><li>طوابع التاريخ والوقت</li><li>أسماء خوادم البريد</li><li>معلومات التوجيه (Routing)</li><li>تفاصيل النطاق</li></ul></div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch2_p38_0.png" alt="Gmail show original menu">
+            <div class="cap"><span class="en-cap">Slide 38 — Gmail menu: “Show original” to display the raw header</span><span class="ar-cap">الشريحة ٣٨ — قائمة Gmail: «Show original» لعرض الترويسة الخام</span></div></div>
+          <div class="fig"><img src="img/ch2_p39_0.png" alt="Raw email header">
+            <div class="cap"><span class="en-cap">Slide 39 — an actual raw e-mail header (DKIM, Received, SPF, sender IP…)</span><span class="ar-cap">الشريحة ٣٩ — ترويسة بريد حقيقية (DKIM، Received، SPF، عنوان IP للمرسل…)</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s40">
+      <div class="slide-head"><span class="sn">40 – 43</span><span class="t-en">DNS FOOTPRINTING</span><span class="t-ar">بصمة نظام أسماء النطاقات</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 41</span>
+            <p>The <strong>Domain Name System (DNS)</strong> consists of <strong>servers distributed across the world</strong>. Each DNS server is responsible for managing records within a specific part of the DNS hierarchy, known as a <strong>namespace</strong>. These records provide information about different network resources and services.</p>
+            <p><strong>DNS records may contain:</strong></p>
+            <ul><li>IP addresses of hosts and servers</li><li>E-mail server information</li><li>References to other DNS servers</li><li>Information that helps users locate network resources</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤١</span>
+            <p>يتكوّن <strong>نظام أسماء النطاقات (DNS)</strong> من <strong>خوادم موزّعة حول العالم</strong>. وكل خادم DNS مسؤول عن إدارة السجلات ضمن جزء محدد من التسلسل الهرمي لـ DNS يُعرف باسم <strong>مساحة الأسماء (namespace)</strong>. وتوفّر هذه السجلات معلومات عن موارد وخدمات الشبكة المختلفة.</p>
+            <p><strong>قد تحتوي سجلات DNS على:</strong></p>
+            <ul><li>عناوين IP للأجهزة والخوادم</li><li>معلومات خوادم البريد الإلكتروني</li><li>مراجع لخوادم DNS أخرى</li><li>معلومات تساعد المستخدمين على تحديد موارد الشبكة</li></ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 42</span>
+            <p>DNS follows a <strong>hierarchical structure</strong> in which each server manages <strong>only its assigned namespace</strong>. Large DNS servers may manage <strong>top-level domains (TLDs)</strong> such as <strong>.com</strong>, while lower-level servers manage specific domains such as <strong>mheducation.com</strong>.</p>
+            <p><strong>For example:</strong> The DNS server responsible for <strong>anyname.com</strong> manages all records related to that domain. Users searching for resources within that domain, such as a website or mail server, can obtain the required information from that DNS server.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٢</span>
+            <p>يتبع DNS <strong>بنية هرمية</strong> يدير فيها كل خادم <strong>مساحة الأسماء المخصصة له فقط</strong>. فخوادم DNS الكبيرة قد تدير <strong>نطاقات المستوى الأعلى (TLDs)</strong> مثل <strong>.com</strong>، بينما تدير الخوادم الأدنى مستوىً نطاقات محددة مثل <strong>mheducation.com</strong>.</p>
+            <p><strong>مثال:</strong> خادم DNS المسؤول عن <strong>anyname.com</strong> يدير كل السجلات المتعلقة بذلك النطاق. والمستخدمون الباحثون عن موارد داخل ذلك النطاق، كموقع أو خادم بريد، يمكنهم الحصول على المعلومات المطلوبة من ذلك الخادم.</p></div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch2_p42_0.jpeg" alt="DNS hierarchy">
+          <div class="cap"><span class="en-cap">Slide 42 — DNS hierarchy: Root → Top-Level (.gov .com .net .org) → Second-Level (“Child Domain”) → Third-Level (Hosts and Resources)</span><span class="ar-cap">الشريحة ٤٢ — التسلسل الهرمي لـ DNS: الجذر ← المستوى الأعلى ← المستوى الثاني (النطاق الفرعي) ← المستوى الثالث (الأجهزة والموارد)</span></div></div></div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 43</span>
+            <p>Although DNS is <strong>essential for Internet communication</strong>, its records can <strong>reveal valuable information about a network's structure</strong>.</p>
+            <p><strong>By examining DNS records, an attacker may identify:</strong></p>
+            <ul><li>The authoritative DNS servers</li><li>E-mail servers used by the organization</li><li>Public-facing web servers</li><li>Other important network resources</li></ul>
+            <p>As a result, DNS information can be a <strong>valuable source of intelligence during the footprinting and reconnaissance phases</strong> of an attack.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٣</span>
+            <p>رغم أن DNS <strong>ضروري للاتصال عبر الإنترنت</strong>، إلا أن سجلاته قد <strong>تكشف معلومات قيّمة عن بنية الشبكة</strong>.</p>
+            <p><strong>بفحص سجلات DNS قد يحدد المهاجم:</strong></p>
+            <ul><li>خوادم DNS الموثوقة (authoritative)</li><li>خوادم البريد الإلكتروني التي تستخدمها المؤسسة</li><li>خوادم الويب العامة</li><li>موارد شبكية مهمة أخرى</li></ul>
+            <p>ونتيجة لذلك، تكون معلومات DNS <strong>مصدراً استخباراتياً قيّماً أثناء مرحلتي البصمة والاستطلاع</strong> في الهجوم.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s44">
+      <div class="slide-head"><span class="sn">44 · 45</span><span class="t-en">WHOIS &amp; GEOLOCATION FOOTPRINTING</span><span class="t-ar">WHOIS وبصمة الموقع الجغرافي</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 44</span>
+            <p><strong>Whois</strong> is becoming <strong>ubiquitous in operating systems everywhere</strong>; it <strong>queries the registries and returns information</strong>, including <strong>domain ownership, addresses, locations, and phone numbers</strong>.</p>
+            <p><a href="https://www.whois.com/whois/" target="_blank" rel="noopener">https://www.whois.com/whois/</a></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٤</span>
+            <p>أصبحت أداة <strong>Whois</strong> <strong>موجودة في كل أنظمة التشغيل تقريباً</strong>؛ فهي <strong>تستعلم من السجلات (registries) وتُرجع معلومات</strong> تشمل <strong>ملكية النطاق، والعناوين، والمواقع، وأرقام الهواتف</strong>.</p>
+            <p><a href="https://www.whois.com/whois/" target="_blank" rel="noopener">https://www.whois.com/whois/</a></p></div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch2_p44_0.png" alt="Whois lookup result">
+            <div class="cap"><span class="en-cap">Slide 44 — Whois result: domain, registration/expiry dates, status, name servers, registrar</span><span class="ar-cap">الشريحة ٤٤ — نتيجة Whois: النطاق، تواريخ التسجيل والانتهاء، الحالة، خوادم الأسماء، المسجِّل</span></div></div>
+          <div class="fig"><img src="img/ch2_p45_0.png" alt="IP2Location geolocation">
+            <div class="cap"><span class="en-cap">Slide 45 — <strong>GEOLOCATION FOOTPRINTING</strong> — <a href="https://www.ip2location.com/" target="_blank" rel="noopener">https://www.ip2location.com/</a> (country, region, city, coordinates, ISP, local time, domain)</span><span class="ar-cap">الشريحة ٤٥ — <strong>بصمة الموقع الجغرافي</strong> عبر ip2location (الدولة، المنطقة، المدينة، الإحداثيات، مزوّد الخدمة، التوقيت المحلي، النطاق)</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s46">
+      <div class="slide-head"><span class="sn">46 – 48</span><span class="t-en">NETWORK FOOTPRINTING &amp; ARIN</span><span class="t-ar">بصمة الشبكة و ARIN</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 47</span>
+            <p>Network footprinting is the process of <strong>identifying and defining the IP address range used by a target organization</strong>. Determining the network range helps security professionals understand the target's network structure and <strong>reduces the time required for further reconnaissance activities</strong>.</p>
+            <p>Knowing the <strong>start and end points of an organization's IP address range</strong> makes it easier to identify <strong>active hosts, services, and network devices</strong> during later phases of an assessment.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٧</span>
+            <p>بصمة الشبكة هي عملية <strong>تحديد وتعريف نطاق عناوين IP الذي تستخدمه المؤسسة المستهدفة</strong>. وتحديد نطاق الشبكة يساعد مختصي الأمن على فهم بنية شبكة الهدف و<strong>يقلّل الوقت اللازم لأنشطة الاستطلاع اللاحقة</strong>.</p>
+            <p>ومعرفة <strong>نقطتي بداية ونهاية نطاق عناوين IP للمؤسسة</strong> تُسهّل تحديد <strong>الأجهزة النشطة والخدمات وأجهزة الشبكة</strong> في المراحل اللاحقة من التقييم.</p></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 48</span>
+            <p><strong>ARIN as a Footprinting Resource</strong></p>
+            <p>The <strong>American Registry for Internet Numbers (ARIN)</strong> maintains information about <strong>IP address allocations and network ownership</strong>.</p>
+            <p><strong>By searching an IP address in ARIN, the following information may be obtained:</strong></p>
+            <ul><li>Network address range</li><li>Organization that owns the IP addresses</li><li>Administrative contacts</li><li>Technical contacts</li><li>Additional registration details</li></ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٨</span>
+            <p><strong>ARIN كمصدر للبصمة</strong></p>
+            <p>يحتفظ <strong>السجل الأمريكي لأرقام الإنترنت (ARIN)</strong> بمعلومات حول <strong>تخصيصات عناوين IP وملكية الشبكات</strong>.</p>
+            <p><strong>بالبحث عن عنوان IP في ARIN يمكن الحصول على:</strong></p>
+            <ul><li>نطاق عناوين الشبكة</li><li>المؤسسة المالكة لعناوين IP</li><li>جهات الاتصال الإدارية</li><li>جهات الاتصال التقنية</li><li>تفاصيل تسجيل إضافية</li></ul></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p48_0.png" alt="ARIN Whois RDAP">
+          <div class="cap"><span class="en-cap">Slide 48 — ARIN Whois/RDAP result showing Network, Source Registry, Net Range and CIDR</span><span class="ar-cap">الشريحة ٤٨ — نتيجة ARIN Whois/RDAP تُظهر الشبكة والسجل المصدر ونطاق العناوين و CIDR</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s49">
+      <div class="slide-head"><span class="sn">49 – 51</span><span class="t-en">TRACEROUTE FOR NETWORK MAPPING</span><span class="t-ar">Traceroute لرسم خريطة الشبكة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 49</span>
+            <p><strong>Traceroute</strong> (or <strong>tracert</strong> in Windows) is a <strong>command-line tool used to track the path that packets take across a network from a source system to a destination system</strong>.</p>
+            <p>The tool helps security professionals <strong>identify the route followed by network traffic and measure the time required to reach each device along the path</strong>. This information is useful during the footprinting and reconnaissance phases of an assessment.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٤٩</span>
+            <p><strong>Traceroute</strong> (أو <strong>tracert</strong> في ويندوز) هي <strong>أداة سطر أوامر تُستخدم لتتبّع المسار الذي تسلكه الحزم عبر الشبكة من النظام المصدر إلى النظام الوجهة</strong>.</p>
+            <p>وتساعد الأداة مختصي الأمن على <strong>تحديد المسار الذي تتبعه حركة الشبكة وقياس الوقت اللازم للوصول إلى كل جهاز على المسار</strong>. وهذه المعلومات مفيدة أثناء مرحلتي البصمة والاستطلاع.</p></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 50</span>
+            <p>Traceroute discovers the path to a destination by sending packets with <strong>gradually increasing Time-To-Live (TTL) values</strong>.</p>
+            <p><strong>The process works as follows:</strong></p>
+            <ul>
+              <li>A packet is sent with a <strong>small TTL value</strong>.</li>
+              <li>Each router along the path <strong>decreases the TTL by one</strong>.</li>
+              <li>When the <strong>TTL reaches zero</strong>, the router <strong>sends a response back to the source</strong>.</li>
+              <li>Traceroute records the router's <strong>IP address, hostname, and response time</strong>.</li>
+              <li>The TTL value is <strong>increased</strong>, and the process <strong>repeats until the destination is reached</strong>.</li>
+              <li>This method reveals <strong>each network device, or hop</strong>, between the source and destination.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥٠</span>
+            <p>تكتشف Traceroute المسار إلى الوجهة بإرسال حزم ذات <strong>قيم TTL (زمن البقاء) متزايدة تدريجياً</strong>.</p>
+            <p><strong>وتسير العملية كالتالي:</strong></p>
+            <ul>
+              <li>تُرسَل حزمة بقيمة <strong>TTL صغيرة</strong>.</li>
+              <li>كل موجّه على المسار <strong>ينقص TTL بمقدار واحد</strong>.</li>
+              <li>عندما تصل <strong>TTL إلى الصفر</strong>، يُرسل الموجّه <strong>رداً إلى المصدر</strong>.</li>
+              <li>تسجّل Traceroute <strong>عنوان IP للموجّه واسم المضيف وزمن الاستجابة</strong>.</li>
+              <li>تُزاد قيمة TTL و<strong>تتكرر العملية حتى الوصول إلى الوجهة</strong>.</li>
+              <li>تكشف هذه الطريقة <strong>كل جهاز شبكي أو «قفزة» (hop)</strong> بين المصدر والوجهة.</li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 51</span>
+            <p>Open the command prompt and type:</p>
+            <div class="code">tract example.com</div>
+            <p class="srcref">(as written on the slide; the actual Windows command is <code>tracert example.com</code> — see the screenshot below)</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٥١</span>
+            <p>افتح موجّه الأوامر واكتب:</p>
+            <div class="code">tract example.com</div>
+            <p class="srcref">(كما كُتب في الشريحة؛ والأمر الفعلي في ويندوز هو <code>tracert example.com</code> — انظر لقطة الشاشة أدناه)</p></div>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch2_p51_0.png" alt="tracert google.com output">
+          <div class="cap"><span class="en-cap">Slide 51 — <code>tracert google.com</code>: “Tracing route to google.com [172.217.168.142] over a maximum of 30 hops” … Trace complete.</span><span class="ar-cap">الشريحة ٥١ — تنفيذ <code>tracert google.com</code> مع حد أقصى ٣٠ قفزة حتى اكتمال التتبع.</span></div></div></div>
+      </div>
+    </section>
+
+    <section class="slide" id="s52">
+      <div class="slide-head"><span class="sn">52 – 55</span><span class="t-en">OTHER FOOTPRINTING TOOLS</span><span class="t-ar">أدوات بصمة أخرى</span></div>
+      <div class="slide-body">
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">OSRFramework — slide 53</span><span class="ar">إطار OSRFramework</span></h4>
+            <div class="body">
+              <div class="en">
+                <p><strong>Purpose:</strong> Perform Open-Source Intelligence (OSINT) investigations.</p>
+                <p><strong>Information Obtained:</strong></p>
+                <ul><li>Usernames</li><li>E-mail addresses</li><li>Domains</li><li>Phone numbers</li><li>Online profiles</li></ul>
+                <p><strong>Use in Footprinting:</strong> Automates information gathering from multiple public sources.</p>
+              </div>
+              <div class="ar">
+                <p><strong>الغرض:</strong> إجراء تحقيقات الاستخبارات مفتوحة المصدر (OSINT).</p>
+                <p><strong>المعلومات التي يحصل عليها:</strong></p>
+                <ul><li>أسماء المستخدمين</li><li>عناوين البريد الإلكتروني</li><li>النطاقات</li><li>أرقام الهواتف</li><li>الملفات الشخصية على الإنترنت</li></ul>
+                <p><strong>الاستخدام في البصمة:</strong> يقوم بأتمتة جمع المعلومات من مصادر عامة متعددة.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Web Spiders — slide 54</span><span class="ar">عناكب الويب</span></h4>
+            <div class="body">
+              <div class="en">
+                <p><strong>Purpose:</strong> Crawl websites and collect information.</p>
+                <p><strong>Information Obtained:</strong></p>
+                <ul><li>Web pages</li><li>Directories</li><li>Links</li><li>Publicly accessible resources</li></ul>
+                <p><strong>Use in Footprinting:</strong> Maps website structure and identifies hidden or forgotten content.</p>
+              </div>
+              <div class="ar">
+                <p><strong>الغرض:</strong> الزحف على المواقع وجمع المعلومات.</p>
+                <p><strong>المعلومات التي تحصل عليها:</strong></p>
+                <ul><li>صفحات الويب</li><li>المجلدات</li><li>الروابط</li><li>الموارد المتاحة للعامة</li></ul>
+                <p><strong>الاستخدام في البصمة:</strong> ترسم بنية الموقع وتحدد المحتوى المخفي أو المنسي.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="compare" style="grid-template-columns:1fr">
+          <div class="col">
+            <h4><span class="en">Maltego — slide 55</span><span class="ar">مالتيجو</span></h4>
+            <div class="body">
+              <div class="en">
+                <p><strong>Purpose:</strong> Analyze and visualize relationships between entities.</p>
+                <p><strong>Information Obtained:</strong></p>
+                <ul><li>Domain relationships</li><li>E-mail addresses</li><li>Social media profiles</li><li>Organizations and individuals</li></ul>
+                <p><strong>Use in Footprinting:</strong> Helps correlate information and discover connections that may not be immediately visible.</p>
+              </div>
+              <div class="ar">
+                <p><strong>الغرض:</strong> تحليل وتصوير العلاقات بين الكيانات بصرياً.</p>
+                <p><strong>المعلومات التي يحصل عليها:</strong></p>
+                <ul><li>علاقات النطاقات</li><li>عناوين البريد الإلكتروني</li><li>ملفات وسائل التواصل الاجتماعي</li><li>المؤسسات والأفراد</li></ul>
+                <p><strong>الاستخدام في البصمة:</strong> يساعد على ربط المعلومات واكتشاف الصلات التي قد لا تكون ظاهرة مباشرةً.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s56">
+      <div class="slide-head"><span class="sn">56 · 57</span><span class="t-en">Closing</span><span class="t-ar">الخاتمة</span></div>
+      <div class="slide-body">
+        <div class="quote">
+          <div class="en">“Regardless of which methods you choose to employ, <strong>Footprinting is probably the most important phase of hacking you’ll need to master</strong>. Spending time in this step <strong>drastically increases the odds of success later</strong> and is well worth the effort. Just maintain an <strong>organized approach and document what you discover</strong>.”</div>
+          <div class="ar">«بغض النظر عن الأساليب التي تختار استخدامها، فإن <strong>البصمة (Footprinting) هي على الأرجح أهم مرحلة في الاختراق يجب أن تتقنها</strong>. وقضاء الوقت في هذه الخطوة <strong>يزيد بشكل هائل من فرص النجاح لاحقاً</strong> ويستحق الجهد المبذول. فقط حافظ على <strong>أسلوب منظم ووثّق ما تكتشفه</strong>.»</div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch2_p57_0.jpeg" alt="Q and A">
+          <div class="cap"><span class="en-cap">Slide 57 — Q &amp; A</span><span class="ar-cap">الشريحة ٥٧ — أسئلة وأجوبة</span></div></div></div>
+      </div>
+    </section>
+
+    <div class="pager no-print">
+      <a class="btn" href="ch1.html">← Chapter 1 · الفصل الأول</a>
+      <a class="btn primary" href="ch3.html">Chapter 3: Scanning &amp; Enumeration → الفصل الثالث</a>
+    </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>Chapter 2 · Reconnaissance — Information Gathering · Eng. Zahra Rajeh, M.Sc.
+  <div class="ar">الفصل الثاني · الاستطلاع — جمع المعلومات · م. زهراء راجح</div></footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

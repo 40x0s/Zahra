@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 4 — Network Sniffing | التنصت على الشبكة</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><span class="logo">⚡</span><span>Ethical Hacking<small>الاختراق الأخلاقي — Study Pack</small></span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a><a href="ch1.html">Ch 1</a><a href="ch2.html">Ch 2</a>
+      <a href="ch3.html">Ch 3</a><a href="ch4.html">Ch 4</a><a href="quiz.html">Exam Questions</a><a href="cheatsheet.html">Cheat Sheet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Chapter 4 · الفصل الرابع</span>
+    <h1>Network Sniffing</h1>
+    <p class="h1-ar">التنصت على الشبكة</p>
+    <p class="lede">Eng. Zahra Rajeh, M.Sc. · 34 slides, fully translated, nothing omitted.</p>
+    <p class="lede lede-ar">م. زهراء راجح · ٣٤ شريحة مترجمة بالكامل دون حذف أي شيء.</p>
+  </div>
+
+  <div class="toolbar">
+    <strong style="font-size:14px">Language:</strong>
+    <button class="btn" data-lang-btn="both">Both · الاثنان</button>
+    <button class="btn" data-lang-btn="en">English only</button>
+    <button class="btn" data-lang-btn="ar">العربية فقط</button>
+    <span class="sp"></span>
+    <button class="btn primary" data-print>Print / PDF · طباعة</button>
+  </div>
+
+  <div class="layout">
+    <aside class="sidenav no-print">
+      <h4>Slides · الشرائح</h4>
+      <a href="#s1"><span class="n">1-3</span>Introduction · مقدمة</a>
+      <a href="#s4"><span class="n">4</span>NIC · كرت الشبكة</a>
+      <a href="#s5"><span class="n">5</span>MAC address · عنوان MAC</a>
+      <a href="#s6"><span class="n">6</span>Collision domain · نطاق التصادم</a>
+      <a href="#s7"><span class="n">7-8</span>Vulnerable protocols</a>
+      <a href="#s9"><span class="n">9</span>Application layer · طبقة التطبيق</a>
+      <a href="#s10"><span class="n">10</span>Transport layer · طبقة النقل</a>
+      <a href="#s11"><span class="n">11-13</span>ARP</a>
+      <a href="#s14"><span class="n">14-15</span>Sniffing types · الأنواع</a>
+      <a href="#s16"><span class="n">16</span>Passive sniffing · السلبي</a>
+      <a href="#s17"><span class="n">17-18</span>Active sniffing · النشط</a>
+      <a href="#s19"><span class="n">19-21</span>Tools &amp; techniques</a>
+      <a href="#s22"><span class="n">22-23</span>MAC flooding &amp; CAM</a>
+      <a href="#s24"><span class="n">24-25</span>ARP spoofing · تسميم ARP</a>
+      <a href="#s26"><span class="n">26</span>Port mirroring · نسخ المنافذ</a>
+      <a href="#s27"><span class="n">27</span>DHCP starvation · تجويع DHCP</a>
+      <a href="#s28"><span class="n">28-31</span>Wireshark</a>
+      <a href="#s32"><span class="n">32-34</span>Tcpdump</a>
+    </aside>
+
+    <div>
+
+    <section class="slide" id="s1">
+      <div class="slide-head"><span class="sn">1 – 3</span><span class="t-en">INTRODUCTION</span><span class="t-ar">المقدمة</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>NETWORK SNIFFING</strong><br>Ethical Hacking and Penetration<br>Eng. Zahra Rajeh, M.Sc.</p>
+            <p><strong>Sniffing</strong> is the process of <strong>capturing and analyzing network traffic to understand how devices communicate and to detect security issues</strong>.</p>
+            <p><strong>ESSENTIALS</strong> (section title, slide 3)</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>التنصت على الشبكة</strong><br>الاختراق الأخلاقي واختبار الاختراق<br>م. زهراء راجح، ماجستير</p>
+            <p><strong>التنصت (Sniffing)</strong> هو عملية <strong>التقاط وتحليل حركة مرور الشبكة لفهم كيفية تواصل الأجهزة واكتشاف المشكلات الأمنية</strong>.</p>
+            <p><strong>الأساسيات</strong> (عنوان القسم، الشريحة ٣)</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s4">
+      <div class="slide-head"><span class="sn">4</span><span class="t-en">NETWORK INTERFACE CARD (NIC)</span><span class="t-ar">بطاقة واجهة الشبكة (NIC)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>The <strong>Network Interface Card (NIC)</strong> is a <strong>hardware component that enables a computer to communicate over a network</strong>. It <strong>receives incoming data frames from the network medium and transmits outgoing data to other devices</strong>.</p>
+            <p><strong>Functions of a NIC</strong></p>
+            <ul>
+              <li>Connects a host to a <strong>wired or wireless</strong> network.</li>
+              <li><strong>Receives and transmits</strong> network frames.</li>
+              <li><strong>Examines the destination MAC address</strong> of each incoming frame.</li>
+              <li><strong>Passes valid frames to the operating system</strong> for further processing.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>بطاقة واجهة الشبكة (NIC)</strong> هي <strong>مكوّن مادي يمكّن الحاسوب من الاتصال عبر الشبكة</strong>. فهي <strong>تستقبل إطارات البيانات الواردة من وسط الشبكة وترسل البيانات الصادرة إلى الأجهزة الأخرى</strong>.</p>
+            <p><strong>وظائف بطاقة الشبكة</strong></p>
+            <ul>
+              <li>توصيل الجهاز بشبكة <strong>سلكية أو لاسلكية</strong>.</li>
+              <li><strong>استقبال وإرسال</strong> إطارات الشبكة.</li>
+              <li><strong>فحص عنوان MAC الوجهة</strong> لكل إطار وارد.</li>
+              <li><strong>تمرير الإطارات الصالحة إلى نظام التشغيل</strong> لمزيد من المعالجة.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s5">
+      <div class="slide-head"><span class="sn">5</span><span class="t-en">MEDIA ACCESS CONTROL (MAC) ADDRESS</span><span class="t-ar">عنوان التحكم بالوصول للوسط (MAC)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>A <strong>Media Access Control (MAC) address</strong> is a <strong>unique hardware identifier assigned to every Network Interface Card (NIC)</strong>. It is used for communication at the <strong>Data Link Layer (Layer 2)</strong> of the OSI model.</p>
+            <p><strong>Characteristics</strong></p>
+            <ul>
+              <li><strong>Length: 48 bits (6 bytes)</strong></li>
+              <li><strong>Representation: 12 hexadecimal digits</strong></li>
+              <li><strong>Example:</strong> <code>00:1A:2B:3C:4D:5E</code></li>
+            </ul>
+            <p><strong>Purpose</strong></p>
+            <ul>
+              <li>Provides a <strong>unique identifier for every network interface</strong>.</li>
+              <li>Enables devices <strong>within the same local network</strong> to communicate correctly.</li>
+              <li>Allows the NIC to <strong>determine whether an incoming frame should be processed</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>عنوان MAC</strong> هو <strong>معرّف مادي فريد يُخصَّص لكل بطاقة واجهة شبكة (NIC)</strong>، ويُستخدم للاتصال في <strong>طبقة ربط البيانات (الطبقة الثانية)</strong> من نموذج OSI.</p>
+            <p><strong>الخصائص</strong></p>
+            <ul>
+              <li><strong>الطول: ٤٨ بت (٦ بايت)</strong></li>
+              <li><strong>التمثيل: ١٢ رقماً ست عشرياً</strong></li>
+              <li><strong>مثال:</strong> <code>00:1A:2B:3C:4D:5E</code></li>
+            </ul>
+            <p><strong>الغرض</strong></p>
+            <ul>
+              <li>يوفّر <strong>معرّفاً فريداً لكل واجهة شبكة</strong>.</li>
+              <li>يمكّن الأجهزة <strong>داخل الشبكة المحلية نفسها</strong> من التواصل بشكل صحيح.</li>
+              <li>يتيح لبطاقة الشبكة <strong>تحديد ما إذا كان يجب معالجة الإطار الوارد</strong>.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s6">
+      <div class="slide-head"><span class="sn">6</span><span class="t-en">COLLISION DOMAIN</span><span class="t-ar">نطاق التصادم</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>Collision domain</strong> is the <strong>logical and physical segment of the network where data packets can collide with one another</strong>.</p>
+            <p>When multiple hosts are interconnected via a <strong>common coaxial cable or a repeater hub</strong>, they share a <strong>singular electrical bus</strong>.</p>
+            <p>Should two nodes initiate <strong>simultaneous transmission</strong>, the resultant superposition of electrical signals — a phenomenon known as a <strong>collision</strong> — renders <strong>both frames unintelligible</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>نطاق التصادم</strong> هو <strong>الجزء المنطقي والمادي من الشبكة الذي يمكن أن تتصادم فيه حزم البيانات مع بعضها</strong>.</p>
+            <p>عندما تكون عدة أجهزة متصلة عبر <strong>كابل محوري مشترك أو مُكرِّر (hub)</strong>، فإنها تتشارك <strong>ناقلاً كهربائياً واحداً</strong>.</p>
+            <p>وإذا بدأت عقدتان <strong>الإرسال في الوقت نفسه</strong>، فإن تراكب الإشارات الكهربائية الناتج — وهي ظاهرة تُعرف بـ<strong>التصادم</strong> — يجعل <strong>كلا الإطارين غير مفهومين</strong>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s7">
+      <div class="slide-head"><span class="sn">7 · 8</span><span class="t-en">PROTOCOLS SUSCEPTIBLE TO SNIFFING</span><span class="t-ar">البروتوكولات المعرّضة للتنصت</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Network protocols that <strong>transmit data without encryption (clear text)</strong> are <strong>highly vulnerable to packet sniffing</strong>. Attackers who capture network traffic can easily read sensitive information, such as <strong>usernames, passwords, emails, and application data</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>بروتوكولات الشبكة التي <strong>تنقل البيانات دون تشفير (نص واضح)</strong> تكون <strong>عرضة بشدة لتنصت الحزم</strong>. فالمهاجمون الذين يلتقطون حركة الشبكة يمكنهم بسهولة قراءة معلومات حساسة مثل <strong>أسماء المستخدمين وكلمات المرور والبريد الإلكتروني وبيانات التطبيقات</strong>.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s9">
+      <div class="slide-head"><span class="sn">9</span><span class="t-en">APPLICATION LAYER PROTOCOLS</span><span class="t-ar">بروتوكولات طبقة التطبيق</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Several Application Layer protocols transmit <strong>sensitive information in clear text</strong>, making them <strong>common targets for packet sniffing</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>عدة بروتوكولات في طبقة التطبيق تنقل <strong>معلومات حساسة كنص واضح</strong>، مما يجعلها <strong>أهدافاً شائعة لتنصت الحزم</strong>.</p></div>
+        </div>
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 9 — Protocol vs. information exposed · البروتوكول والمعلومات المكشوفة</div>
+          <table>
+            <thead><tr><th style="width:16%">Protocol</th><th>Information Exposed</th><th>المعلومات المكشوفة</th></tr></thead>
+            <tbody>
+              <tr><td><strong>HTTP</strong></td><td>Web pages, form data, cookies</td><td class="tbl-ar" style="text-align:right">صفحات الويب، بيانات النماذج، ملفات تعريف الارتباط</td></tr>
+              <tr><td><strong>FTP</strong></td><td>Usernames, passwords, transferred files</td><td class="tbl-ar" style="text-align:right">أسماء المستخدمين، كلمات المرور، الملفات المنقولة</td></tr>
+              <tr><td><strong>TFTP</strong></td><td>Files transferred without encryption</td><td class="tbl-ar" style="text-align:right">ملفات منقولة دون تشفير</td></tr>
+              <tr><td><strong>Telnet</strong></td><td>Usernames, passwords, commands</td><td class="tbl-ar" style="text-align:right">أسماء المستخدمين، كلمات المرور، الأوامر</td></tr>
+              <tr><td><strong>SMTP</strong></td><td>Email messages</td><td class="tbl-ar" style="text-align:right">رسائل البريد الإلكتروني</td></tr>
+              <tr><td><strong>POP3</strong></td><td>Email usernames, passwords, messages</td><td class="tbl-ar" style="text-align:right">أسماء مستخدمي البريد وكلمات المرور والرسائل</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <div class="en"><b>Note:</b> Modern secure alternatives (e.g., <b>HTTPS, SFTP, SSH</b>) <b>encrypt transmitted data and significantly reduce the risk of sniffing</b>.</div>
+          <div class="ar"><b>ملاحظة:</b> البدائل الآمنة الحديثة (مثل <b>HTTPS و SFTP و SSH</b>) <b>تشفّر البيانات المنقولة وتقلل بشكل كبير من خطر التنصت</b>.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s10">
+      <div class="slide-head"><span class="sn">10</span><span class="t-en">TRANSPORT LAYER INFORMATION</span><span class="t-ar">معلومات طبقة النقل</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>The Transport Layer provides valuable information that helps <strong>analyze network communications and identify active services</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>توفّر طبقة النقل معلومات قيّمة تساعد على <strong>تحليل اتصالات الشبكة وتحديد الخدمات النشطة</strong>.</p></div>
+        </div>
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">TCP</span><span class="ar">TCP</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li>Source and destination <strong>port numbers</strong>.</li>
+                <li><strong>Sequence and acknowledgment numbers</strong>.</li>
+                <li><strong>Connection establishment and termination</strong>.</li>
+                <li><strong>Session tracking and analysis</strong>.</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li><strong>أرقام المنافذ</strong> للمصدر والوجهة.</li>
+                <li><strong>أرقام التسلسل والإقرار</strong>.</li>
+                <li><strong>إنشاء الاتصال وإنهاؤه</strong>.</li>
+                <li><strong>تتبّع الجلسات وتحليلها</strong>.</li>
+              </ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">UDP</span><span class="ar">UDP</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li>Source and destination <strong>port numbers</strong>.</li>
+                <li><strong>Lightweight communication without connection establishment</strong>.</li>
+                <li>Commonly used for <strong>DNS, VoIP, and streaming services</strong>.</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li><strong>أرقام المنافذ</strong> للمصدر والوجهة.</li>
+                <li><strong>اتصال خفيف دون إنشاء اتصال مسبق</strong>.</li>
+                <li>يُستخدم عادةً في <strong>DNS و VoIP وخدمات البث</strong>.</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s11">
+      <div class="slide-head"><span class="sn">11 – 13</span><span class="t-en">ADDRESS RESOLUTION PROTOCOL (ARP)</span><span class="t-ar">بروتوكول تحليل العناوين (ARP)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 12</span>
+            <p>The <strong>Address Resolution Protocol (ARP)</strong> is a <strong>Data Link Layer protocol used to map an IPv4 address to its corresponding Media Access Control (MAC) address within a local network</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ١٢</span>
+            <p><strong>بروتوكول تحليل العناوين (ARP)</strong> هو <strong>بروتوكول في طبقة ربط البيانات يُستخدم لربط عنوان IPv4 بعنوان MAC المقابل له داخل الشبكة المحلية</strong>.</p></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 13</span>
+            <p><strong>HOW ARP WORKS</strong> — ARP resolves the destination MAC address through <strong>two message types</strong>.</p>
+            <p><strong>Communication Process</strong></p>
+            <ul>
+              <li>The sender <strong>determines the destination IP address</strong>.</li>
+              <li>An <strong>ARP Request is broadcast</strong> on the local network.</li>
+              <li>The destination device <strong>sends an ARP Reply containing its MAC address</strong>.</li>
+              <li>The sender <strong>builds the Ethernet frame and transmits the data</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ١٣</span>
+            <p><strong>كيف يعمل ARP</strong> — يحلّ ARP عنوان MAC الوجهة عبر <strong>نوعين من الرسائل</strong>.</p>
+            <p><strong>عملية الاتصال</strong></p>
+            <ul>
+              <li>المرسِل <strong>يحدد عنوان IP الوجهة</strong>.</li>
+              <li>يُبَث <strong>طلب ARP (ARP Request)</strong> على الشبكة المحلية.</li>
+              <li>جهاز الوجهة <strong>يرسل رد ARP يحتوي على عنوان MAC الخاص به</strong>.</li>
+              <li>المرسِل <strong>يبني إطار الإيثرنت ويرسل البيانات</strong>.</li>
+            </ul></div>
+        </div>
+
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">ARP Request</span><span class="ar">طلب ARP</span></h4>
+            <div class="body">
+              <div class="en"><ul><li><strong>Broadcast message</strong> sent to <strong>all devices</strong> on the local network.</li><li>Asks: <strong>"Who has this IP address?"</strong></li></ul></div>
+              <div class="ar"><ul><li>رسالة <strong>بث (Broadcast)</strong> تُرسَل إلى <strong>جميع الأجهزة</strong> على الشبكة المحلية.</li><li>تسأل: <strong>«من يملك عنوان IP هذا؟»</strong></li></ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">ARP Reply</span><span class="ar">رد ARP</span></h4>
+            <div class="body">
+              <div class="en"><ul><li><strong>Unicast response</strong> sent by the device that owns the requested IP address.</li><li><strong>Returns its corresponding MAC address.</strong></li></ul></div>
+              <div class="ar"><ul><li>رد <strong>أحادي البث (Unicast)</strong> يرسله الجهاز الذي يملك عنوان IP المطلوب.</li><li><strong>يُرجع عنوان MAC المقابل له.</strong></li></ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s14">
+      <div class="slide-head"><span class="sn">14 · 15</span><span class="t-en">TYPES OF PACKET SNIFFING</span><span class="t-ar">أنواع تنصت الحزم</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>ACTIVE AND PASSIVE SNIFFING</strong> (section title, slide 14)</p>
+            <p>Packet sniffing can be classified into <strong>two main categories</strong> based on the <strong>network environment and the method used to capture traffic</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>التنصت النشط والسلبي</strong> (عنوان القسم، الشريحة ١٤)</p>
+            <p>يمكن تصنيف تنصت الحزم إلى <strong>فئتين رئيسيتين</strong> بناءً على <strong>بيئة الشبكة والطريقة المستخدمة لالتقاط حركة المرور</strong>.</p></div>
+        </div>
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Passive Sniffing</span><span class="ar">التنصت السلبي</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li>Captures network traffic <strong>without modifying network communications</strong>.</li>
+                <li>Commonly performed in <strong>hub-based networks</strong>.</li>
+                <li><strong>Does not generate additional network traffic.</strong></li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li>يلتقط حركة الشبكة <strong>دون تعديل الاتصالات الشبكية</strong>.</li>
+                <li>يُنفَّذ عادةً في <strong>الشبكات القائمة على المُوزِّعات (Hubs)</strong>.</li>
+                <li><strong>لا يولّد حركة مرور إضافية على الشبكة.</strong></li>
+              </ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Active Sniffing</span><span class="ar">التنصت النشط</span></h4>
+            <div class="body">
+              <div class="en"><ul>
+                <li>Captures traffic in <strong>switched networks</strong>.</li>
+                <li><strong>Requires techniques to redirect or duplicate packets.</strong></li>
+                <li>Involves <strong>interaction with network devices or traffic manipulation</strong>.</li>
+              </ul></div>
+              <div class="ar"><ul>
+                <li>يلتقط حركة المرور في <strong>الشبكات المُبدَّلة (Switched)</strong>.</li>
+                <li><strong>يتطلب تقنيات لإعادة توجيه الحزم أو نسخها.</strong></li>
+                <li>يتضمن <strong>التفاعل مع أجهزة الشبكة أو التلاعب بحركة المرور</strong>.</li>
+              </ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s16">
+      <div class="slide-head"><span class="sn">16</span><span class="t-en">PASSIVE SNIFFING</span><span class="t-ar">التنصت السلبي</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>Passive sniffing is the process of <strong>monitoring and capturing network traffic without transmitting or modifying packets</strong>.</p>
+            <p><strong>Characteristics</strong></p>
+            <ul>
+              <li><strong>Operates silently</strong> without affecting network communication.</li>
+              <li>Requires the attacker to be <strong>within the same collision domain as the target</strong>.</li>
+              <li>Most effective in <strong>hub-based Ethernet networks</strong>, where <strong>all connected devices receive the same traffic</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p>التنصت السلبي هو عملية <strong>مراقبة والتقاط حركة الشبكة دون إرسال أو تعديل أي حزم</strong>.</p>
+            <p><strong>الخصائص</strong></p>
+            <ul>
+              <li><strong>يعمل بصمت</strong> دون التأثير على الاتصال الشبكي.</li>
+              <li>يتطلب أن يكون المهاجم <strong>داخل نطاق التصادم نفسه مع الهدف</strong>.</li>
+              <li>أكثر فعالية في <strong>شبكات الإيثرنت القائمة على Hubs</strong>، حيث <strong>تستقبل جميع الأجهزة المتصلة حركة المرور نفسها</strong>.</li>
+            </ul></div>
+        </div>
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Advantages</span><span class="ar">المزايا</span></h4>
+            <div class="body">
+              <div class="en"><ul><li><strong>Difficult to detect.</strong></li><li>Simple to perform.</li><li>Does not introduce additional network traffic.</li></ul></div>
+              <div class="ar"><ul><li><strong>يصعب اكتشافه.</strong></li><li>سهل التنفيذ.</li><li>لا يُدخل حركة مرور إضافية على الشبكة.</li></ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Limitations</span><span class="ar">القيود</span></h4>
+            <div class="body">
+              <div class="en"><ul><li><strong>Ineffective in modern switched Ethernet networks.</strong></li><li>Limited to traffic visible within the local collision domain.</li></ul></div>
+              <div class="ar"><ul><li><strong>غير فعّال في شبكات الإيثرنت المُبدَّلة الحديثة.</strong></li><li>محدود بحركة المرور المرئية داخل نطاق التصادم المحلي.</li></ul></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s17">
+      <div class="slide-head"><span class="sn">17 · 18</span><span class="t-en">ACTIVE SNIFFING</span><span class="t-ar">التنصت النشط</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 17</span>
+            <p>Active sniffing is the process of <strong>capturing traffic in switched networks by influencing or manipulating network communication</strong>.</p>
+            <p><strong>Characteristics</strong></p>
+            <ul>
+              <li>Used <strong>when passive sniffing is not possible</strong>.</li>
+              <li>Requires <strong>interaction with network devices or packet manipulation</strong>.</li>
+              <li>Commonly performed in <strong>switch-based Ethernet networks</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ١٧</span>
+            <p>التنصت النشط هو عملية <strong>التقاط حركة المرور في الشبكات المُبدَّلة عن طريق التأثير على الاتصال الشبكي أو التلاعب به</strong>.</p>
+            <p><strong>الخصائص</strong></p>
+            <ul>
+              <li>يُستخدم <strong>عندما يكون التنصت السلبي غير ممكن</strong>.</li>
+              <li>يتطلب <strong>التفاعل مع أجهزة الشبكة أو التلاعب بالحزم</strong>.</li>
+              <li>يُنفَّذ عادةً في <strong>شبكات الإيثرنت القائمة على المحوّلات (Switches)</strong>.</li>
+            </ul></div>
+        </div>
+        <div class="compare">
+          <div class="col">
+            <h4><span class="en">Advantages</span><span class="ar">المزايا</span></h4>
+            <div class="body">
+              <div class="en"><ul><li>Enables monitoring of traffic in switched networks.</li><li>Suitable for network analysis and security testing.</li></ul></div>
+              <div class="ar"><ul><li>يتيح مراقبة حركة المرور في الشبكات المُبدَّلة.</li><li>مناسب لتحليل الشبكة والاختبار الأمني.</li></ul></div>
+            </div>
+          </div>
+          <div class="col">
+            <h4><span class="en">Limitations</span><span class="ar">القيود</span></h4>
+            <div class="body">
+              <div class="en"><ul><li>More complex than passive sniffing.</li><li>May generate detectable network activity.</li><li>Often requires administrative access or successful attack techniques.</li></ul></div>
+              <div class="ar"><ul><li>أكثر تعقيداً من التنصت السلبي.</li><li>قد يولّد نشاطاً شبكياً قابلاً للاكتشاف.</li><li>غالباً يتطلب صلاحيات إدارية أو تقنيات هجوم ناجحة.</li></ul></div>
+            </div>
+          </div>
+        </div>
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 18</span>
+            <p><strong>Common Techniques for Active Sniffing</strong></p>
+            <ul>
+              <li><strong>Port Mirroring (SPAN Port):</strong> Configures a switch to copy traffic from one or more ports to a monitoring port.</li>
+              <li><strong>ARP Spoofing (ARP Poisoning):</strong> Redirects traffic through the attacker's device.</li>
+              <li><strong>MAC Flooding:</strong> Overloads the switch's MAC address table to force broadcast behavior.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ١٨</span>
+            <p><strong>التقنيات الشائعة للتنصت النشط</strong></p>
+            <ul>
+              <li><strong>نسخ المنافذ (Port Mirroring / SPAN):</strong> ضبط المحوّل لنسخ حركة المرور من منفذ أو أكثر إلى منفذ مراقبة.</li>
+              <li><strong>انتحال/تسميم ARP:</strong> إعادة توجيه حركة المرور عبر جهاز المهاجم.</li>
+              <li><strong>إغراق MAC (MAC Flooding):</strong> إثقال جدول عناوين MAC في المحوّل لإجباره على سلوك البث.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s19">
+      <div class="slide-head"><span class="sn">19 – 21</span><span class="t-en">SNIFFING TOOLS AND TECHNIQUES</span><span class="t-ar">أدوات وتقنيات التنصت</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 20</span>
+            <p>Packet sniffing tools <strong>capture and analyze network traffic to support network monitoring, troubleshooting, and security assessment</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٠</span>
+            <p>أدوات تنصت الحزم <strong>تلتقط وتحلل حركة الشبكة لدعم مراقبة الشبكة واستكشاف الأعطال والتقييم الأمني</strong>.</p></div>
+        </div>
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 20 — PACKET SNIFFING TOOLS · أدوات تنصت الحزم</div>
+          <table>
+            <thead><tr><th style="width:20%">Tool</th><th>Primary Purpose</th><th>الغرض الأساسي</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Wireshark</strong></td><td>Packet capture and protocol analysis</td><td class="tbl-ar" style="text-align:right">التقاط الحزم وتحليل البروتوكولات</td></tr>
+              <tr><td><strong>Ettercap</strong></td><td>Network monitoring and man-in-the-middle attacks</td><td class="tbl-ar" style="text-align:right">مراقبة الشبكة وهجمات الوسيط (MitM)</td></tr>
+              <tr><td><strong>EtherPeek</strong></td><td>Network traffic analysis</td><td class="tbl-ar" style="text-align:right">تحليل حركة مرور الشبكة</td></tr>
+              <tr><td><strong>Snort</strong></td><td>Intrusion Detection System (IDS) with packet capture capabilities</td><td class="tbl-ar" style="text-align:right">نظام كشف تسلل (IDS) مع قدرات التقاط الحزم</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 21</span>
+            <p><strong>ACTIVE SNIFFING TECHNIQUES</strong></p>
+            <p>In modern switched networks, <strong>passive sniffing is usually ineffective</strong> because <strong>switches forward frames only to the intended destination</strong>. Active sniffing techniques are used to gain access to network traffic.</p>
+            <p><strong>Common Techniques</strong></p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢١</span>
+            <p><strong>تقنيات التنصت النشط</strong></p>
+            <p>في الشبكات المُبدَّلة الحديثة، يكون <strong>التنصت السلبي عادةً غير فعّال</strong> لأن <strong>المحوّلات تمرّر الإطارات إلى الوجهة المقصودة فقط</strong>. لذلك تُستخدم تقنيات التنصت النشط للوصول إلى حركة مرور الشبكة.</p>
+            <p><strong>التقنيات الشائعة</strong></p></div>
+        </div>
+        <div class="chips">
+          <div class="chip"><div class="en">MAC Flooding</div><div class="ar">إغراق MAC</div></div>
+          <div class="chip"><div class="en">ARP Spoofing (ARP Poisoning)</div><div class="ar">انتحال/تسميم ARP</div></div>
+          <div class="chip"><div class="en">Port Mirroring (SPAN Port)</div><div class="ar">نسخ المنافذ (SPAN)</div></div>
+          <div class="chip"><div class="en">DHCP Starvation</div><div class="ar">تجويع DHCP</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s22">
+      <div class="slide-head"><span class="sn">22 · 23</span><span class="t-en">MAC FLOODING &amp; THE CAM TABLE</span><span class="t-ar">إغراق MAC وجدول CAM</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 22</span>
+            <p><strong>MAC Flooding</strong> is an <strong>active sniffing technique that overwhelms a switch by sending a large number of frames with spoofed MAC addresses</strong>.</p>
+            <p><strong>How it works</strong></p>
+            <ul>
+              <li>The attacker transmits <strong>thousands of frames with fake MAC addresses</strong>.</li>
+              <li>The switch <strong>stores each new address in its CAM table</strong>.</li>
+              <li>The <strong>CAM table becomes full</strong>.</li>
+              <li>The switch <strong>can no longer learn new MAC addresses</strong>.</li>
+              <li><strong>Unknown frames are flooded to all switch ports.</strong></li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٢</span>
+            <p><strong>إغراق MAC</strong> هو <strong>تقنية تنصت نشطة تُثقِل المحوّل بإرسال عدد كبير من الإطارات بعناوين MAC منتحَلة</strong>.</p>
+            <p><strong>كيف يعمل</strong></p>
+            <ul>
+              <li>يرسل المهاجم <strong>آلاف الإطارات بعناوين MAC مزيّفة</strong>.</li>
+              <li>المحوّل <strong>يخزّن كل عنوان جديد في جدول CAM</strong>.</li>
+              <li><strong>يمتلئ جدول CAM</strong>.</li>
+              <li>المحوّل <strong>لم يعد قادراً على تعلّم عناوين MAC جديدة</strong>.</li>
+              <li><strong>تُبَث الإطارات المجهولة إلى جميع منافذ المحوّل.</strong></li>
+            </ul></div>
+        </div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 23</span>
+            <p><strong>CONTENT ADDRESSABLE MEMORY (CAM) TABLE</strong></p>
+            <p>A <strong>Content-Addressable Memory (CAM) table</strong> is a <strong>database maintained by an Ethernet switch to associate MAC addresses with switch ports</strong>. This enables the switch to <strong>forward frames only to the intended destination</strong>.</p>
+            <p><strong>Relationship to MAC Flooding</strong></p>
+            <p>MAC flooding <strong>targets the CAM table by inserting a large number of fake MAC addresses until the table reaches its capacity</strong>.</p>
+            <ul>
+              <li>The switch <strong>cannot learn new MAC addresses</strong>.</li>
+              <li><strong>Unknown frames cannot be forwarded normally.</strong></li>
+              <li>The switch <strong>floods these frames to all ports, behaving similarly to a hub</strong>.</li>
+              <li>An attacker can <strong>capture traffic intended for other devices</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٣</span>
+            <p><strong>جدول الذاكرة القابلة للعنونة بالمحتوى (CAM)</strong></p>
+            <p><strong>جدول CAM</strong> هو <strong>قاعدة بيانات يحتفظ بها محوّل الإيثرنت لربط عناوين MAC بمنافذ المحوّل</strong>، مما يمكّن المحوّل من <strong>تمرير الإطارات إلى الوجهة المقصودة فقط</strong>.</p>
+            <p><strong>العلاقة بإغراق MAC</strong></p>
+            <p>إغراق MAC <strong>يستهدف جدول CAM عبر إدخال عدد كبير من عناوين MAC المزيّفة حتى يصل الجدول إلى سعته القصوى</strong>.</p>
+            <ul>
+              <li>المحوّل <strong>لا يستطيع تعلّم عناوين MAC جديدة</strong>.</li>
+              <li><strong>لا يمكن تمرير الإطارات المجهولة بشكل طبيعي.</strong></li>
+              <li>المحوّل <strong>يبث هذه الإطارات إلى جميع المنافذ متصرّفاً كالـ Hub</strong>.</li>
+              <li>يستطيع المهاجم <strong>التقاط حركة المرور الموجهة لأجهزة أخرى</strong>.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s24">
+      <div class="slide-head"><span class="sn">24 · 25</span><span class="t-en">ARP SPOOFING (ARP POISONING)</span><span class="t-ar">انتحال ARP (تسميم ARP)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 24</span>
+            <p><strong>ARP Spoofing</strong> is an <strong>active sniffing technique in which an attacker sends forged ARP messages to associate their MAC address with the IP address of another device, such as the default gateway</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٤</span>
+            <p><strong>انتحال ARP</strong> هو <strong>تقنية تنصت نشطة يرسل فيها المهاجم رسائل ARP مزوّرة لربط عنوان MAC الخاص به بعنوان IP لجهاز آخر، مثل البوابة الافتراضية (Gateway)</strong>.</p></div>
+        </div>
+        <div class="flow">
+          <div class="step"><div class="en"><strong>1.</strong> The attacker <strong>broadcasts fake ARP Reply messages</strong>.</div><div class="ar"><strong>١.</strong> يبث المهاجم <strong>رسائل رد ARP مزيّفة</strong>.</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>2.</strong> Victims <strong>update their ARP cache with the forged MAC address</strong>.</div><div class="ar"><strong>٢.</strong> يحدّث الضحايا <strong>ذاكرة ARP لديهم بعنوان MAC المزوّر</strong>.</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>3.</strong> Network traffic is <strong>redirected through the attacker's device</strong>.</div><div class="ar"><strong>٣.</strong> تُعاد <strong>توجيه حركة الشبكة عبر جهاز المهاجم</strong>.</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>4.</strong> The attacker can <strong>intercept, modify, or forward the captured traffic</strong>.</div><div class="ar"><strong>٤.</strong> يستطيع المهاجم <strong>اعتراض حركة المرور الملتقطة أو تعديلها أو تمريرها</strong>.</div></div>
+        </div>
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 25</span>
+            <p><strong>THE IMPACT OF ARP SPOOFING</strong></p>
+            <ul>
+              <li>Enables <strong>Man-in-the-Middle (MitM) attacks</strong>.</li>
+              <li>Allows <strong>packet sniffing in switched networks</strong>.</li>
+              <li>May lead to <strong>data theft or session hijacking</strong>.</li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٥</span>
+            <p><strong>أثر انتحال ARP</strong></p>
+            <ul>
+              <li>يمكّن من <strong>هجمات الوسيط (Man-in-the-Middle)</strong>.</li>
+              <li>يسمح بـ<strong>تنصت الحزم في الشبكات المُبدَّلة</strong>.</li>
+              <li>قد يؤدي إلى <strong>سرقة البيانات أو اختطاف الجلسات</strong>.</li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s26">
+      <div class="slide-head"><span class="sn">26</span><span class="t-en">PORT MIRRORING (SPAN PORT)</span><span class="t-ar">نسخ المنافذ (منفذ SPAN)</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p><strong>Port Mirroring</strong>, also known as a <strong>Switched Port Analyzer (SPAN)</strong>, is a <strong>switch feature that copies network traffic from one or more ports to a designated monitoring port</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>نسخ المنافذ (Port Mirroring)</strong>، ويُعرف أيضاً بـ<strong>محلّل المنفذ المُبدَّل (SPAN)</strong>، هو <strong>ميزة في المحوّل تنسخ حركة مرور الشبكة من منفذ أو أكثر إلى منفذ مراقبة مخصص</strong>.</p></div>
+        </div>
+        <div class="flow">
+          <div class="step"><div class="en"><strong>1.</strong> The switch <strong>duplicates packets from selected ports</strong>.</div><div class="ar"><strong>١.</strong> المحوّل <strong>ينسخ الحزم من المنافذ المحددة</strong>.</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>2.</strong> The <strong>copied traffic is sent to a monitoring device</strong>.</div><div class="ar"><strong>٢.</strong> تُرسَل <strong>حركة المرور المنسوخة إلى جهاز المراقبة</strong>.</div></div><div class="arrow">↓</div>
+          <div class="step"><div class="en"><strong>3.</strong> <strong>Packet analyzers capture and inspect the mirrored traffic</strong>.</div><div class="ar"><strong>٣.</strong> <strong>محللات الحزم تلتقط وتفحص حركة المرور المنسوخة</strong>.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s27">
+      <div class="slide-head"><span class="sn">27</span><span class="t-en">DHCP STARVATION ATTACK</span><span class="t-ar">هجوم تجويع DHCP</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English</span>
+            <p>A <strong>DHCP Starvation Attack</strong> is a <strong>Denial-of-Service (DoS) attack in which an attacker exhausts all available IP addresses in a DHCP server's address pool</strong>.</p>
+            <p><strong>Attack Process</strong></p>
+            <ul>
+              <li>The attacker sends <strong>numerous fake DHCP Discover/Request messages</strong>.</li>
+              <li>The DHCP server <strong>assigns IP addresses to nonexistent clients</strong>.</li>
+              <li>The <strong>address pool becomes exhausted</strong>.</li>
+              <li><strong>Legitimate users cannot obtain or renew IP addresses.</strong></li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية</span>
+            <p><strong>هجوم تجويع DHCP</strong> هو <strong>هجوم حجب خدمة (DoS) يستنفد فيه المهاجم جميع عناوين IP المتاحة في مجمّع عناوين خادم DHCP</strong>.</p>
+            <p><strong>عملية الهجوم</strong></p>
+            <ul>
+              <li>يرسل المهاجم <strong>عدداً كبيراً من رسائل DHCP Discover/Request مزيّفة</strong>.</li>
+              <li>خادم DHCP <strong>يخصّص عناوين IP لعملاء غير موجودين</strong>.</li>
+              <li><strong>يُستنفَد مجمّع العناوين</strong>.</li>
+              <li><strong>لا يستطيع المستخدمون الشرعيون الحصول على عناوين IP أو تجديدها.</strong></li>
+            </ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s28">
+      <div class="slide-head"><span class="sn">28 – 31</span><span class="t-en">WIRESHARK &amp; ITS FILTERS</span><span class="t-ar">وايرشارك ومرشحاته</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 29</span>
+            <p><strong>Wireshark</strong> is an <strong>open-source network protocol analyzer used to capture, inspect, and analyze network traffic in real time</strong>. It is <strong>one of the most widely used packet sniffing tools</strong> for <strong>network administration, troubleshooting, and security analysis</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٢٩</span>
+            <p><strong>وايرشارك (Wireshark)</strong> هو <strong>محلل بروتوكولات شبكية مفتوح المصدر يُستخدم لالتقاط وفحص وتحليل حركة الشبكة في الوقت الفعلي</strong>. وهو <strong>من أكثر أدوات تنصت الحزم استخداماً</strong> في <strong>إدارة الشبكات واستكشاف الأعطال والتحليل الأمني</strong>.</p></div>
+        </div>
+        <div class="figs">
+          <div class="fig"><img src="img/ch4_p29_0.png" alt="Wireshark interface">
+            <div class="cap"><span class="en-cap">Slide 29 — the Wireshark interface analysing a <code>.pcap</code> capture (HTTP, ARP, DNS, NTP packets)</span><span class="ar-cap">الشريحة ٢٩ — واجهة وايرشارك أثناء تحليل ملف التقاط pcap (حزم HTTP و ARP و DNS و NTP)</span></div></div>
+          <div class="fig"><img src="img/ch4_p31_0.jpeg" alt="Network packet capture features">
+            <div class="cap"><span class="en-cap">Slide 31 — Network Packet Capture Features: captures wired &amp; wireless traffic · supports hundreds of protocols · displays protocol details · powerful filtering &amp; search · saves captured traffic</span><span class="ar-cap">الشريحة ٣١ — ميزات التقاط حزم الشبكة: التقاط الحركة السلكية واللاسلكية · دعم مئات البروتوكولات · عرض تفاصيل البروتوكول · تصفية وبحث قويان · حفظ الحركة الملتقطة</span></div></div>
+        </div>
+
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 30 — WIRESHARK FILTERS · مرشحات وايرشارك</div>
+          <table>
+            <thead><tr><th style="width:28%">Filter</th><th>Description</th><th>الوصف</th></tr></thead>
+            <tbody>
+              <tr><td><code>arp</code></td><td>Display ARP packets</td><td class="tbl-ar" style="text-align:right">عرض حزم ARP</td></tr>
+              <tr><td><code>icmp</code></td><td>Display ICMP packets</td><td class="tbl-ar" style="text-align:right">عرض حزم ICMP</td></tr>
+              <tr><td><code>dns</code></td><td>Display DNS packets</td><td class="tbl-ar" style="text-align:right">عرض حزم DNS</td></tr>
+              <tr><td><code>http.request</code></td><td>Display HTTP requests</td><td class="tbl-ar" style="text-align:right">عرض طلبات HTTP</td></tr>
+              <tr><td><code>tcp.port == 23</code></td><td>Display Telnet traffic</td><td class="tbl-ar" style="text-align:right">عرض حركة Telnet</td></tr>
+              <tr><td><code>ip.addr == 192.168.1.10</code></td><td>Display packets associated with a specific IP</td><td class="tbl-ar" style="text-align:right">عرض الحزم المرتبطة بعنوان IP محدد</td></tr>
+              <tr><td><code>tcp contains "password"</code></td><td>Display TCP packets containing a specific string</td><td class="tbl-ar" style="text-align:right">عرض حزم TCP التي تحتوي على نص معيّن</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="s32">
+      <div class="slide-head"><span class="sn">32 – 34</span><span class="t-en">TCPDUMP</span><span class="t-ar">أداة Tcpdump</span></div>
+      <div class="slide-body">
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 32</span>
+            <p><strong>Tcpdump</strong> is a <strong>command-line packet analyzer commonly used on Linux and Unix systems to capture and inspect network traffic</strong>.</p></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٢</span>
+            <p><strong>Tcpdump</strong> هي <strong>محلل حزم يعمل من سطر الأوامر ويُستخدم عادةً على أنظمة لينكس ويونكس لالتقاط وفحص حركة الشبكة</strong>.</p></div>
+        </div>
+        <div class="tbl-box">
+          <div class="tbl-lbl">Slide 32 — Tcpdump commands · أوامر Tcpdump</div>
+          <table>
+            <thead><tr><th style="width:30%">Command</th><th>Function</th><th>الوظيفة</th></tr></thead>
+            <tbody>
+              <tr><td><code>tcpdump -i eth0</code></td><td>Capture packets on interface eth0</td><td class="tbl-ar" style="text-align:right">التقاط الحزم على الواجهة eth0</td></tr>
+              <tr><td><code>tcpdump -w capture.pcap</code></td><td>Save captured packets to a file</td><td class="tbl-ar" style="text-align:right">حفظ الحزم الملتقطة في ملف</td></tr>
+              <tr><td><code>tcpdump -r capture.pcap</code></td><td>Read packets from a capture file</td><td class="tbl-ar" style="text-align:right">قراءة الحزم من ملف التقاط</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="figs"><div class="fig"><img src="img/ch4_p32_0.png" alt="tcpdump terminal">
+          <div class="cap"><span class="en-cap">Slide 32 — <code>sudo tcpdump -i eth0 -s 0 -w packtdump.pcap</code> — “listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes”</span><span class="ar-cap">الشريحة ٣٢ — تنفيذ الأمر <code>sudo tcpdump -i eth0 -s 0 -w packtdump.pcap</code> والاستماع على الواجهة eth0</span></div></div></div>
+
+        <div class="pair">
+          <div class="en"><span class="lang-tag">English — slide 33</span>
+            <p><strong>Features</strong></p>
+            <ul>
+              <li><strong>Captures packets from a specified network interface.</strong></li>
+              <li><strong>Supports packet filtering using Boolean expressions.</strong></li>
+              <li><strong>Displays packet information in real time.</strong></li>
+              <li><strong>Saves captured packets for later analysis.</strong></li>
+            </ul></div>
+          <div class="ar"><span class="lang-tag">العربية — الشريحة ٣٣</span>
+            <p><strong>الميزات</strong></p>
+            <ul>
+              <li><strong>تلتقط الحزم من واجهة شبكة محددة.</strong></li>
+              <li><strong>تدعم تصفية الحزم باستخدام التعبيرات المنطقية (Boolean).</strong></li>
+              <li><strong>تعرض معلومات الحزم في الوقت الفعلي.</strong></li>
+              <li><strong>تحفظ الحزم الملتقطة للتحليل لاحقاً.</strong></li>
+            </ul></div>
+        </div>
+        <div class="figs"><div class="fig narrow"><img src="img/ch4_p34_0.jpeg" alt="Q and A">
+          <div class="cap"><span class="en-cap">Slide 34 — Q &amp; A</span><span class="ar-cap">الشريحة ٣٤ — أسئلة وأجوبة</span></div></div></div>
+      </div>
+    </section>
+
+    <div class="pager no-print">
+      <a class="btn" href="ch3.html">← Chapter 3 · الفصل الثالث</a>
+      <a class="btn primary" href="quiz.html">Exam Questions → الأسئلة المتوقعة</a>
+    </div>
+
+    </div>
+  </div>
+</main>
+
+<footer>Chapter 4 · Network Sniffing · Eng. Zahra Rajeh, M.Sc.
+  <div class="ar">الفصل الرابع · التنصت على الشبكة · م. زهراء راجح</div></footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
