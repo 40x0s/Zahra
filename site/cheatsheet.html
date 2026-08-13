@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheat Sheet | ملخص المراجعة السريعة</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><span class="logo">⚡</span><span>Ethical Hacking<small>الاختراق الأخلاقي — Study Pack</small></span></a>
+    <nav class="nav">
+      <a href="index.html">Home</a><a href="ch1.html">Ch 1</a><a href="ch2.html">Ch 2</a>
+      <a href="ch3.html">Ch 3</a><a href="ch4.html">Ch 4</a><a href="quiz.html">Exam Questions</a><a href="cheatsheet.html">Cheat Sheet</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <span class="kicker">Last-Minute Revision · مراجعة اللحظات الأخيرة</span>
+    <h1>Cheat Sheet — Everything You Must Memorise</h1>
+    <p class="h1-ar">ملخص المراجعة — كل ما يجب حفظه</p>
+    <p class="lede">Every number, port, flag, switch, tool and definition from Chapters 1–4, on one printable page.</p>
+    <p class="lede lede-ar">كل رقم ومنفذ وعَلَم وأمر وأداة وتعريف من الفصول ١–٤، في صفحة واحدة قابلة للطباعة.</p>
+  </div>
+
+  <div class="toolbar">
+    <strong style="font-size:14px">Language:</strong>
+    <button class="btn" data-lang-btn="both">Both · الاثنان</button>
+    <button class="btn" data-lang-btn="en">English only</button>
+    <button class="btn" data-lang-btn="ar">العربية فقط</button>
+    <span class="sp"></span>
+    <button class="btn primary" data-print>Print / PDF · طباعة</button>
+  </div>
+
+  <div class="cheat-grid">
+
+    <div class="cheat">
+      <h3><span class="en">🔺 The three triads &amp; controls</span><span class="ar">المثلثات والضوابط</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>Security Triangle</td><td><b>Security · Functionality · Usability</b><div class="tbl-ar" style="text-align:right">الأمن · الوظيفية · سهولة الاستخدام</div></td></tr>
+        <tr><td>CIA Triad</td><td><b>Confidentiality · Integrity · Availability</b><div class="tbl-ar" style="text-align:right">السرية · السلامة · التوافر</div></td></tr>
+        <tr><td>Control types</td><td><b>Preventative</b> (before) · <b>Detective</b> (identify) · <b>Corrective</b> (after)<div class="tbl-ar" style="text-align:right">وقائية (قبل) · كاشفة (تكتشف) · تصحيحية (بعد)</div></td></tr>
+        <tr><td>Access control</td><td><b>MAC</b> = admin controls policy · <b>DAC</b> = users control their own resources<div class="tbl-ar" style="text-align:right">MAC = المسؤول يتحكم · DAC = المستخدم يتحكم</div></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🎩 Hacker hats &amp; attack types</span><span class="ar">القبعات وأنواع الهجمات</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>White hats</td><td>The good guys — ethical hackers hired by a customer<div class="tbl-ar" style="text-align:right">الأخيار — مخترقون أخلاقيون يوظفهم العميل</div></td></tr>
+        <tr><td>Black hats</td><td>The bad guys — <b>crackers</b>, illegal, personal gain / malicious<div class="tbl-ar" style="text-align:right">الأشرار — مخرّبون، غير قانونيين</div></td></tr>
+        <tr><td>Gray hats</td><td>Hardest to categorize — curious, or “duty” with/without permission<div class="tbl-ar" style="text-align:right">الأصعب تصنيفاً — فضوليون أو يرون ذلك واجباً</div></td></tr>
+        <tr><td>OS attack</td><td>Accepting and leaving all the <b>defaults</b><div class="tbl-ar" style="text-align:right">قبول وترك الإعدادات الافتراضية</div></td></tr>
+        <tr><td>Application-level</td><td>Attacks the <b>programming code &amp; software logic</b><div class="tbl-ar" style="text-align:right">مهاجمة الشيفرة ومنطق البرنامج</div></td></tr>
+        <tr><td>Shrink-wrap</td><td>Exploits <b>built-in code and scripts</b> of off-the-shelf apps<div class="tbl-ar" style="text-align:right">استغلال الشيفرات المدمجة في التطبيقات الجاهزة</div></td></tr>
+        <tr><td>Misconfiguration</td><td>Systems <b>not configured appropriately</b> for security<div class="tbl-ar" style="text-align:right">أنظمة لم تُضبط أمنياً بشكل مناسب</div></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🪜 The 5 hacking phases (EC-Council)</span><span class="ar">مراحل الاختراق الخمس</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>1. Reconnaissance</td><td>Gather evidence and information on the targets<div class="tbl-ar" style="text-align:right">الاستطلاع — جمع الأدلة والمعلومات</div></td></tr>
+        <tr><td>2. Scanning &amp; enum.</td><td>Actively apply tools for in-depth information<div class="tbl-ar" style="text-align:right">الفحص والتعداد — تطبيق الأدوات بشكل نشط</div></td></tr>
+        <tr><td>3. Gaining access</td><td>True attacks are leveled against the targets<div class="tbl-ar" style="text-align:right">الحصول على الوصول — شن الهجمات الحقيقية</div></td></tr>
+        <tr><td>4. Maintaining access</td><td>Ensure a way back in — leave <b>back doors</b> open<div class="tbl-ar" style="text-align:right">الحفاظ على الوصول — ترك أبواب خلفية</div></td></tr>
+        <tr><td>5. Covering tracks</td><td>Remove/alter <b>log files</b>, hide files<div class="tbl-ar" style="text-align:right">تغطية الآثار — حذف السجلات وإخفاء الملفات</div></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">📦 Pen-test box types &amp; marks</span><span class="ar">أنواع الاختبار والدرجات</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>Black-box</td><td><b>No</b> knowledge of TOE · outside attacker · <b>most time</b> · <b>most expensive</b><div class="tbl-ar" style="text-align:right">لا معرفة · مهاجم خارجي · أطول وقت · الأغلى</div></td></tr>
+        <tr><td>White-box</td><td><b>Full</b> knowledge of network, system, infrastructure<div class="tbl-ar" style="text-align:right">معرفة كاملة بالشبكة والنظام والبنية</div></td></tr>
+        <tr><td>Gray-box</td><td><b>Partial</b> knowledge · attacker is an <b>insider</b> · privilege escalation<div class="tbl-ar" style="text-align:right">معرفة جزئية · مهاجم داخلي · تصعيد صلاحيات</div></td></tr>
+        <tr><td>Marks</td><td>Assignments 5 · Quizzes 5 · Midterm 10 · <b>Lab 30</b> · <b>Final 50</b> = 100<div class="tbl-ar" style="text-align:right">الواجبات ٥ · القصيرة ٥ · النصفي ١٠ · المعمل ٣٠ · النهائي ٥٠</div></td></tr>
+        <tr><td>Cybercrime cost</td><td><b>10.29 trillion USD in 2025</b> → ~<b>16 trillion by 2029</b><div class="tbl-ar" style="text-align:right">١٠٫٢٩ تريليون في ٢٠٢٥ ← ١٦ تريليون في ٢٠٢٩</div></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🔍 Google dorks (Ch 2)</span><span class="ar">أوامر جوجل</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>site:</td><td>Pages indexed from a specific website<div class="tbl-ar" style="text-align:right">صفحات موقع محدد</div></td></tr>
+        <tr><td>filetype:</td><td>Find files, e.g. <code>site:company.com filetype:pdf</code><div class="tbl-ar" style="text-align:right">إيجاد ملفات بنوع معيّن</div></td></tr>
+        <tr><td>intitle:</td><td>Find login pages, e.g. <code>intitle:"login"</code><div class="tbl-ar" style="text-align:right">البحث في عنوان الصفحة</div></td></tr>
+        <tr><td>inurl:</td><td>Locate administrative interfaces, e.g. <code>inurl:admin</code><div class="tbl-ar" style="text-align:right">البحث في الرابط</div></td></tr>
+        <tr><td>index of</td><td><code>intitle:"index of" backup</code> → exposed backup dirs<div class="tbl-ar" style="text-align:right">مجلدات النسخ الاحتياطي المكشوفة</div></td></tr>
+        <tr><td>link:</td><td>Pages linking to a website<div class="tbl-ar" style="text-align:right">صفحات ترتبط بموقع</div></td></tr>
+        <tr><td>related:</td><td>Similar websites<div class="tbl-ar" style="text-align:right">مواقع مشابهة</div></td></tr>
+        <tr><td>info:</td><td>Google's information about a website<div class="tbl-ar" style="text-align:right">معلومات جوجل عن موقع</div></td></tr>
+        <tr><td>allintitle / allinurl</td><td>Multiple words in title / in URL<div class="tbl-ar" style="text-align:right">عدة كلمات في العنوان / الرابط</div></td></tr>
+        <tr><td>intext / allintext</td><td>Word(s) in the page content<div class="tbl-ar" style="text-align:right">كلمات في محتوى الصفحة</div></td></tr>
+        <tr><td>before: / after:</td><td>Results before / after a date<div class="tbl-ar" style="text-align:right">نتائج قبل / بعد تاريخ</div></td></tr>
+        <tr><td>" " · OR · AND</td><td>Exact phrase · either term · both terms<div class="tbl-ar" style="text-align:right">عبارة دقيقة · أحدهما · كلاهما</div></td></tr>
+        <tr><td>- · * · ( ) · ..</td><td>Exclude · wildcard · group · numeric range<div class="tbl-ar" style="text-align:right">استبعاد · بدل · تجميع · نطاق رقمي</div></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🛠 Footprinting tools (Ch 2)</span><span class="ar">أدوات البصمة</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>Netcraft</td><td>Web server information<div class="tbl-ar" style="text-align:right">معلومات خادم الويب</div></td></tr>
+        <tr><td>LinkedIn</td><td>Employee names and positions<div class="tbl-ar" style="text-align:right">أسماء الموظفين ومناصبهم</div></td></tr>
+        <tr><td>WHOIS</td><td>Domain ownership, addresses, locations, phone numbers<div class="tbl-ar" style="text-align:right">ملكية النطاق والعناوين والمواقع والهواتف</div></td></tr>
+        <tr><td>ARIN</td><td>IP allocations, network ownership, admin/tech contacts<div class="tbl-ar" style="text-align:right">تخصيصات IP وملكية الشبكات وجهات الاتصال</div></td></tr>
+        <tr><td>Shodan</td><td>Search engine for <b>devices connected to the internet</b><div class="tbl-ar" style="text-align:right">محرك بحث عن الأجهزة المتصلة بالإنترنت</div></td></tr>
+        <tr><td>Maigret</td><td>Kali OSINT — checks a username against thousands of sites<div class="tbl-ar" style="text-align:right">فحص اسم مستخدم مقابل آلاف المواقع</div></td></tr>
+        <tr><td>OSRFramework</td><td>OSINT — usernames, e-mails, domains, phones, profiles<div class="tbl-ar" style="text-align:right">أسماء مستخدمين وبريد ونطاقات وهواتف</div></td></tr>
+        <tr><td>Maltego</td><td>Analyze &amp; <b>visualize relationships</b> between entities<div class="tbl-ar" style="text-align:right">تحليل وتصوير العلاقات بين الكيانات</div></td></tr>
+        <tr><td>Web spiders</td><td>Crawl sites; map structure, find hidden content<div class="tbl-ar" style="text-align:right">الزحف ورسم البنية وإيجاد المحتوى المخفي</div></td></tr>
+        <tr><td>Mirroring</td><td>HTTrack · Black Widow · WebRipper · Teleport Pro · GNU Wget · Backstreet Browser<div class="tbl-ar" style="text-align:right">أدوات نسخ المواقع</div></td></tr>
+        <tr><td>traceroute/tracert</td><td>Path of packets; increasing <b>TTL</b>; TTL=0 → router replies<div class="tbl-ar" style="text-align:right">مسار الحزم بزيادة TTL؛ عند الصفر يرد الموجّه</div></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🔌 Well-known ports (Ch 3, slide 15)</span><span class="ar">المنافذ المعروفة</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>20 / 21</td><td>FTP — File Transfer Protocol</td></tr>
+        <tr><td>22</td><td>SSH — Secure Remote Login</td></tr>
+        <tr><td>23</td><td>Telnet — Remote Login (Unencrypted)</td></tr>
+        <tr><td>25</td><td>SMTP — Email Sending</td></tr>
+        <tr><td>53</td><td>DNS — Domain Name Service</td></tr>
+        <tr><td>67 / 68</td><td>DHCP — Automatic IP Assignment</td></tr>
+        <tr><td>69</td><td>TFTP — Trivial File Transfer</td></tr>
+        <tr><td>80</td><td>HTTP — Web Browsing</td></tr>
+        <tr><td>110</td><td>POP3 — Email Retrieval</td></tr>
+        <tr><td>143</td><td>IMAP — Email Retrieval</td></tr>
+        <tr><td>161</td><td>SNMP — Network Management</td></tr>
+        <tr><td>389</td><td>LDAP — Directory Services</td></tr>
+        <tr><td>443</td><td>HTTPS — Secure Web Browsing</td></tr>
+        <tr><td>445</td><td>SMB — Windows File Sharing</td></tr>
+        <tr><td>3389</td><td>RDP — Remote Desktop</td></tr>
+        <tr><td>137/138/139</td><td><b>NetBIOS</b> — TCP/UDP 137, UDP 138, TCP 139</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🚩 TCP flags, states &amp; ICMP</span><span class="ar">الأعلام والحالات و ICMP</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>SYN</td><td>Initial communication establishment (negotiates seq. numbers)<div class="tbl-ar" style="text-align:right">بدء الاتصال والتفاوض على أرقام التسلسل</div></td></tr>
+        <tr><td>ACK</td><td>Acknowledgment; set on all segments after the initial SYN<div class="tbl-ar" style="text-align:right">إقرار؛ مضبوط على كل المقاطع بعد SYN</div></td></tr>
+        <tr><td>RST</td><td>Forces termination <b>in both directions</b><div class="tbl-ar" style="text-align:right">يفرض الإنهاء في الاتجاهين</div></td></tr>
+        <tr><td>FIN</td><td><b>Ordered</b> close to communications<div class="tbl-ar" style="text-align:right">إغلاق منظّم</div></td></tr>
+        <tr><td>PSH</td><td>Deliver data without waiting for buffering<div class="tbl-ar" style="text-align:right">تسليم دون انتظار التخزين المؤقت</div></td></tr>
+        <tr><td>URG</td><td>Data sent <b>out of band</b><div class="tbl-ar" style="text-align:right">بيانات خارج النطاق</div></td></tr>
+        <tr><td>Flag size</td><td><b>1 bit</b> each — 6 flags total; 1 = on<div class="tbl-ar" style="text-align:right">بت واحد لكل عَلَم — ٦ أعلام؛ ١ = مُفعّل</div></td></tr>
+        <tr><td>Handshake</td><td>SYN (Seq=x) → SYN-ACK (Ack=x+1, Seq=y) → ACK (Ack=y+1)</td></tr>
+        <tr><td>LISTENING</td><td>Waiting for an incoming connection<div class="tbl-ar" style="text-align:right">في انتظار اتصال وارد</div></td></tr>
+        <tr><td>ESTABLISHED</td><td>Active connection between two hosts<div class="tbl-ar" style="text-align:right">اتصال نشط</div></td></tr>
+        <tr><td>CLOSE_WAIT</td><td><b>Remote</b> host has closed the connection<div class="tbl-ar" style="text-align:right">الجهاز البعيد أغلق الاتصال</div></td></tr>
+        <tr><td>TIME_WAIT</td><td><b>Local</b> host closed, waiting for delayed packets<div class="tbl-ar" style="text-align:right">المحلي أغلق وينتظر الحزم المتأخرة</div></td></tr>
+        <tr><td>ICMP 0 / 3 / 8</td><td>Echo Reply / Destination Unreachable / Echo Request<div class="tbl-ar" style="text-align:right">رد الصدى / تعذّر الوصول / طلب الصدى</div></td></tr>
+        <tr><td>netstat -an</td><td>View port states in Windows<div class="tbl-ar" style="text-align:right">عرض حالات المنافذ في ويندوز</div></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🎯 Scan types &amp; responses</span><span class="ar">أنواع الفحص والردود</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>TCP Connect</td><td>= <b>Full Open Scan</b> · completes handshake · reliable · easily detected<div class="tbl-ar" style="text-align:right">مفتوح كامل · موثوق · سهل الاكتشاف</div></td></tr>
+        <tr><td>SYN Scan</td><td>= <b>Half-Open / Stealth</b> · faster · harder to detect · most used<div class="tbl-ar" style="text-align:right">نصف مفتوح/خفي · أسرع · أصعب اكتشافاً</div></td></tr>
+        <tr><td>FIN / NULL / XMAS</td><td>= <b>Inverse TCP Flag Scan</b> · bypass simple firewalls<div class="tbl-ar" style="text-align:right">أعلام عكسية · تجاوز جدران بسيطة</div></td></tr>
+        <tr><td>Idle Scan</td><td>= <b>Zombie Scan</b> · uses idle host's <b>IPID</b> to hide attacker IP<div class="tbl-ar" style="text-align:right">زومبي · يستخدم IPID لإخفاء المهاجم</div></td></tr>
+        <tr><td>FIN flags</td><td><code>FIN</code></td></tr>
+        <tr><td>NULL flags</td><td><code>No flags</code></td></tr>
+        <tr><td>XMAS flags</td><td><code>FIN + PSH + URG</code></td></tr>
+        <tr><td>Open port →</td><td><b>No Response</b><div class="tbl-ar" style="text-align:right">لا يوجد رد</div></td></tr>
+        <tr><td>Closed port →</td><td><b>RST</b></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">⌨️ Nmap switches (Ch 3, slide 36)</span><span class="ar">أوامر Nmap</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>-sS</td><td>TCP SYN Scan (Stealth Scan)</td></tr>
+        <tr><td>-sT</td><td>TCP Connect Scan</td></tr>
+        <tr><td>-sA</td><td>ACK Scan</td></tr>
+        <tr><td>-sF</td><td>FIN Scan</td></tr>
+        <tr><td>-sI</td><td>Idle Scan</td></tr>
+        <tr><td>-sX</td><td>XMAS Scan</td></tr>
+        <tr><td>-sW</td><td>Window Scan</td></tr>
+        <tr><td>-sV</td><td>Service &amp; Version Detection</td></tr>
+        <tr><td>-O</td><td>Operating System Detection</td></tr>
+        <tr><td>-A</td><td>Aggressive Scan (OS, Version, Scripts, Traceroute)</td></tr>
+        <tr><td>-Pn</td><td>Skip Host Discovery</td></tr>
+        <tr><td>-oN</td><td>Save Normal Output</td></tr>
+        <tr><td>-T4</td><td>Fast Scan</td></tr>
+        <tr><td>-f</td><td>Fragment Packets (Evasion)</td></tr>
+        <tr><td>Syntax</td><td><code>Nmap &lt;option&gt;&lt;Target IP address&gt;</code></td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🕵️ Evasion · Vuln scanning · Enumeration</span><span class="ar">التهرب والثغرات والتعداد</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>3 evasion techniques</td><td><b>Packet Fragmentation · IP Spoofing · Proxy Servers</b><div class="tbl-ar" style="text-align:right">تجزئة الحزم · انتحال IP · البروكسي</div></td></tr>
+        <tr><td>Spoofing tools</td><td>Hping · Scapy · Nmap · Ettercap · Cain</td></tr>
+        <tr><td>Spoofing vs proxy</td><td>Fake IP, may get <b>no replies</b>, hides identity — vs real server, replies return, hides identity <b>+ location</b><div class="tbl-ar" style="text-align:right">انتحال يُخفي الهوية · بروكسي يُخفي الهوية والموقع</div></td></tr>
+        <tr><td>Vuln scan steps</td><td><b>5</b>: Identify Target → Collect Info → Compare with DB → Detect Weaknesses → Generate Report<div class="tbl-ar" style="text-align:right">خمس خطوات</div></td></tr>
+        <tr><td>Severity levels</td><td>Critical · High · Medium · Low</td></tr>
+        <tr><td>Vuln tools</td><td><b>Nessus</b> (commercial) · <b>OpenVAS/Greenbone</b> (free, open source) · <b>Qualys VMDR</b> (cloud) · <b>MBSA</b> (legacy MS) · <b>GFI LanGuard</b></td></tr>
+        <tr><td>Enumeration = </td><td>Actively collecting <b>detailed</b> info; more interactive; <b>after</b> scanning<div class="tbl-ar" style="text-align:right">جمع تفاصيل بشكل نشط، أكثر تفاعلية، بعد الفحص</div></td></tr>
+        <tr><td>3 enum. techniques</td><td><b>Banner Grabbing · NetBIOS · SNMP</b></td></tr>
+        <tr><td>Banner tools</td><td>Telnet · Netcat (nc) · Nmap</td></tr>
+        <tr><td>SNMP defaults</td><td>Read = <b>public</b> · Read/Write = <b>private</b></td></tr>
+        <tr><td>SNMP parts</td><td><b>Manager</b> (admin, separate computer) + <b>Agent</b> (vendor, in devices)</td></tr>
+        <tr><td>Ch 3 mnemonic</td><td>Discover → Identify → Enumerate → Access → Protect</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">📡 Sniffing (Ch 4)</span><span class="ar">التنصت</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>MAC address</td><td><b>48 bits (6 bytes)</b> · <b>12 hex digits</b> · Layer 2 (Data Link)<div class="tbl-ar" style="text-align:right">٤٨ بت · ١٢ رقماً ست عشرياً · الطبقة الثانية</div></td></tr>
+        <tr><td>Collision domain</td><td>Segment where packets can collide — shared coax / repeater hub<div class="tbl-ar" style="text-align:right">جزء تتصادم فيه الحزم — كابل أو Hub مشترك</div></td></tr>
+        <tr><td>Clear-text protocols</td><td>HTTP · FTP · TFTP · Telnet · SMTP · POP3<div class="tbl-ar" style="text-align:right">بروتوكولات غير مشفّرة</div></td></tr>
+        <tr><td>Secure alternatives</td><td>HTTPS · SFTP · SSH</td></tr>
+        <tr><td>ARP</td><td>Maps <b>IPv4 → MAC</b> · Request = <b>broadcast</b> · Reply = <b>unicast</b><div class="tbl-ar" style="text-align:right">يربط IPv4 بـ MAC · الطلب بث · الرد أحادي</div></td></tr>
+        <tr><td>Passive sniffing</td><td>No modification · <b>hub-based</b> · same collision domain · hard to detect · useless on switches<div class="tbl-ar" style="text-align:right">بلا تعديل · شبكات Hub · صعب الاكتشاف · غير فعال على المحوّلات</div></td></tr>
+        <tr><td>Active sniffing</td><td><b>Switched</b> networks · redirect/duplicate packets · may need admin access<div class="tbl-ar" style="text-align:right">شبكات مُبدَّلة · إعادة توجيه أو نسخ الحزم</div></td></tr>
+        <tr><td>4 active techniques</td><td><b>MAC Flooding · ARP Spoofing · Port Mirroring (SPAN) · DHCP Starvation</b></td></tr>
+        <tr><td>CAM table</td><td>Switch DB mapping <b>MAC → port</b>; when full → switch acts like a <b>hub</b><div class="tbl-ar" style="text-align:right">يربط MAC بالمنفذ؛ عند امتلائه يتصرف كالـ Hub</div></td></tr>
+        <tr><td>ARP spoofing impact</td><td><b>MitM</b> · sniffing in switched nets · data theft / session hijacking<div class="tbl-ar" style="text-align:right">هجوم الوسيط · سرقة بيانات · اختطاف جلسات</div></td></tr>
+        <tr><td>DHCP starvation</td><td>A <b>DoS</b> — exhausts the DHCP address pool<div class="tbl-ar" style="text-align:right">حجب خدمة — استنفاد مجمّع العناوين</div></td></tr>
+        <tr><td>Sniffing tools</td><td><b>Wireshark</b> (capture &amp; protocol analysis) · <b>Ettercap</b> (MitM) · <b>EtherPeek</b> · <b>Snort</b> (IDS)</td></tr>
+      </tbody></table></div>
+    </div>
+
+    <div class="cheat">
+      <h3><span class="en">🦈 Wireshark filters &amp; tcpdump</span><span class="ar">مرشحات وايرشارك و tcpdump</span></h3>
+      <div class="in"><table><tbody>
+        <tr><td>arp</td><td>Display ARP packets</td></tr>
+        <tr><td>icmp</td><td>Display ICMP packets</td></tr>
+        <tr><td>dns</td><td>Display DNS packets</td></tr>
+        <tr><td>http.request</td><td>Display HTTP requests</td></tr>
+        <tr><td>tcp.port == 23</td><td>Display <b>Telnet</b> traffic</td></tr>
+        <tr><td>ip.addr == 192.168.1.10</td><td>Packets associated with a specific IP</td></tr>
+        <tr><td>tcp contains "password"</td><td>TCP packets containing a specific string</td></tr>
+        <tr><td>tcpdump -i eth0</td><td>Capture packets on interface eth0</td></tr>
+        <tr><td>tcpdump -w capture.pcap</td><td>Save captured packets to a file</td></tr>
+        <tr><td>tcpdump -r capture.pcap</td><td>Read packets from a capture file</td></tr>
+      </tbody></table></div>
+    </div>
+
+  </div>
+
+  <div class="note" style="margin-top:26px">
+    <div class="en"><b>Exam reminder:</b> the exam is written in <b>English</b>. Read every question in English first — the Arabic
+      here is only to make sure you understood the concept. Good luck! 🍀</div>
+    <div class="ar"><b>تذكير:</b> الاختبار مكتوب باللغة <b>الإنجليزية</b>. اقرئي كل سؤال بالإنجليزية أولاً، والعربية هنا فقط
+      للتأكد من فهم الفكرة. بالتوفيق! 🍀</div>
+  </div>
+
+  <div class="pager no-print">
+    <a class="btn" href="quiz.html">← Exam Questions · الأسئلة</a>
+    <a class="btn primary" href="index.html">Home · الرئيسية</a>
+  </div>
+</main>
+
+<footer>Cheat Sheet · Chapters 1–4 · Eng. Zahra Rajeh, M.Sc.
+  <div class="ar">ملخص المراجعة · الفصول ١–٤ · م. زهراء راجح</div></footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
