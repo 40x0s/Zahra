@@ -122,7 +122,11 @@
   };
 
   document.addEventListener('DOMContentLoaded', function () {
-    total = document.querySelectorAll('.q').length;
+    // Only multiple-choice / True-False cards are auto-gradable.
+    // Short-answer and scenario cards still reveal model answers but do not inflate the score denominator.
+    total = Array.prototype.filter.call(document.querySelectorAll('.q'), function (q) {
+      return !!q.querySelector('.opts');
+    }).length;
     var t = document.getElementById('qTotal');
     if (t) t.textContent = total;
     updateScore();

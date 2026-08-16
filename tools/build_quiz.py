@@ -29,7 +29,7 @@ HEAD = """<!DOCTYPE html>
     <a class="brand" href="index.html"><span class="logo">⚡</span><span>Ethical Hacking<small>الاختراق الأخلاقي — Study Pack</small></span></a>
     <nav class="nav">
       <a href="index.html">Home</a><a href="ch1.html">Ch 1</a><a href="ch2.html">Ch 2</a>
-      <a href="ch3.html">Ch 3</a><a href="ch4.html">Ch 4</a><a href="quiz.html">Exam Questions</a><a href="cheatsheet.html">Cheat Sheet</a>
+      <a href="ch3.html">Ch 3</a><a href="ch4.html">Ch 4</a><a href="exam.html">Predicted Exam</a><a href="quiz.html">Question Bank</a><a href="cheatsheet.html">Cheat Sheet</a>
     </nav>
   </div>
 </header>
