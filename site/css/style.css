@@ -371,6 +371,60 @@ body.only-ar .q .qtext, body.only-ar .opt .txt .en, body.only-ar .answer .en{dis
 .qsec h2{margin:0; font-size:18px; letter-spacing:.2px}
 .qsec .ar{font-family:var(--ar-font); direction:rtl; color:var(--accent); font-size:16px; font-weight:600}
 
+/* ---------- predicted exam ---------- */
+.mock-set{scroll-margin-top:95px; margin-bottom:70px}
+.model-banner{
+  display:flex; gap:18px; align-items:center; margin:38px 0 20px; padding:22px 24px;
+  border:1px solid rgba(255,180,84,.45); border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,180,84,.13),rgba(23,34,70,.9));
+  box-shadow:0 12px 32px rgba(0,0,0,.22);
+}
+.model-banner > span{
+  min-width:92px; height:58px; display:grid; place-items:center; border-radius:13px;
+  color:#211200; background:var(--warn); font-weight:800; font-size:14px; letter-spacing:1px;
+}
+.model-banner h2{margin:0; font-size:22px}
+.model-banner p{margin:3px 0 0; color:var(--accent); font-family:var(--ar-font); direction:rtl; text-align:left}
+.exam-route{
+  display:flex; gap:9px; flex-wrap:wrap; align-items:center; position:sticky; top:74px; z-index:40;
+  border:1px solid var(--line); background:rgba(19,28,56,.94); backdrop-filter:blur(12px);
+  border-radius:14px; padding:12px 14px; margin-bottom:18px;
+}
+.exam-route > a{
+  color:var(--txt-dim); border:1px solid var(--line); background:var(--panel-2);
+  border-radius:8px; padding:7px 11px; font-size:12.5px; font-weight:700;
+}
+.exam-route > a:hover{color:var(--accent); border-color:var(--accent); text-decoration:none}
+.scenario-stem{
+  display:grid; grid-template-columns:1fr 1fr; border:1px solid rgba(59,169,255,.38);
+  background:rgba(59,169,255,.08); border-radius:var(--radius); overflow:hidden; margin:0 0 18px;
+}
+.scenario-stem > div{padding:18px 20px}
+.scenario-stem .en{border-inline-end:1px solid rgba(59,169,255,.28)}
+.scenario-stem .ar{font-family:var(--ar-font); direction:rtl; text-align:right}
+.scenario-stem b{color:var(--accent-2)}
+.scenario-q .answer ol{margin:6px 0; padding-inline-start:22px}
+.scenario-q .answer li{margin-bottom:9px}
+.reserve-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+.reserve-card{
+  position:relative; display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  border:1px solid var(--line); border-radius:var(--radius); padding:18px;
+  background:linear-gradient(165deg,rgba(19,28,56,.95),rgba(13,20,42,.8));
+}
+.reserve-card .reserve-n{
+  position:absolute; top:10px; inset-inline-start:10px; font:700 11px var(--mono);
+  color:var(--warn); border:1px solid rgba(255,180,84,.35); border-radius:7px; padding:2px 7px;
+}
+.reserve-card .en,.reserve-card .ar{padding-top:22px}
+.reserve-card .ar{font-family:var(--ar-font); direction:rtl; text-align:right; border-inline-start:1px dashed var(--line)}
+.reserve-card b{font-size:14px; line-height:1.5}
+.reserve-card p{color:var(--accent); margin:8px 0 0; font-weight:600}
+.reserve-card small{grid-column:1/-1; color:var(--txt-mute); font:11px var(--mono); border-top:1px dashed var(--line); padding-top:8px}
+body.only-en .scenario-stem .ar,body.only-en .reserve-card .ar{display:none}
+body.only-en .scenario-stem,body.only-en .reserve-card{grid-template-columns:1fr}
+body.only-ar .scenario-stem .en,body.only-ar .reserve-card .en{display:none}
+body.only-ar .scenario-stem,body.only-ar .reserve-card{grid-template-columns:1fr}
+
 /* cheat sheet */
 .cheat-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px}
 .cheat{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); overflow:hidden}
@@ -398,7 +452,11 @@ footer .ar{font-family:var(--ar-font); direction:rtl; margin-top:5px}
   .hero-grid{grid-template-columns:1fr}
 }
 @media (max-width:720px){
-  .pair, .note, .quote, .compare, .flow .step{grid-template-columns:1fr}
+  .pair, .note, .quote, .compare, .flow .step, .scenario-stem, .reserve-card{grid-template-columns:1fr}
+  .reserve-grid{grid-template-columns:1fr}
+  .scenario-stem .en,.reserve-card .en{border-inline-end:none; border-bottom:1px solid var(--line-soft)}
+  .reserve-card .ar{border-inline-start:none}
+  .exam-route{position:static}
   .pair .en{border-inline-end:none; border-bottom:1px solid var(--line-soft)}
   .note .en{border-inline-end:none; border-bottom:1px solid rgba(255,180,84,.24)}
   .wrap{padding:22px 14px 70px}
@@ -412,8 +470,13 @@ footer .ar{font-family:var(--ar-font); direction:rtl; margin-top:5px}
 @media print{
   @page{size:A4; margin:13mm 11mm}
   html,body{background:#fff !important; color:#111 !important; font-size:10.4pt}
-  .topbar,.sidenav,.toolbar,.quiz-tools,.pager,.no-print,footer .btn{display:none !important}
+  .topbar,.sidenav,.toolbar,.quiz-tools,.exam-route,.pager,.no-print,footer .btn{display:none !important}
   .layout{display:block}
+  .scenario-stem,.reserve-card{background:#fff !important; border-color:#ccd3e0; color:#111}
+  .scenario-stem .ar,.reserve-card .ar{border-color:#dbe1ec}
+  .reserve-grid{grid-template-columns:1fr 1fr}
+  .reserve-card{break-inside:avoid}
+  .reserve-card p{color:#0a7a55}
   .wrap{max-width:none; padding:0}
   a{color:#0a58ca !important; text-decoration:none}
   .hero{border:1px solid #ccc; box-shadow:none; background:#fff; page-break-after:always}
