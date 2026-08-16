@@ -372,6 +372,19 @@ body.only-ar .q .qtext, body.only-ar .opt .txt .en, body.only-ar .answer .en{dis
 .qsec .ar{font-family:var(--ar-font); direction:rtl; color:var(--accent); font-size:16px; font-weight:600}
 
 /* ---------- predicted exam ---------- */
+.mock-set{scroll-margin-top:95px; margin-bottom:70px}
+.model-banner{
+  display:flex; gap:18px; align-items:center; margin:38px 0 20px; padding:22px 24px;
+  border:1px solid rgba(255,180,84,.45); border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,180,84,.13),rgba(23,34,70,.9));
+  box-shadow:0 12px 32px rgba(0,0,0,.22);
+}
+.model-banner > span{
+  min-width:92px; height:58px; display:grid; place-items:center; border-radius:13px;
+  color:#211200; background:var(--warn); font-weight:800; font-size:14px; letter-spacing:1px;
+}
+.model-banner h2{margin:0; font-size:22px}
+.model-banner p{margin:3px 0 0; color:var(--accent); font-family:var(--ar-font); direction:rtl; text-align:left}
 .exam-route{
   display:flex; gap:9px; flex-wrap:wrap; align-items:center; position:sticky; top:74px; z-index:40;
   border:1px solid var(--line); background:rgba(19,28,56,.94); backdrop-filter:blur(12px);
